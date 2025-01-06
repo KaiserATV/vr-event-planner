@@ -59,10 +59,7 @@
     <UnityVersion>6000.0.29f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\Home\Gluehweinplaner\Library\PackageCache\com.unity.collab-proxy\Lib\Editor\unityplastic.dll" />
-    <Analyzer Include="C:\Users\Home\Gluehweinplaner\Library\PackageCache\com.unity.collab-proxy\Lib\Editor\log4netPlastic.dll" />
-    <Analyzer Include="C:\Users\Home\Gluehweinplaner\Library\PackageCache\com.unity.collab-proxy\Lib\Editor\Unity.Plastic.Antlr3.Runtime.dll" />
-    <Analyzer Include="C:\Users\Home\Gluehweinplaner\Library\PackageCache\com.unity.collab-proxy\Lib\Editor\Unity.Plastic.Newtonsoft.Json.dll" />
+    <Analyzer Include="C:\Users\Home\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.5\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.29f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.29f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.29f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
