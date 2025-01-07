@@ -161,22 +161,6 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 1
     m_Value: 0
---- !u!114 &-1407458009549590969
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2702005f483a1b845a9558195ac48750, type: 3}
-  m_Name: VSTWhiteBalance
-  m_EditorClassIdentifier: 
-  active: 1
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0
 --- !u!114 &-1377927621367197308
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -323,7 +307,6 @@ MonoBehaviour:
   - {fileID: 1563326871748030085}
   - {fileID: -5386571787587349074}
   - {fileID: 2609520313565454508}
-  - {fileID: -1407458009549590969}
 --- !u!114 &14229295411216620
 MonoBehaviour:
   m_ObjectHideFlags: 3
