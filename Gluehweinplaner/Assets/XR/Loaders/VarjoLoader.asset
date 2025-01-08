@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ed1fb92dd674af4c8c49a92b8189b05, type: 3}
+  m_Script: {fileID: 11500000, guid: 79f8b55b561a7504d8f1a70a71248657, type: 3}
   m_Name: VarjoLoader
   m_EditorClassIdentifier: 
