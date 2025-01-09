@@ -94,12 +94,12 @@
     <Compile Include="Packages\VarjoUnityXRPlugin-master\Runtime\Rendering\VarjoRendering.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Resources\Shaders\VSTBackground.shader" />
-    <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\Windows\x64\VarjoUnityXR.dll" />
-    <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Resources\Shaders\Undistort.shader" />
     <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\Windows\x64\VarjoLib.dll" />
     <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\Varjo.XR.asmdef" />
     <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\Windows\x64\openvr_api.dll" />
+    <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\Windows\x64\VarjoUnityXR.dll" />
+    <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Resources\Shaders\Undistort.shader" />
+    <None Include="Packages\VarjoUnityXRPlugin-master\Runtime\MixedReality\Resources\Shaders\VSTBackground.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
