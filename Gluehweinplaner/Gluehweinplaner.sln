@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Varjo.XR.Editor", "Varjo.XR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator", "Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.csproj", "{F9EDCE1A-93B5-65BA-752D-E8E49EB2D1CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{A3B6576F-8532-D419-8049-B3C722743FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{F9EDCE1A-93B5-65BA-752D-E8E49EB2D1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9EDCE1A-93B5-65BA-752D-E8E49EB2D1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9EDCE1A-93B5-65BA-752D-E8E49EB2D1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B6576F-8532-D419-8049-B3C722743FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B6576F-8532-D419-8049-B3C722743FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B6576F-8532-D419-8049-B3C722743FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B6576F-8532-D419-8049-B3C722743FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
