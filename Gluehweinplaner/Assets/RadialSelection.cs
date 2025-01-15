@@ -47,6 +47,7 @@ public class RadicalSelection : MonoBehaviour
         SpawnRadialPart();
         GetSelectedRadialPart();
         HideAndTriggerSelected();
+        radialPartCanvas.gameObject.SetActive(true); // Ensure canvas is active for testing
         Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
         Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
