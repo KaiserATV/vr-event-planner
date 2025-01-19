@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using UnityEngine.InputSystem;
 
 
 public class RadicalSelection : MonoBehaviour
@@ -20,6 +21,8 @@ public class RadicalSelection : MonoBehaviour
 
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
+
+    public InputActionReference menuActivateAction;
 
 
     void Start()
@@ -44,13 +47,39 @@ public class RadicalSelection : MonoBehaviour
         {
             HideAndTriggerSelected();
         }*/
-        SpawnRadialPart();
+        /*SpawnRadialPart();
         GetSelectedRadialPart();
-        HideAndTriggerSelected();
-        radialPartCanvas.gameObject.SetActive(true); // Ensure canvas is active for testing
+        HideAndTriggerSelected();*/
+        //  radialPartCanvas.gameObject.SetActive(true); // Ensure canvas is active for testing
         Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
         Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
+
+        // DEBUG Check if the menu activation button is pressed
+        if (menuActivateAction.action.triggered) 
+        {
+            Debug.Log($"Menu Activate Action was pressed");
+        }
+        
+
+        // Check if the menu activation button is pressed
+        if (menuActivateAction.action.triggered)
+        {
+            radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
+            SpawnRadialPart(); // Populate the radial menu
+        }
+
+        // Keep the menu active and update selection
+        if (radialPartCanvas.gameObject.activeSelf)
+        {
+            GetSelectedRadialPart();
+
+            // Hide and trigger the selected part when the button is released
+            if (menuActivateAction.action.WasReleasedThisFrame())
+            {
+                HideAndTriggerSelected();
+            }
+        }
 
     }
 
@@ -72,7 +101,7 @@ public class RadicalSelection : MonoBehaviour
             angle += 360;
         }
 
-        Debug.Log("ANGLE" + angle);
+        Debug.Log("ANGLE: " + angle);
 
         currentSelectedRadialPart = (int)angle * numberOfRadialPart / 360;
 
