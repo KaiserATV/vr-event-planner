@@ -64,32 +64,17 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\VRTemplateAssets\Scripts\DestroyObject.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\VideoTimeScrubControl.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\VideoPlayerRenderTexture.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\Rotator.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\XRKnob.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\BooleanToggleVisualsController.cs" />
     <Compile Include="Assets\RadialSelection.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\RayAttachModifier.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\Callout.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\XRPokeFollowAffordanceFill.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\CalloutGazeController.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\BezierCurve.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\LaunchProjectile.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\StepManager.cs" />
-    <Compile Include="Assets\VRTemplateAssets\Scripts\AnchorVisuals.cs" />
+    <Compile Include="Assets\Scripts\PortalScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\VRTemplateAssets\Shaders\FauxBlurURP.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\VRTemplateAssets\Shaders\Grid.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
@@ -101,11 +86,8 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\VRTemplateAssets\Shaders\TexturedFresnelStandard.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\VRTemplateAssets\Shaders\TexturedStableFresnelCommon.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\VRTemplateAssets\Materials\Skybox\Horizontal Skybox.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -957,6 +939,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.XR.Hands">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.Hands.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.XR.ARFoundation.VisualScripting.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.XR.ARFoundation.VisualScripting.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1005,10 +991,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.XR.ARFoundation.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.XR.ARFoundation.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.XR.Simulation">
       <HintPath>Library\ScriptAssemblies\Unity.XR.Simulation.dll</HintPath>
       <Private>False</Private>
@@ -1047,6 +1029,10 @@
     </Reference>
     <Reference Include="Unity.XR.ARFoundation.VisualScripting">
       <HintPath>Library\ScriptAssemblies\Unity.XR.ARFoundation.VisualScripting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.XR.ARFoundation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.ARFoundation.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PPv2URPConverters">
@@ -1161,6 +1147,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.XR.Hands.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.Hands.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -1239,11 +1229,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor.csproj" />
-    <ProjectReference Include="Varjo.XR.Editor.csproj" />
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.csproj" />
-    <ProjectReference Include="Varjo.XR.csproj" />
+    <ProjectReference Include="Unity.XR.Hands.Samples.VisualizerSample.csproj" />
+    <ProjectReference Include="Varjo.XR.Editor.csproj" />
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj" />
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.csproj" />
+    <ProjectReference Include="Varjo.XR.csproj" />
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor.csproj" />
+    <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
