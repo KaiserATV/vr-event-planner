@@ -5,17 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 
 public class RadicalSelection : MonoBehaviour
 {
-    //public OVRInput.Button spawnButton;
     [Range(2, 10)]
     public int numberOfRadialPart;
     public GameObject radialPartPrefab;
     public Transform radialPartCanvas;
     public float angleBetweenPart = 10;
     public Transform handTransform;
+    public ObjectSpawner objectSpawner;
 
     public UnityEvent<int> OnPartSelected;
 
@@ -23,6 +24,10 @@ public class RadicalSelection : MonoBehaviour
     private int currentSelectedRadialPart = -1;
 
     public InputActionReference menuActivateAction;
+
+    public List<Sprite> buttonIcons; // Icons for objects
+    public float iconSize = 50f;
+
 
 
     void Start()
@@ -121,6 +126,11 @@ public class RadicalSelection : MonoBehaviour
 
             spawnedRadialPart.GetComponent<Image>().fillAmount = (1 / (float)numberOfRadialPart) - (angleBetweenPart / 360);
             spawnedParts.Add(spawnedRadialPart);
+
+            // Add icon setup
+            //var iconImage = spawnedRadialPart.transform.GetChild(0).GetComponent<Image>();
+            //iconImage.sprite = buttonIcons[i];
+            //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
         }
     }
 
