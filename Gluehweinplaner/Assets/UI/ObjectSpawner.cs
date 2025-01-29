@@ -18,10 +18,18 @@ public class ObjectSpawner : MonoBehaviour
 
     public Transform handTransform; 
     public InputActionReference menuActivateAction; 
+
+    public InputActionReference confirmAction;
+    private bool isPlacing = false;
+    public bool IsPlacing => isPlacing;
+
         
 
     public void StartSpawning(int index)
     {
+        if(index < 0 || index >= objectPrefabs.Count) return;
+        
+        isPlacing = true;
         selectedIndex = index;
         CreatePreviewObject();
     }
@@ -30,14 +38,14 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (currentPreview != null)
         {
-            // Update preview position/rotation
             currentPreview.transform.position = handTransform.position + handTransform.forward * placementDistance;
             currentPreview.transform.rotation = handTransform.rotation;
 
             // Handle placement confirmation
-            if (menuActivateAction.action.triggered)
+            if (confirmAction.action.triggered)
             {
                 PlaceObject();
+                isPlacing = false;
             }
         }
     }
@@ -53,10 +61,9 @@ public class ObjectSpawner : MonoBehaviour
     void PlaceObject()
     {
         // Instantiate final object
-         Instantiate(objectPrefabs[selectedIndex], 
-              currentPreview.transform.position, 
-              currentPreview.transform.rotation,
-              transform); 
+        Instantiate(objectPrefabs[selectedIndex], 
+                  currentPreview.transform.position, 
+                  currentPreview.transform.rotation);
         
         Destroy(currentPreview);
         selectedIndex = -1;

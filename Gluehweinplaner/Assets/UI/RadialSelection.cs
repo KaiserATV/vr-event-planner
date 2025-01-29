@@ -25,8 +25,6 @@ public class RadicalSelection : MonoBehaviour
 
     public InputActionReference menuActivateAction;
 
-    public List<Sprite> buttonIcons; // Icons for objects
-    public float iconSize = 50f;
 
 
 
@@ -45,7 +43,7 @@ public class RadicalSelection : MonoBehaviour
         //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
         
         // Check if the menu activation button is pressed
-        if (menuActivateAction.action.triggered)
+        if (menuActivateAction.action.triggered && !objectSpawner.IsPlacing)
         {
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
