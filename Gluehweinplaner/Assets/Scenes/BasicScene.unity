@@ -156,14 +156,14 @@ MonoBehaviour:
   radialPartCanvas: {fileID: 1256138947}
   angleBetweenPart: 10
   handTransform: {fileID: 1046768587}
-  objectSpawner: {fileID: 0}
+  objectSpawner: {fileID: 1644293498}
   OnPartSelected:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9148295459944670000, guid: 14698aca17af77d4aab6f4562533b1d1, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Transform, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1644293498}
+        m_TargetAssemblyTypeName: ObjectSpawner, Assembly-CSharp
+        m_MethodName: StartSpawning
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -173,9 +173,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   menuActivateAction: {fileID: -8453046305193484488, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  buttonIcons:
-  - {fileID: 21300000, guid: e4477f8183bf9b74da66b534c413a8f3, type: 3}
-  iconSize: 50
 --- !u!4 &262669075
 Transform:
   m_ObjectHideFlags: 0
@@ -787,10 +784,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPrefabs:
   - {fileID: 2101239683972800553, guid: 14698aca17af77d4aab6f4562533b1d1, type: 3}
+  - {fileID: 1404043761636636274, guid: b7eb61db15232924aa040b64fee0290b, type: 3}
   placementDistance: 2
   previewMaterial: {fileID: 2100000, guid: de170742f427a0c4f9b8a3233ab76f9a, type: 2}
   handTransform: {fileID: 1046768587}
   menuActivateAction: {fileID: -8453046305193484488, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  confirmAction: {fileID: -2562941478296515153, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &2092139007
 GameObject:
   m_ObjectHideFlags: 0
