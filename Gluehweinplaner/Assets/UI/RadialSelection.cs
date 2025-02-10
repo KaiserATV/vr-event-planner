@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using UnityEngine.InputSystem;
 using System.Linq;
-using Valve.VR; // SteamVR Input
+
 
 public class RadicalSelection : MonoBehaviour
 {
@@ -18,22 +19,31 @@ public class RadicalSelection : MonoBehaviour
     public ObjectSpawner objectSpawner;
 
     public UnityEvent<int> OnPartSelected;
+
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
 
-    public SteamVR_Action_Boolean menuActivateAction; // SteamVR Input Action
+    public InputActionReference menuActivateAction;
+
+
+
 
     void Start()
     {
-        menuActivateAction = SteamVR_Actions.default_RadialMenu; // Falls deine Action anders heißt, ersetze sie hier
+        //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
+        //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
+        //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
+
     }
 
     void Update()
     {
-        Debug.Log("SteamVR Action: " + menuActivateAction.GetState(SteamVR_Input_Sources.Any));
-
+        //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
+        //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
+        //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
+        
         // Check if the menu activation button is pressed
-        if (menuActivateAction.GetStateDown(SteamVR_Input_Sources.Any) && !objectSpawner.IsPlacing)
+        if (menuActivateAction.action.triggered && !objectSpawner.IsPlacing)
         {
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
@@ -45,11 +55,12 @@ public class RadicalSelection : MonoBehaviour
             GetSelectedRadialPart();
 
             // Hide and trigger the selected part when the button is released
-            if (menuActivateAction.GetStateUp(SteamVR_Input_Sources.Any))
+            if (menuActivateAction.action.WasReleasedThisFrame())
             {
                 HideAndTriggerSelected();
             }
         }
+
     }
 
     private void HideAndTriggerSelected()
@@ -69,6 +80,8 @@ public class RadicalSelection : MonoBehaviour
         {
             angle += 360;
         }
+
+        //Debug.Log("ANGLE: " + angle);
 
         currentSelectedRadialPart = (int)angle * numberOfRadialPart / 360;
 
@@ -111,6 +124,13 @@ public class RadicalSelection : MonoBehaviour
 
             spawnedRadialPart.GetComponent<Image>().fillAmount = (1 / (float)numberOfRadialPart) - (angleBetweenPart / 360);
             spawnedParts.Add(spawnedRadialPart);
+
+            // Add icon setup
+            //var iconImage = spawnedRadialPart.transform.GetChild(0).GetComponent<Image>();
+            //iconImage.sprite = buttonIcons[i];
+            //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
         }
     }
+
 }
+
