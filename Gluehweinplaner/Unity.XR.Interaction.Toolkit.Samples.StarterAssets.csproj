@@ -64,22 +64,22 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.55f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\ClimbTeleportDestinationIndicator.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\ActionBasedControllerManager.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\DemoSceneAssets\Scripts\TeleportVolumeAnchorAffordanceStateLink.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\DestroySelf.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\RotationAxisLockGrabTransformer.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\GazeInputManager.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\DynamicMoveProvider.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\XRPokeFollowAffordance.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Scripts\ObjectSpawner.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\DemoSceneAssets\Scripts\IncrementUIText.cs" />
-    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\DemoSceneAssets\Scripts\MultiAnchorTeleportReticle.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\DemoSceneAssets\Scripts\MultiAnchorTeleportReticle.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\ActionBasedControllerManager.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\ClimbTeleportDestinationIndicator.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\DemoSceneAssets\Scripts\TeleportVolumeAnchorAffordanceStateLink.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\ObjectSpawner.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\RotationAxisLockGrabTransformer.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\XRPokeFollowAffordance.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\DestroySelf.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\GazeInputManager.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\DemoSceneAssets\Scripts\IncrementUIText.cs" />
+    <Compile Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Scripts\DynamicMoveProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Tunneling Vignette\TunnelingVignette.shader" />
-    <None Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Shaders\UI-NoZTest.shader" />
-    <None Include="Assets\Samples\XR Interaction Toolkit\2.6.3\Starter Assets\Unity.XR.Interaction.Toolkit.Samples.StarterAssets.asmdef" />
+    <None Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Tunneling Vignette\TunnelingVignette.shader" />
+    <None Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Shaders\UI-NoZTest.shader" />
+    <None Include="Assets\Samples\XR Interaction Toolkit\2.6.4\Starter Assets\Unity.XR.Interaction.Toolkit.Samples.StarterAssets.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
