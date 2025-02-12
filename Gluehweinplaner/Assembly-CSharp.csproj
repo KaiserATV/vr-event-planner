@@ -67,7 +67,7 @@
     <Compile Include="Assets\UI\SetColorFromList.cs" />
     <Compile Include="Assets\UI\RadialSelection.cs" />
     <Compile Include="Assets\UI\ObjectSpawner.cs" />
-    <Compile Include="Assets\Scripts\PortalScript.cs" />
+    <Compile Include="Assets\Scripts\DebugTeleport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
