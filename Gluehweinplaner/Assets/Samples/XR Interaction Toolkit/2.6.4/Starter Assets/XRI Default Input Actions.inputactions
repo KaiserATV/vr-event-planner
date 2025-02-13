@@ -443,6 +443,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ToggleGodmode",
+                    "type": "Button",
+                    "id": "abcf7329-a562-4ab4-8973-5a2b2c43691d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -674,6 +683,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Grip Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba132813-1059-4ad5-81a0-5f7ddb6a2b5b",
+                    "path": "<ViveController>{LeftHand}/menu",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleGodmode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1017,6 +1037,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MoveVertical",
+                    "type": "Value",
+                    "id": "19513c61-b6c0-4a09-ace9-139877802989",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1094,6 +1123,17 @@
                     "processors": "",
                     "groups": ";Generic XR Controller",
                     "action": "Snap Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2453efed-fa58-49f6-bafb-7ae8ebef41c3",
+                    "path": "<ViveController>/trackpad/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveVertical",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1853,6 +1893,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MoveHorizontal",
+                    "type": "Value",
+                    "id": "34e60b48-789d-4e33-a128-9f003bd3892c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1941,6 +1990,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Snap Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27e106e2-7235-47b1-9ab7-1b4406859b81",
+                    "path": "<ViveController>/trackpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveHorizontal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
