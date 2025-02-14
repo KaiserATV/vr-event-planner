@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,22 +9,21 @@ public class CrowdGeneration : MonoBehaviour
     public float maxWorldLimitX = 0;
     public float minWorldLimitZ = 0;
     public float maxWorldLimitZ = 0;
+    public float spawnTime = 1f;
+
+    private float zeitVergangen;
 
 
     private AgentManager am;
-
-
     private MeshCollider col;
-
-
     private List<Vector3> m_agentPositions;
-
     private float m_minDistance;
     private HashSet<Vector3> obstaclePositions;
 
     // Start is called before the first frame update
     void Start()
     {
+        zeitVergangen = spawnTime;
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
 
         prop = Resources.Load("agent") as GameObject;
@@ -43,12 +41,18 @@ public class CrowdGeneration : MonoBehaviour
         maxWorldLimitX = col.bounds.max.x;
         minWorldLimitZ = col.bounds.min.z;
         maxWorldLimitZ = col.bounds.max.z;
+    }
 
-        // Randomly generate #numOfAgents agents
-        while (am.CanAddPlayer())
+    private void FixedUpdate()
+    {
+        zeitVergangen -= Time.deltaTime;
+        if (zeitVergangen>0)
         {
-            Vector3 position = GenerateRandomPosition(m_agentPositions);  // Random position
-            Quaternion rotation = Quaternion.Euler(0, 0, 0);              // Random rotation
+
+        }else if(am.CanAddPlayer())
+        {
+            Vector3 position = GenerateRandomPosition(m_agentPositions);
+            Quaternion rotation = Quaternion.Euler(0, 0, 0);             
 
             // Instantiate agent
             GameObject agent = Instantiate(prop, position, rotation);
@@ -58,11 +62,13 @@ public class CrowdGeneration : MonoBehaviour
 
             m_agentPositions.Add(position);
             am.addPlayer();
+            zeitVergangen = spawnTime; 
         }
+
 
     }
 
-    // Random Position Generator
+
     private Vector3 GenerateRandomPosition(List<Vector3> takenPositions)
     {
         Vector3 position;

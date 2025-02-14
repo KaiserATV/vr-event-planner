@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4309516203332483728}
   - component: {fileID: 2286821991295129968}
   - component: {fileID: 8063062791135285045}
-  - component: {fileID: 570430672781505336}
+  - component: {fileID: 8992032347481733956}
   m_Layer: 0
   m_Name: agent
   m_TagString: agentProp
@@ -129,7 +129,7 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &570430672781505336
+--- !u!114 &8992032347481733956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,6 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af142ec17bd90da478bd125cb75a7017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  agent: {fileID: 8063062791135285045}
+  goalsBeforeExit: 1
+  exiting: 0
+  waiting: 0
+  timeLeftWaiting: 0
   goalNr: 0
+  cells: {x: 0, y: 0, z: 0}

@@ -1,15 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using UnityEngine;
 
 public class Buden : MonoBehaviour
 {
     public float agentRadius = 1.0f;
 
-    public float waitTime = 50.0f;
+    public float waitTime = 10.0f;
 
     private bool komplettAusgelastet = false;
 
@@ -22,55 +17,71 @@ public class Buden : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.transform.hasChanged = false;
 
         // !!!!IMPORTANT!!!! the number of the children specifies the position in the prefab, if changed, chang number here!!!!!!!
-        // 3 - Wait_B, 4 - Wait_L, 5 - Wait_R, 6 - Ziel
-
+        // 1 - Wait_B, 2 - Wait_L, 3 - Wait_R, 4 - Ziel
+        //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
         //ziel Array
-        Transform child = this.transform.GetChild(6);
-        Debug.Log(child);
-        Debug.Log(child.transform.position + " " + this.transform.position);
+        float r = this.transform.rotation.eulerAngles.y;
+        Transform child = this.transform.GetChild(4);
         Bounds bound = child.GetComponent<MeshRenderer>().bounds;
-        ziel = new BitArray2D(bound, agentRadius, child.transform.position.x - bound.extents.x, this.transform.position.z - bound.extents.z);
+        ziel = new BitArray2D(bound, child, agentRadius,0, r, this.transform.position);
 
         //Wait_B Array
-        child = this.transform.GetChild(3);
+        child = this.transform.GetChild(1);
         bound = child.GetComponent<MeshRenderer>().bounds;
-        wait_B = new BitArray2D(bound, agentRadius, child.transform.position.x-bound.extents.x, this.transform.position.z - bound.extents.z);
+        wait_B = new BitArray2D(bound, child, agentRadius, 0, r, this.transform.position);
 
         //Wait_L Array
-        child = this.transform.GetChild(4);
+        child = this.transform.GetChild(2);
         bound = child.GetComponent<MeshRenderer>().bounds;
-        wait_L = new BitArray2D(bound, agentRadius, child.transform.position.x - bound.extents.x, child.transform.position.z - bound.extents.z);
+        wait_L = new BitArray2D(bound, child, agentRadius,0, r, this.transform.position);
 
         //Wait_R Array
-        child = this.transform.GetChild(5);
+        child = this.transform.GetChild(3);
         bound = child.GetComponent<MeshRenderer>().bounds;
-        wait_R = new BitArray2D(bound, agentRadius, child.transform.position.x - bound.extents.x, child.transform.position.z - bound.extents.z);
-
-       
+        wait_R = new BitArray2D(bound, child, agentRadius, 0, r, this.transform.position);   
     }
 
-    public Vector3Int GetNewPoisition()
+    private void Update()
+    {
+        if (this.transform.hasChanged) {
+            float r = this.transform.rotation.eulerAngles.y;
+            Vector3 pos = this.transform.position;
+            ziel.RefreshPos(r,pos);
+            wait_B.RefreshPos(r,pos);
+            wait_L.RefreshPos(r,pos);
+            wait_R.RefreshPos(r,pos);
+            this.transform.hasChanged = false;
+        }
+    }
+
+
+
+    public Vector3Int GetNewPoisition(AgentController ac)
     {
         Vector2Int cellCoord;
         int zone;
-        if (!ziel.IsFull()) {
-            cellCoord = ziel.FindBestPositionAndAdd();
+
+        if (!ziel.IsFull())
+        {
+            cellCoord = ziel.FindBestPositionAndAdd(ac);
             zone = 0;
         }
         else if (!wait_B.IsFull())
         {
-            cellCoord = wait_B.FindBestPositionAndAdd();
+            cellCoord = wait_B.FindBestPositionAndAdd(ac);
             zone = 1;
         }
         else if (!wait_L.IsFull())
         {
-            cellCoord = wait_L.FindBestPositionAndAdd();
+            cellCoord = wait_L.FindBestPositionAndAdd(ac);
             zone = 2;
-        }else if (!wait_R.IsFull())
+        }
+        else if (!wait_R.IsFull())
         {
-            cellCoord = wait_R.FindBestPositionAndAdd();
+            cellCoord = wait_R.FindBestPositionAndAdd(ac);
             zone = 3;
         }
         else
@@ -99,21 +110,21 @@ public class Buden : MonoBehaviour
         }
     }
 
-    public void RemovePlayer(Vector3Int cells)
+    public void RemovePlayer(AgentController ac, Vector3Int cells)
     {
         switch (cells.z)
         {
             case 0:
-                ziel.RemovePlayer(cells);
+                ziel.RemovePlayer(cells, ac);
                 break;
             case 1:
-                wait_B.RemovePlayer(cells);
+                wait_B.RemovePlayer(cells, ac);
                 break;
             case 2:
-                wait_L.RemovePlayer(cells);
+                wait_L.RemovePlayer(cells, ac);
                 break;
             case 3:
-                wait_R.RemovePlayer(cells);
+                wait_R.RemovePlayer(cells, ac);
                 break;
         }
     }
