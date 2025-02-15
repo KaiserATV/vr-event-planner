@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Buden : MonoBehaviour
 {
-    public float agentRadius = 1.0f;
+    public float agentRadius = 1f;
 
-    public float waitTime = 10.0f;
+    public float waitTime = 50.0f;
 
     private bool komplettAusgelastet = false;
 
@@ -23,36 +23,33 @@ public class Buden : MonoBehaviour
         // 1 - Wait_B, 2 - Wait_L, 3 - Wait_R, 4 - Ziel
         //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
         //ziel Array
-        float r = this.transform.rotation.eulerAngles.y;
         Transform child = this.transform.GetChild(4);
         Bounds bound = child.GetComponent<MeshRenderer>().bounds;
-        ziel = new BitArray2D(bound, child, agentRadius,0, r, this.transform.position);
+        ziel = new BitArray2D(bound, child, agentRadius,0);
 
         //Wait_B Array
         child = this.transform.GetChild(1);
         bound = child.GetComponent<MeshRenderer>().bounds;
-        wait_B = new BitArray2D(bound, child, agentRadius, 0, r, this.transform.position);
+        wait_B = new BitArray2D(bound, child, agentRadius, 0);
 
         //Wait_L Array
         child = this.transform.GetChild(2);
         bound = child.GetComponent<MeshRenderer>().bounds;
-        wait_L = new BitArray2D(bound, child, agentRadius,0, r, this.transform.position);
+        wait_L = new BitArray2D(bound, child, agentRadius, 1);
 
         //Wait_R Array
         child = this.transform.GetChild(3);
         bound = child.GetComponent<MeshRenderer>().bounds;
-        wait_R = new BitArray2D(bound, child, agentRadius, 0, r, this.transform.position);   
+        wait_R = new BitArray2D(bound, child, agentRadius, 2);   
     }
 
     private void Update()
     {
         if (this.transform.hasChanged) {
-            float r = this.transform.rotation.eulerAngles.y;
-            Vector3 pos = this.transform.position;
-            ziel.RefreshPos(r,pos);
-            wait_B.RefreshPos(r,pos);
-            wait_L.RefreshPos(r,pos);
-            wait_R.RefreshPos(r,pos);
+            ziel.RefreshPos();
+            wait_B.RefreshPos();
+            wait_L.RefreshPos();
+            wait_R.RefreshPos();
             this.transform.hasChanged = false;
         }
     }
@@ -83,8 +80,7 @@ public class Buden : MonoBehaviour
         {
             cellCoord = wait_R.FindBestPositionAndAdd(ac);
             zone = 3;
-        }
-        else
+        }else
         {
             komplettAusgelastet = true;
             //Needs to find another target
