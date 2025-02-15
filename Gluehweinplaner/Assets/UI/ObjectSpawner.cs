@@ -1,29 +1,29 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
 using UnityEngine.InputSystem;
-using System.Linq;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    public List<GameObject> objectPrefabs; // Spawnable prefabs
-    public float placementDistance = 2f; // Distance from hand
-    public Material previewMaterial; // Transparent material for preview
+    public List<GameObject> objectPrefabs;
+    public float placementDistance = 2f;
+    public Material previewMaterial;
     public GameObject budenContainer;
     public AgentManager am;
 
     private GameObject currentPreview;
     private int selectedIndex = -1;
 
-    public Transform handTransform; 
-    public InputActionReference menuActivateAction; 
-
+    public Transform handTransform;
+    public InputActionReference moveAction;  // Bewegung X/Z
+    public InputActionReference rotateAction; // Rotation um Y
     public InputActionReference confirmAction;
+
     private bool isPlacing = false;
     public bool IsPlacing => isPlacing;
+
+    private Vector3 placementPosition;
+    private float placementRotationY = 0f;
+    private float rotationSpeed = 100f; // Geschwindigkeit der Rotation
 
     void Start()
     {
@@ -38,21 +38,35 @@ public class ObjectSpawner : MonoBehaviour
         isPlacing = true;
         selectedIndex = index;
         CreatePreviewObject();
+
+        // Startposition etwas vor der Hand
+        Vector3 forwardOffset = handTransform.forward * placementDistance;
+        placementPosition = new Vector3(forwardOffset.x, 0, forwardOffset.z);
     }
 
     void Update()
     {
-        if (currentPreview != null)
+        if (!isPlacing || currentPreview == null) return;
+
+        // Controller-Eingaben auslesen
+        Vector2 moveInput = moveAction.action.ReadValue<Vector2>(); 
+        float rotationInput = rotateAction.action.ReadValue<float>(); 
+
+        // Position auf X/Z anpassen
+        placementPosition += new Vector3(moveInput.x, 0, moveInput.y) * Time.deltaTime * 2f; 
+
+        // Rotation um die Y-Achse steuern
+        placementRotationY += rotationInput * rotationSpeed * Time.deltaTime;
+
+        // Vorschau-Objekt aktualisieren
+        currentPreview.transform.position = placementPosition;
+        currentPreview.transform.rotation = Quaternion.Euler(0, placementRotationY, 0);
+
+        // Platzierung bestätigen
+        if (confirmAction.action.triggered)
         {
-            currentPreview.transform.position = handTransform.position + handTransform.forward * placementDistance;
-            currentPreview.transform.rotation = handTransform.rotation;
-            currentPreview.transform.position = new Vector3(currentPreview.transform.position.x,0, currentPreview.transform.position.z);
-            // Handle placement confirmation
-            if (confirmAction.action.triggered)
-            {
-                PlaceObject();
-                isPlacing = false;
-            }
+            PlaceObject();
+            isPlacing = false;
         }
     }
 
@@ -66,15 +80,14 @@ public class ObjectSpawner : MonoBehaviour
 
     void PlaceObject()
     {
-        // Instantiate final object
-        currentPreview.transform.position = new Vector3(currentPreview.transform.position.x, 0, currentPreview.transform.position.z);
-        Instantiate(objectPrefabs[selectedIndex], 
-                  currentPreview.transform.position, 
-                  currentPreview.transform.rotation, budenContainer.transform);
-        am.AddBude(objectPrefabs[selectedIndex].GetComponent<Buden>());
+        GameObject newObj = Instantiate(objectPrefabs[selectedIndex], 
+            placementPosition, 
+            Quaternion.Euler(0, placementRotationY, 0), 
+            budenContainer.transform);
+
+        am.AddBude(newObj.GetComponent<Buden>());
         Destroy(currentPreview);
         selectedIndex = -1;
-
     }
 
     void SetMaterialTransparent(GameObject obj)
