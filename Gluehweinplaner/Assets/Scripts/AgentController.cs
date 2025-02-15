@@ -24,7 +24,7 @@ public class AgentController : MonoBehaviour
 
 
     // Update is called once per frame
-    public void Start()
+    void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.autoRepath = false;
