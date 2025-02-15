@@ -125,5 +125,9 @@ public class Buden : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        Start();
+    }
     public bool IstAusgelasted() { return komplettAusgelastet; }
 }

@@ -10,7 +10,7 @@ public class AgentController : MonoBehaviour
     public bool exiting=false;
     public bool waiting = false;
     public float timeLeftWaiting = 0.0f;
-
+    public bool stopped = false;
 
     public int goalNr;
 
@@ -35,18 +35,22 @@ public class AgentController : MonoBehaviour
 
     void Update()
     {
-        if (waiting)
+        if (!stopped)
         {
-            timeLeftWaiting -= Time.deltaTime;
-            if(timeLeftWaiting < 0) { sm.DeRegisterPlayer(this, cells, goalNr) ;waiting = false; FindNextGoal();}
-        }
-        else if (agent.remainingDistance == 0 && !exiting)
-        {
-            timeLeftWaiting = sm.GetWaitTime(goalNr);
-            waiting = true;
-        }else if (agent.remainingDistance == 0 && exiting)
-        {
-            Destroy(this.gameObject);
+            if (waiting)
+            {
+                timeLeftWaiting -= Time.deltaTime;
+                if (timeLeftWaiting < 0) { sm.DeRegisterPlayer(this, cells, goalNr); waiting = false; FindNextGoal(); }
+            }
+            else if (agent.remainingDistance == 0 && !exiting)
+            {
+                timeLeftWaiting = sm.GetWaitTime(goalNr);
+                waiting = true;
+            }
+            else if (agent.remainingDistance == 0 && exiting)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
@@ -82,6 +86,23 @@ public class AgentController : MonoBehaviour
         if (waiting) { waiting = false; }
         goal = newCoords;
         agent.destination = new Vector3(goal.x, 0, goal.y);
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public void Stop()
+    {
+        agent.isStopped = true;
+        stopped = true;
+    }
+
+    public void Resume()
+    {
+        agent.isStopped = false;
+        stopped = false;
     }
 
     private void OnDrawGizmos()
