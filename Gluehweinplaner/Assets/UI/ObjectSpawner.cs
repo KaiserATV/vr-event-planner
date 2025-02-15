@@ -13,7 +13,7 @@ public class ObjectSpawner : MonoBehaviour
     public float placementDistance = 2f; // Distance from hand
     public Material previewMaterial; // Transparent material for preview
     public GameObject budenContainer;
-
+    public AgentManager am;
 
     private GameObject currentPreview;
     private int selectedIndex = -1;
@@ -28,6 +28,7 @@ public class ObjectSpawner : MonoBehaviour
     void Start()
     {
         budenContainer = GameObject.Find("BudenContainer");    
+        am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
     }
 
     public void StartSpawning(int index)
@@ -69,9 +70,10 @@ public class ObjectSpawner : MonoBehaviour
         Instantiate(objectPrefabs[selectedIndex], 
                   currentPreview.transform.position, 
                   currentPreview.transform.rotation, budenContainer.transform);
-        
+        am.AddBude(objectPrefabs[selectedIndex].GetComponent<Buden>());
         Destroy(currentPreview);
         selectedIndex = -1;
+
     }
 
     void SetMaterialTransparent(GameObject obj)
