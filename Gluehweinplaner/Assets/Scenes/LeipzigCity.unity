@@ -1603,11 +1603,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefabs:
-  - {fileID: 919132149155446097, guid: 4f7f3c0d589f7f0409e24b1b48d4f975, type: 3}
+  - {fileID: 9049856161015455508, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
   - {fileID: 2101239683972800553, guid: 14698aca17af77d4aab6f4562533b1d1, type: 3}
   - {fileID: 1404043761636636274, guid: b7eb61db15232924aa040b64fee0290b, type: 3}
   placementDistance: 2
   previewMaterial: {fileID: 2100000, guid: de170742f427a0c4f9b8a3233ab76f9a, type: 2}
+  budenContainer: {fileID: 0}
+  am: {fileID: 0}
   handTransform: {fileID: 644524472}
   menuActivateAction: {fileID: 7282516747213358623, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   confirmAction: {fileID: -2562941478296515153, guid: c348712bda248c246b8c49b3db54643f, type: 3}
