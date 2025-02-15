@@ -1297,6 +1297,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Confirm Action",
+                    "type": "Button",
+                    "id": "3535dc4b-8e9d-4b83-bdbe-9fa05bdfba09",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1544,12 +1553,45 @@
                 },
                 {
                     "name": "",
+                    "id": "5f98e85e-1dca-4a6f-a9f3-465a1113ae84",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RadialMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "91288766-8608-4136-aad2-05094dcf2681",
                     "path": "<ViveController>/trackpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MoveHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "255b0eed-ef04-424f-9975-361267733dd1",
+                    "path": "<ViveController>/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3265b8c7-a4fe-432c-b241-626373a0b079",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

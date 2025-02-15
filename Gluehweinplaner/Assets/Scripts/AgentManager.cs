@@ -25,13 +25,16 @@ public class AgentManager : MonoBehaviour
 
     public Vector3Int GetNewCellsPos(out int budenNr, AgentController ac, List<int> besuchteBudenNr)
     {
+        
         for(int i = 0; i < alleBuden.Length; i++)
         {
             int rand = Random.Range(0, alleBuden.Length);
+            
             if (!alleBuden[rand].IstAusgelasted() && !besuchteBudenNr.Contains(rand))
             {
                 budenNr = rand;
-                return alleBuden[rand].GetNewPoisition(ac);
+                Debug.Log(rand);
+                return alleBuden[rand].GetNewPosition(ac);
             }
         }
 

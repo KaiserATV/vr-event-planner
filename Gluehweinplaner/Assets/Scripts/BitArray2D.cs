@@ -120,6 +120,7 @@ public class BitArray2D
 
     public void RefreshPos()
     {
+
         foreach (AgentController ac in registeredPlayers)
         {
             ac.InvalidatePosition(GetRealWorldCords(ac.cells));
