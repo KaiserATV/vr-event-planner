@@ -14,8 +14,10 @@ public class ObjectSpawner : MonoBehaviour
     private int selectedIndex = -1;
 
     public Transform handTransform;
-    public InputActionReference moveAction;  // Bewegung X/Z
-    public InputActionReference rotateAction; // Rotation um Y
+    public Transform cameraTransform; // VR-Kamera für bessere Positionierung
+    
+    public InputActionReference moveAction;  // Linker Controller (X/Z-Bewegung) - Vector2
+    public InputActionReference rotateAction; // Rechter Controller (Rotation) - float
     public InputActionReference confirmAction;
 
     private bool isPlacing = false;
@@ -24,11 +26,13 @@ public class ObjectSpawner : MonoBehaviour
     private Vector3 placementPosition;
     private float placementRotationY = 0f;
     private float rotationSpeed = 100f; // Geschwindigkeit der Rotation
+    private bool hasManualRotation = false; // Merker für manuelle Drehung
 
     void Start()
     {
         budenContainer = GameObject.Find("BudenContainer");    
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+        cameraTransform = Camera.main.transform; // Setzt die VR-Kamera
     }
 
     public void StartSpawning(int index)
@@ -39,30 +43,52 @@ public class ObjectSpawner : MonoBehaviour
         selectedIndex = index;
         CreatePreviewObject();
 
-        // Startposition etwas vor der Hand
-        Vector3 forwardOffset = handTransform.forward * placementDistance;
-        placementPosition = new Vector3(forwardOffset.x, 0, forwardOffset.z);
+        // **Startposition: Vor dem Spieler, nicht in der Hand**
+        Vector3 forwardOffset = cameraTransform.forward * placementDistance; // Abstand von der Kamera aus
+        placementPosition = new Vector3(forwardOffset.x, 0, forwardOffset.z) + cameraTransform.position;
+        placementRotationY = cameraTransform.eulerAngles.y; // Initiale Rotation übernimmt Blickrichtung
     }
 
     void Update()
     {
         if (!isPlacing || currentPreview == null) return;
 
-        // Controller-Eingaben auslesen
-        Vector2 moveInput = moveAction.action.ReadValue<Vector2>(); 
-        float rotationInput = rotateAction.action.ReadValue<float>(); 
+        // **Falls Trackpad nicht genutzt wird, Handbewegung als Basis nehmen**
+        Vector3 handOffset = handTransform.position + handTransform.forward * placementDistance;
+        Vector3 newPosition = new Vector3(handOffset.x, 0, handOffset.z); // Y bleibt 0
+        
+        float handRotationY = handTransform.eulerAngles.y; // Rotation der Hand
 
-        // Position auf X/Z anpassen
-        placementPosition += new Vector3(moveInput.x, 0, moveInput.y) * Time.deltaTime * 2f; 
+        // **Manuelle Steuerung über Trackpad (X/Z-Bewegung)**
+        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();  // Linker Controller → Vector2
+        float rotationInput = rotateAction.action.ReadValue<float>(); // Rechter Controller → float für Rotation
 
-        // Rotation um die Y-Achse steuern
-        placementRotationY += rotationInput * rotationSpeed * Time.deltaTime;
+        // **Falls das Trackpad für Bewegung genutzt wird → Bewege Objekt nur auf X/Z**
+        if (moveInput.magnitude > 0.01f) 
+        {
+            placementPosition += new Vector3(moveInput.x, 0, moveInput.y) * Time.deltaTime * 2f;
+        }
+        else 
+        {
+            placementPosition = newPosition; // Falls Trackpad nicht genutzt wird → Bewegung über Hand
+        }
 
-        // Vorschau-Objekt aktualisieren
+        // **Falls Rotationseingabe vorhanden ist → Manuelle Rotation setzen**
+        if (Mathf.Abs(rotationInput) > 0.01f) 
+        {
+            placementRotationY += rotationInput * rotationSpeed * Time.deltaTime;
+            hasManualRotation = true;
+        }
+        else if (!hasManualRotation) 
+        {
+            placementRotationY = handRotationY; // Falls keine manuelle Rotation gemacht wurde → Handrotation übernehmen
+        }
+
+        // **Vorschau-Objekt aktualisieren**
         currentPreview.transform.position = placementPosition;
         currentPreview.transform.rotation = Quaternion.Euler(0, placementRotationY, 0);
 
-        // Platzierung bestätigen
+        // **Platzierung bestätigen**
         if (confirmAction.action.triggered)
         {
             PlaceObject();
@@ -88,6 +114,7 @@ public class ObjectSpawner : MonoBehaviour
         am.AddBude(newObj.GetComponent<Buden>());
         Destroy(currentPreview);
         selectedIndex = -1;
+        hasManualRotation = false; // Reset nach Platzierung
     }
 
     void SetMaterialTransparent(GameObject obj)

@@ -33,7 +33,6 @@ public class AgentManager : MonoBehaviour
             if (!alleBuden[rand].IstAusgelasted() && !besuchteBudenNr.Contains(rand))
             {
                 budenNr = rand;
-                Debug.Log(rand);
                 return alleBuden[rand].GetNewPosition(ac);
             }
         }
