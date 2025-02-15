@@ -12,6 +12,8 @@ public class ObjectSpawner : MonoBehaviour
     public List<GameObject> objectPrefabs; // Spawnable prefabs
     public float placementDistance = 2f; // Distance from hand
     public Material previewMaterial; // Transparent material for preview
+    public GameObject budenContainer;
+
 
     private GameObject currentPreview;
     private int selectedIndex = -1;
@@ -23,7 +25,10 @@ public class ObjectSpawner : MonoBehaviour
     private bool isPlacing = false;
     public bool IsPlacing => isPlacing;
 
-        
+    void Start()
+    {
+        budenContainer = GameObject.Find("BudenContainer");    
+    }
 
     public void StartSpawning(int index)
     {
@@ -54,7 +59,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         if (currentPreview != null) Destroy(currentPreview);
         
-        currentPreview = Instantiate(objectPrefabs[selectedIndex]);
+        currentPreview = Instantiate(objectPrefabs[selectedIndex], budenContainer.transform);
         SetMaterialTransparent(currentPreview);
     }
 
@@ -63,7 +68,7 @@ public class ObjectSpawner : MonoBehaviour
         // Instantiate final object
         Instantiate(objectPrefabs[selectedIndex], 
                   currentPreview.transform.position, 
-                  currentPreview.transform.rotation);
+                  currentPreview.transform.rotation, budenContainer.transform);
         
         Destroy(currentPreview);
         selectedIndex = -1;
