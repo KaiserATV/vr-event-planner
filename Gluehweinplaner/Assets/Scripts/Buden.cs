@@ -15,10 +15,10 @@ public class Buden : MonoBehaviour
     private BitArray2D ziel;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         this.transform.hasChanged = false;
-
+        
         // !!!!IMPORTANT!!!! the number of the children specifies the position in the prefab, if changed, chang number here!!!!!!!
         // 1 - Wait_B, 2 - Wait_L, 3 - Wait_R, 4 - Ziel
         //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
