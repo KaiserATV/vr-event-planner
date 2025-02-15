@@ -4,7 +4,7 @@ using UnityEngine;
 public class AgentManager : MonoBehaviour
 {
     public int playerCount = 0;
-    public int maxPlayerCount = 100;
+    public int maxPlayerCount = 10;
 
     public string budenContainerName = "BudenContainer";
     public string exitContainerName = "ExitContainer";
