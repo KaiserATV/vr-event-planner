@@ -85,9 +85,10 @@ public class AgentManager : MonoBehaviour
     public void ResetSimulation() {  simulating = false; foreach (Buden b in alleBuden) { b.Reset(); } }
 
    public void AddBude(Buden neueBude)
-{
-    List<Buden> tempList = alleBuden.ToList();
-    tempList.Add(neueBude);
-    alleBuden = tempList.ToArray();
-}
+    {
+        neueBude.Start();
+        List<Buden> tempList = alleBuden.ToList();
+        tempList.Add(neueBude);
+        alleBuden = tempList.ToArray();
+    }
 }
