@@ -46,6 +46,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             currentPreview.transform.position = handTransform.position + handTransform.forward * placementDistance;
             currentPreview.transform.rotation = handTransform.rotation;
+            currentPreview.transform.position = new Vector3(currentPreview.transform.position.x,0, currentPreview.transform.position.z);
             // Handle placement confirmation
             if (confirmAction.action.triggered)
             {
@@ -66,6 +67,7 @@ public class ObjectSpawner : MonoBehaviour
     void PlaceObject()
     {
         // Instantiate final object
+        currentPreview.transform.position = new Vector3(currentPreview.transform.position.x, 0, currentPreview.transform.position.z);
         Instantiate(objectPrefabs[selectedIndex], 
                   currentPreview.transform.position, 
                   currentPreview.transform.rotation, budenContainer.transform);
