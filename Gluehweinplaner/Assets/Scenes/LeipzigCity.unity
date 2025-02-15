@@ -927,7 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 0
-  maxPlayerCount: 10
+  maxPlayerCount: 20
+  simulating: 0
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
 --- !u!1001 &1220110762
@@ -1545,7 +1546,7 @@ MonoBehaviour:
   am: {fileID: 1036096516}
   handTransform: {fileID: 1356023311}
   menuActivateAction: {fileID: 3165258451067141589, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  confirmAction: {fileID: -2562941478296515153, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  confirmAction: {fileID: 6666153290515788830, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1001 &1731298970
 PrefabInstance:
   m_ObjectHideFlags: 0

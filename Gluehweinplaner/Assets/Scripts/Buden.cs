@@ -51,12 +51,13 @@ public class Buden : MonoBehaviour
             wait_L.RefreshPos();
             wait_R.RefreshPos();
             this.transform.hasChanged = false;
+            Debug.Log(this.transform.position);
         }
     }
 
 
 
-    public Vector3Int GetNewPoisition(AgentController ac)
+    public Vector3Int GetNewPosition(AgentController ac)
     {
         Vector2Int cellCoord;
         int zone;
