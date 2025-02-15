@@ -16,27 +16,25 @@ public class BitArray2D
     private bool full;
     private int cellsX;
     private int cellsZ;
-    private float minX;
-    private float minZ;
     private List<AgentController> registeredPlayers=new List<AgentController>();
     private Transform childT;
     private int positionToBude; //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
-    private float rotation;
-    private Vector3 pivot;
+    private Vector3 localSize;
+    private float schiebX;
+    private float schiebZ;
 
 
-    public BitArray2D( Bounds b, Transform child, float aR, int p, float r, Vector3 budenPivot) { 
+    public BitArray2D( Bounds b, Transform child, float aR, int p) { 
         bounds = b;
         childT = child;
-        minX = child.transform.position.x - bounds.extents.x;
-        minZ = child.transform.position.z - bounds.extents.z;
         agentRadius = aR;
         full = false;   
         CalcWidthHeight();
-        rotation = r;
         positionToBude = p;
-        pivot = budenPivot;
         array = new BitArray(cellsX * cellsZ);
+        localSize = childT.InverseTransformPoint(bounds.max) - childT.InverseTransformPoint(bounds.min);
+        schiebX = Mathf.Abs(localSize.x / cellsX);
+        schiebZ = Mathf.Abs(localSize.z / cellsZ);
     }
 
     public void AddPlayer(Vector2Int v, AgentController ac)
@@ -72,7 +70,7 @@ public class BitArray2D
 
     public Vector2Int AddInFront(AgentController ac)
     {
-        for (int x = cellsX-1; x >= 0; x--)
+        for (int x = 0; x < cellsX; x++)
         {
             for (int z = 0; z < cellsZ; z++)
             {
@@ -88,23 +86,7 @@ public class BitArray2D
 
     public Vector2Int AddToLeft(AgentController ac)
     {
-        for (int x = cellsX - 1; x >= 0; x--)
-        {
-            for (int z = 0; z < cellsZ; z++)
-            {
-                if (!array[z * cellsX + x])
-                {
-                    AddPlayer(new Vector2Int(x, z), ac);
-                    return new Vector2Int(x, z);
-                }
-            }
-        }
-        return new Vector2Int(-1, -1);
-    }
-
-    public Vector2Int AddToRight(AgentController ac)
-    {
-        for (int x = cellsX - 1; x >= 0; x--)
+        for (int x = 0; x < cellsX; x++)
         {
             for (int z = cellsZ-1; z >= 0; z--)
             {
@@ -118,11 +100,26 @@ public class BitArray2D
         return new Vector2Int(-1, -1);
     }
 
-
-
-    public void RefreshPos(float r, Vector3 p)
+    public Vector2Int AddToRight(AgentController ac)
     {
-        rotation = r;
+        for (int x = 0; x < cellsX; x++)
+        {
+            for (int z = 0; z < cellsZ; z++)
+            {
+                if (!array[z * cellsX + x])
+                {
+                    AddPlayer(new Vector2Int(x, z), ac);
+                    return new Vector2Int(x, z);
+                }
+            }
+        }
+        return new Vector2Int(-1, -1);
+    }
+
+
+
+    public void RefreshPos()
+    {
         foreach (AgentController ac in registeredPlayers)
         {
             ac.InvalidatePosition(GetRealWorldCords(ac.cells));
@@ -143,23 +140,9 @@ public class BitArray2D
 
     public Vector3 GetRealWorldCords(Vector3Int cells)
     {
-        float x = minX + (cells.x * agentRadius) + (agentRadius / 2);
-        float z = minZ + (cells.y * agentRadius) + (agentRadius / 2);
-
-
-        //ToDo Add movability
-
-        Vector3 rotatedVector = RotatePointAroundPivot(new Vector3(x, 0, z));
-        return new Vector3(rotatedVector.x,rotatedVector.z,cells.z);
+        float lx = (cellsX / 2 * schiebX) - (cells.x * schiebX) - schiebX / 2;
+        float lz = (cellsZ / 2 * schiebZ) - (cells.y * schiebZ) - schiebZ / 2;
+        Vector3 tV = childT.TransformPoint(new Vector3(lx, 0, lz));
+        return new Vector3(tV.x, tV.z, cells.z);
     }
-  
-    public Vector3 RotatePointAroundPivot(Vector3 point){
-        Vector3 dir = point - pivot; // get point direction relative to pivot
-        dir = Quaternion.Euler(0, rotation, 0) * dir; // rotate it
-        point = dir + pivot; // calculate rotated point
-        return point; // return it
-    }
-
-
-
 }

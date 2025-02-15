@@ -715,6 +715,22 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767192439, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_projectionMatrixMode
       value: 1
       objectReference: {fileID: 0}
@@ -899,9 +915,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6328360384627795018, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2121858680485803272, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
       propertyPath: m_Name
       value: Leipzig
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798714279695717628, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -912,11 +940,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
   m_PrefabInstance: {fileID: 666194235}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &920445752 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9049856161015455508, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
-  m_PrefabInstance: {fileID: 1220110762}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &946965387
 GameObject:
@@ -994,7 +1017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 0
-  maxPlayerCount: 10
+  maxPlayerCount: 100
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
 --- !u!1001 &1220110762
@@ -1005,6 +1028,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 96101760}
     m_Modifications:
+    - target: {fileID: 1233372548524874943, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
+      propertyPath: waitTime
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.37
@@ -1019,7 +1046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.64386
+      value: 45.7
       objectReference: {fileID: 0}
     - target: {fileID: 4859477853738827348, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1068,10 +1095,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9049856161015455508, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1220110765}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
 --- !u!4 &1220110763 stripped
 Transform:
