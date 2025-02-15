@@ -45,27 +45,29 @@ public class CrowdGeneration : MonoBehaviour
 
     private void FixedUpdate()
     {
-        zeitVergangen -= Time.deltaTime;
-        if (zeitVergangen>0)
+        if (am.simulating)
         {
+            zeitVergangen -= Time.deltaTime;
+            if (zeitVergangen > 0)
+            {
 
-        }else if(am.CanAddPlayer())
-        {
-            Vector3 position = GenerateRandomPosition(m_agentPositions);
-            Quaternion rotation = Quaternion.Euler(0, 0, 0);             
+            }
+            else if (am.CanAddPlayer())
+            {
+                Vector3 position = GenerateRandomPosition(m_agentPositions);
+                Quaternion rotation = Quaternion.Euler(0, 0, 0);
 
-            // Instantiate agent
-            GameObject agent = Instantiate(prop, position, rotation);
+                // Instantiate agent
+                GameObject agent = Instantiate(prop, position, rotation);
 
-            // Set the parent of the instantiated props to be this CrowdGenerator
-            agent.transform.parent = transform;
+                // Set the parent of the instantiated props to be this CrowdGenerator
+                agent.transform.parent = transform;
 
-            m_agentPositions.Add(position);
-            am.addPlayer();
-            zeitVergangen = spawnTime; 
+                m_agentPositions.Add(position);
+                am.addPlayer();
+                zeitVergangen = spawnTime;
+            }
         }
-
-
     }
 
 

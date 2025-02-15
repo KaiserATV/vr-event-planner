@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 
@@ -8,6 +6,8 @@ public class AgentManager : MonoBehaviour
 {
     public int playerCount = 0;
     public int maxPlayerCount = 10;
+
+    public bool simulating = false;
 
     public string budenContainerName = "BudenContainer";
     public string exitContainerName = "ExitContainer";
@@ -22,18 +22,20 @@ public class AgentManager : MonoBehaviour
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
     }
 
-    public Vector3Int GetNewCellsPos(out int budenNr, AgentController ac)
+    public Vector3Int GetNewCellsPos(out int budenNr, AgentController ac, List<int> besuchteBudenNr)
     {
-            for (int i = 0; i < alleBuden.Length; i++)
+        for(int i = 0; i < alleBuden.Length; i++)
+        {
+            int rand = Random.Range(0, alleBuden.Length);
+            if (!alleBuden[rand].IstAusgelasted() && !besuchteBudenNr.Contains(rand))
             {
-                if (!alleBuden[i].IstAusgelasted())
-                {
-                    budenNr = i;
-                    return alleBuden[i].GetNewPoisition(ac);
-                }
+                budenNr = rand;
+                return alleBuden[rand].GetNewPoisition(ac);
             }
-            budenNr = -1;
-            return new Vector3Int(-1, -1, -1);
+        }
+
+        budenNr = -1;
+        return new Vector3Int(-1, -1, -1);
     }
 
     public void DeRegisterPlayer(AgentController ac, Vector3Int cells,int goalNr)
@@ -74,6 +76,12 @@ public class AgentManager : MonoBehaviour
     public void removePlayer(){ playerCount--; }
 
     public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
+
+    public void StartSimulation() { simulating = true; }
+
+    public void StopSimulation() {  simulating = false; }
+
+    public void ResetSimulation() {  simulating = false; foreach (Buden b in alleBuden) { b.Reset(); } }
 
    public void AddBude(Buden neueBude)
 {

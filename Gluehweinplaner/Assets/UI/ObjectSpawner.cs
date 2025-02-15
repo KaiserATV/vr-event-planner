@@ -46,7 +46,6 @@ public class ObjectSpawner : MonoBehaviour
         {
             currentPreview.transform.position = handTransform.position + handTransform.forward * placementDistance;
             currentPreview.transform.rotation = handTransform.rotation;
-
             // Handle placement confirmation
             if (confirmAction.action.triggered)
             {
