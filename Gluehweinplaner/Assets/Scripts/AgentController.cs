@@ -24,7 +24,7 @@ public class AgentController : MonoBehaviour
 
 
     // Update is called once per frame
-    public void Start()
+    void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.autoRepath = false;
@@ -49,7 +49,7 @@ public class AgentController : MonoBehaviour
             }
             else if (agent.remainingDistance == 0 && exiting)
             {
-                Destroy(this.gameObject);
+                Destroy();
             }
         }
     }
@@ -90,6 +90,7 @@ public class AgentController : MonoBehaviour
 
     public void Destroy()
     {
+        sm.removePlayer();
         Destroy(this.gameObject);
     }
 
