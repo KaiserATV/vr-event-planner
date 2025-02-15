@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
@@ -21,18 +22,20 @@ public class AgentManager : MonoBehaviour
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
     }
 
-    public Vector3Int GetNewCellsPos(out int budenNr, AgentController ac)
+    public Vector3Int GetNewCellsPos(out int budenNr, AgentController ac, List<int> besuchteBudenNr)
     {
-            for (int i = 0; i < alleBuden.Length; i++)
+        for(int i = 0; i < alleBuden.Length; i++)
+        {
+            int rand = Random.Range(0, alleBuden.Length);
+            if (!alleBuden[rand].IstAusgelasted() && !besuchteBudenNr.Contains(rand))
             {
-                if (!alleBuden[i].IstAusgelasted())
-                {
-                    budenNr = i;
-                    return alleBuden[i].GetNewPoisition(ac);
-                }
+                budenNr = rand;
+                return alleBuden[rand].GetNewPoisition(ac);
             }
-            budenNr = -1;
-            return new Vector3Int(-1, -1, -1);
+        }
+
+        budenNr = -1;
+        return new Vector3Int(-1, -1, -1);
     }
 
     public void DeRegisterPlayer(AgentController ac, Vector3Int cells,int goalNr)

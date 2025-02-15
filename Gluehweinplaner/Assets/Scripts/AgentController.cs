@@ -61,7 +61,7 @@ public class AgentController : MonoBehaviour
         {
             do
             {
-                cells = sm.GetNewCellsPos(out goalNr, this);
+                cells = sm.GetNewCellsPos(out goalNr, this, visitedGoalNumbers);
                 if (goalNr == -1) { FindExit(); return; }
             } while (visitedGoalNumbers.Contains(goalNr));
             visitedGoalNumbers.Add(goalNr);
