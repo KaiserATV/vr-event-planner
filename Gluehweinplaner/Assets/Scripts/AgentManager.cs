@@ -118,7 +118,7 @@ public class AgentManager : MonoBehaviour
             }
         }
     }
-    public Vector2 GetNewSpawnPoint()
+    public Vector3 GetNewSpawnPoint()
     {
         return spawner[Random.Range(0, spawner.Length)].GenerateRandomPosition();
     }
