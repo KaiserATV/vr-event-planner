@@ -65,7 +65,7 @@ public class RadicalSelection : MonoBehaviour
             GetSelectedRadialPart(Time.deltaTime);
 
             // Hide and trigger the selected part when the button is released
-            if (menuActivateAction.action.WasReleasedThisFrame() && timeWaited > waitTimeUntilActivation)
+            if (menuActivateAction.action.WasReleasedThisFrame())
             {
                 HideAndTriggerSelected();
             }
@@ -81,8 +81,11 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
-        partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
-        radialPartCanvas.gameObject.SetActive(false);
+        if(timeWaited > waitTimeUntilActivation)
+        {
+            partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
+            radialPartCanvas.gameObject.SetActive(false);
+        }
     }
 
     public void GetSelectedRadialPart(float time)
@@ -110,6 +113,8 @@ public class RadicalSelection : MonoBehaviour
         {
             if (i == currentSelectedRadialPart)
             {
+                Color c = Color.yellow;
+                c.a = (timeWaited / waitTimeUntilActivation);
                 spawnedParts[i].GetComponent<Image>().color = Color.yellow;
                 spawnedParts[i].transform.localScale = 1.1f * UnityEngine.Vector3.one;
             }
