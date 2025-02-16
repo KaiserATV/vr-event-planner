@@ -6,29 +6,36 @@ public class AgentController : MonoBehaviour
 {
     // Start is called before the first frame update
     private NavMeshAgent agent;
-    public int goalsBeforeExit = 0;
-    public bool exiting=false;
-    public bool waiting = false;
-    public float timeLeftWaiting = 0.0f;
-    public bool stopped = false;
-
+    
+    public bool randomExitGoalNumber = true;
+    public int goalsBeforeExit;
     public int goalNr;
 
 
+    public bool stopped = false;
+    public bool waiting = false;
+    public float timeLeftWaiting = 0.0f;
 
+
+    public bool exiting = false;
+    public float goalThreshhold = 0.1f;
+    public float exitTrashhold = 1f;
+
+    private Vector2Int cells;
+    private Vector2 goal;
+    private BitArray2D bude;
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
 
-    public Vector3Int cells;
-    private Vector3 goal;
 
 
     // Update is called once per frame
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.autoRepath = false;
+        agent.autoRepath = true;
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
         FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
@@ -40,14 +47,15 @@ public class AgentController : MonoBehaviour
             if (waiting)
             {
                 timeLeftWaiting -= Time.deltaTime;
-                if (timeLeftWaiting < 0) { sm.DeRegisterPlayer(this, cells, goalNr); waiting = false; FindNextGoal(); }
+                if (timeLeftWaiting < 0) { bude.RemovePlayer(cells,this); waiting = false; FindNextGoal(); }
             }
-            else if (agent.remainingDistance == 0 && !exiting)
+            else if (agent.remainingDistance < goalThreshhold && !exiting)
             {
                 timeLeftWaiting = sm.GetWaitTime(goalNr);
                 waiting = true;
+                agent.isStopped = true;
             }
-            else if (agent.remainingDistance == 0 && exiting)
+            else if (agent.remainingDistance < exitTrashhold && exiting)
             {
                 Destroy();
             }
@@ -61,17 +69,17 @@ public class AgentController : MonoBehaviour
         {
             do
             {
-                cells = sm.GetNewCellsPos(out goalNr, this, visitedGoalNumbers);
+                goalNr = sm.GetNewCoords(this, visitedGoalNumbers);
                 if (goalNr == -1) { FindExit(); return; }
             } while (visitedGoalNumbers.Contains(goalNr));
             visitedGoalNumbers.Add(goalNr);
-            goal = sm.GetNewWorldPos(cells, goalNr);
             goalsBeforeExit--;
         }
         else
         {
             FindExit();
         }
+        agent.isStopped = false;
     }
 
     void FindExit()
@@ -109,8 +117,30 @@ public class AgentController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
+        if (!waiting)
+        {
         Gizmos.DrawSphere(agent.destination, radius: 0.2f);
+        }
+        else
+        {
+        Gizmos.DrawSphere(agent.nextPosition, radius: 0.2f);
+        }
     }
 
-
+    public void SetGoal(Vector2 g)
+    {
+        goal = g;
+    }
+    public void SetBude(BitArray2D b)
+    {
+        bude = b;
+    }
+    public void SetCells(Vector2Int v)
+    {
+        cells = v;
+    }
+    public Vector2Int GetCells()
+    {
+        return cells;
+    }
 }

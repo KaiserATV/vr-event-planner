@@ -17,14 +17,16 @@ public class RadicalSelection : MonoBehaviour
     public float angleBetweenPart = 10;
     public Transform handTransform;
     public ObjectSpawner objectSpawner;
-
-    public UnityEvent<int> OnPartSelected;
+    public List<UnityEvent<int>> partToFunction;
 
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
 
     public InputActionReference menuActivateAction;
 
+    public float waitTimeUntilActivation = 2.0f;
+    public float timeWaited = 0;
+    public int waitingAt=-1;
 
 
 
@@ -52,10 +54,10 @@ public class RadicalSelection : MonoBehaviour
         // Keep the menu active and update selection
         if (radialPartCanvas.gameObject.activeSelf)
         {
-            GetSelectedRadialPart();
+            GetSelectedRadialPart(Time.deltaTime);
 
             // Hide and trigger the selected part when the button is released
-            if (menuActivateAction.action.WasReleasedThisFrame())
+            if (menuActivateAction.action.WasReleasedThisFrame() && timeWaited > waitTimeUntilActivation)
             {
                 HideAndTriggerSelected();
             }
@@ -63,13 +65,19 @@ public class RadicalSelection : MonoBehaviour
 
     }
 
+    private void ResetWaitTimer(int newWait)
+    {
+        timeWaited = 0;
+        waitingAt = newWait;
+    }
+
     private void HideAndTriggerSelected()
     {
-        OnPartSelected.Invoke(currentSelectedRadialPart);
+        partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
         radialPartCanvas.gameObject.SetActive(false);
     }
 
-    public void GetSelectedRadialPart()
+    public void GetSelectedRadialPart(float time)
     {
         Vector3 centerToHand = handTransform.position - radialPartCanvas.position;
         Vector3 centerToHandProjected = Vector3.ProjectOnPlane(centerToHand, radialPartCanvas.forward);
@@ -84,6 +92,11 @@ public class RadicalSelection : MonoBehaviour
         //Debug.Log("ANGLE: " + angle);
 
         currentSelectedRadialPart = (int)angle * numberOfRadialPart / 360;
+        if(currentSelectedRadialPart != waitingAt)
+        {
+            ResetWaitTimer(currentSelectedRadialPart);
+        }
+        timeWaited += time;
 
         for (int i = 0; i < spawnedParts.Count; i++)
         {
