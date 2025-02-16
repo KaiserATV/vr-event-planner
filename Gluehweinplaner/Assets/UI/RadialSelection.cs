@@ -153,7 +153,7 @@ public class RadicalSelection : MonoBehaviour
             //var iconImage = spawnedRadialPart.transform.GetChild(0).GetComponent<Image>();
             //iconImage.sprite = buttonIcons[i];
             //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
-            TextMeshPro buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshPro>();
+            TextMeshProUGUI buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshProUGUI>();
             if (buttonText != null && i < buttonLabels.Count)
             {
                 buttonText.text = buttonLabels[i];
