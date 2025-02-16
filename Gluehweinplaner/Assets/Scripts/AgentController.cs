@@ -35,6 +35,7 @@ public class AgentController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.autoRepath = true;
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+        sm.addPlayer(this);
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
         FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
@@ -98,7 +99,7 @@ public class AgentController : MonoBehaviour
 
     public void Destroy()
     {
-        sm.removePlayer();
+        sm.removePlayer(this);
         Destroy(this.gameObject);
     }
 

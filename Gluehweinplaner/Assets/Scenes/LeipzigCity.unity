@@ -426,7 +426,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1036096516}
         m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: StartSimulation
+        m_MethodName: ToggleSimulation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

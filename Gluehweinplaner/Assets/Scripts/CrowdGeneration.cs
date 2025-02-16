@@ -64,7 +64,6 @@ public class CrowdGeneration : MonoBehaviour
                 agent.transform.parent = transform;
 
                 m_agentPositions.Add(position);
-                am.addPlayer();
                 zeitVergangen = spawnTime;
             }
         }
