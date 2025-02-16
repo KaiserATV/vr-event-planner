@@ -8,7 +8,7 @@ public class AgentManager : MonoBehaviour
     public int playerCount = 0;
     public int maxPlayerCount = 50;
 
-    public bool simulating = true;
+    public bool simulating = false;
 
     public string budenContainerName = "BudenContainer";
     public string exitContainerName = "ExitContainer";
