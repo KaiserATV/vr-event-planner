@@ -23,7 +23,7 @@ public class GodmodeController : MonoBehaviour
 
     private Vector3 originalPosition;
 
-    void Update()
+   void Update()
     {
         if (toggleGodmodeAction.action.WasPressedThisFrame())
         {
@@ -36,7 +36,7 @@ public class GodmodeController : MonoBehaviour
         }
     }
 
-    IEnumerator ToggleGodmode()
+    public IEnumerator ToggleGodmode()
     {
         isGodmodeActive = !isGodmodeActive;
 
