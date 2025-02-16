@@ -100,7 +100,6 @@ public class AgentController : MonoBehaviour
 
     public void Destroy()
     {
-        agent.;
         sm.removePlayer(this);
         Destroy(this.gameObject);
     }
