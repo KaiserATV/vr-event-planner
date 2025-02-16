@@ -84,8 +84,8 @@ public class RadicalSelection : MonoBehaviour
         if(timeWaited > waitTimeUntilActivation)
         {
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
-            radialPartCanvas.gameObject.SetActive(false);
         }
+            radialPartCanvas.gameObject.SetActive(false);
     }
 
     public void GetSelectedRadialPart(float time)
