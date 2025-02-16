@@ -49,7 +49,10 @@ public class AgentController : MonoBehaviour
             if (waiting)
             {
                 timeLeftWaiting -= Time.deltaTime;
-                if (timeLeftWaiting < 0) { bude.RemovePlayer(cells , this); waiting = false; FindNextGoal(); }
+                if (timeLeftWaiting < 0 && bude != null) { 
+                    bude.RemovePlayer(cells , this); 
+                    waiting = false; 
+                    FindNextGoal(); }
             }
             else if (agent.remainingDistance < goalThreshhold && !exiting)
             {
@@ -102,15 +105,19 @@ public class AgentController : MonoBehaviour
     public void Destroy()
     {
         agent.Warp(sm.GetNewSpawnPoint());//to random spawner
+
         stopped = false;
         waiting = false;
+        exiting = false;
+
         timeLeftWaiting = 0.0f;
         visitedGoalNumbers = new List<int>();
-        goal = new Vector2(-1,-1);
-        exiting = false;
-        cells = new Vector2Int(-1, -1);
-        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
+        bude = null;
+        
         FindNextGoal();
+
+        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
+        
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
 
