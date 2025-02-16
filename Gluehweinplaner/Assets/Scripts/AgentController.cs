@@ -44,7 +44,7 @@ public class AgentController : MonoBehaviour
 
     void Update()
     {
-        if (!stopped && agent.isOnNavMesh)
+        if (!stopped)
         {
             if (waiting)
             {
@@ -109,7 +109,10 @@ public class AgentController : MonoBehaviour
         goal = new Vector2(-1,-1);
         exiting = false;
         cells = new Vector2Int(-1, -1);
-}
+        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
+        FindNextGoal();
+        agent.destination = new Vector3(goal.x, 0, goal.y);
+    }
 
     public void Stop()
     {
