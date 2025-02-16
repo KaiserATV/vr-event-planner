@@ -37,8 +37,8 @@ public class RadicalSelection : MonoBehaviour
 
     void Start()
     {
-        buttonLabels.Add("Bude hinzufügen");
-        buttonLabels.Add("Toggle Simulation");
+        buttonLabels.Add("Bude");
+        buttonLabels.Add("Sim");
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
