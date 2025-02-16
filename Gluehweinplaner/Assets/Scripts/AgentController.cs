@@ -67,6 +67,7 @@ public class AgentController : MonoBehaviour
 
     void FindNextGoal()
     {
+        timeLeftWaiting = 0.0f;
         if (goalsBeforeExit > 0 && !exiting)
         {
             do
@@ -100,9 +101,15 @@ public class AgentController : MonoBehaviour
 
     public void Destroy()
     {
-        sm.removePlayer(this);
-        Destroy(this.gameObject);
-    }
+        agent.Warp(sm.GetNewSpawnPoint());//to random spawner
+        stopped = false;
+        waiting = false;
+        timeLeftWaiting = 0.0f;
+        visitedGoalNumbers = new List<int>();
+        goal = new Vector2(-1,-1);
+        exiting = false;
+        cells = new Vector2Int(-1, -1);
+}
 
     public void Stop()
     {

@@ -12,11 +12,14 @@ public class AgentManager : MonoBehaviour
 
     public string budenContainerName = "BudenContainer";
     public string exitContainerName = "ExitContainer";
+    public string spawnerContainerName = "SpawnerContainer";
+
 
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
     
     Buden[] alleBuden;
     Exits[] alleExits;
+    CrowdGeneration[] spawner;
 
 
     // Start is called before the first frame update
@@ -24,6 +27,7 @@ public class AgentManager : MonoBehaviour
     {
         alleBuden = GameObject.Find(budenContainerName).GetComponentsInChildren<Buden>();
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
+        spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
@@ -113,6 +117,12 @@ public class AgentManager : MonoBehaviour
                 ResumeSimulation();
             }
         }
+    }
+    public Vector2 GetNewSpawnPoint()
+    {
+        Vector3 tmp = spawner[Random.Range(0, spawner.Length)].GenerateRandomPosition();
+        return new Vector2(tmp.x, tmp.z);
+
     }
     public int BudenCount() { return alleBuden.Length; }
     public int ExitCount() { return alleExits.Length; }

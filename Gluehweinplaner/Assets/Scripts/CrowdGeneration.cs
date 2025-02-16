@@ -10,6 +10,7 @@ public class CrowdGeneration : MonoBehaviour
     public float minWorldLimitZ = 0;
     public float maxWorldLimitZ = 0;
     public float spawnTime = 1f;
+    public float agentradius = 0.5f;
 
     private float zeitVergangen;
 
@@ -54,7 +55,7 @@ public class CrowdGeneration : MonoBehaviour
             }
             else if (am.CanAddPlayer())
             {
-                Vector3 position = GenerateRandomPosition(m_agentPositions);
+                Vector3 position = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
 
                 // Instantiate agent
@@ -70,7 +71,7 @@ public class CrowdGeneration : MonoBehaviour
     }
 
 
-    private Vector3 GenerateRandomPosition(List<Vector3> takenPositions)
+    public Vector3 GenerateRandomPosition()
     {
         Vector3 position;
         do
@@ -80,7 +81,7 @@ public class CrowdGeneration : MonoBehaviour
             position = new Vector3(cellX, col.bounds.min.y + 1, cellZ);
 
 
-        } while (IsPositionTooClose(position, takenPositions) || obstaclePositions.Contains(position));
+        } while (Physics.CheckSphere(position,agentradius));
 
         return position;
     }
