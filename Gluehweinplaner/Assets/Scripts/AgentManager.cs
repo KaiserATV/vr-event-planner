@@ -6,7 +6,7 @@ using UnityEngine;
 public class AgentManager : MonoBehaviour
 {
     public int playerCount = 0;
-    public int maxPlayerCount = 10;
+    public int maxPlayerCount = 50;
 
     public bool simulating = true;
 
