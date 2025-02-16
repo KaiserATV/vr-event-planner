@@ -2157,8 +2157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xrRig: {fileID: 1731298974}
-  moveSpeed: 3
-  verticalSpeed: 2
+  moveSpeed: 30
+  verticalSpeed: 20
   transitionDuration: 1
   moveVerticalAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   moveHorizontalAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
