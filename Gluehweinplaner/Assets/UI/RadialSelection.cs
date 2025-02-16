@@ -113,6 +113,8 @@ public class RadicalSelection : MonoBehaviour
         {
             if (i == currentSelectedRadialPart)
             {
+                Color c = Color.yellow;
+                c.a = (timeWaited / waitTimeUntilActivation);
                 spawnedParts[i].GetComponent<Image>().color = Color.yellow;
                 spawnedParts[i].transform.localScale = 1.1f * UnityEngine.Vector3.one;
             }
