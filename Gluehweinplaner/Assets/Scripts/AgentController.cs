@@ -44,7 +44,7 @@ public class AgentController : MonoBehaviour
 
     void Update()
     {
-        if (!stopped)
+        if (!stopped && agent.isOnNavMesh)
         {
             if (waiting)
             {
