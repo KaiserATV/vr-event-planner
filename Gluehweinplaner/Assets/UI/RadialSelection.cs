@@ -7,6 +7,7 @@ using System;
 using UnityEngine.InputSystem;
 using System.Linq;
 using Unity.VisualScripting;
+using TMPro;
 
 
 public class RadicalSelection : MonoBehaviour
@@ -149,7 +150,7 @@ public class RadicalSelection : MonoBehaviour
             //var iconImage = spawnedRadialPart.transform.GetChild(0).GetComponent<Image>();
             //iconImage.sprite = buttonIcons[i];
             //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
-            Text buttonText = spawnedRadialPart.GetComponentInChildren<Text>();
+            TextMeshPro buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshPro>();
             if (buttonText != null && i < buttonLabels.Count)
             {
                 buttonText.text = buttonLabels[i];
