@@ -13,8 +13,11 @@ public class AgentManager : MonoBehaviour
     public string budenContainerName = "BudenContainer";
     public string exitContainerName = "ExitContainer";
 
+    private List<AgentController> alleCurrentAgents = new List<AgentController>();
+    
     Buden[] alleBuden;
     Exits[] alleExits;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,6 @@ public class AgentManager : MonoBehaviour
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
-        
         for(int i = 0; i < alleBuden.Length; i++)
         {
             int rand = Random.Range(0, alleBuden.Length);
@@ -64,14 +66,15 @@ public class AgentManager : MonoBehaviour
         return alleBuden[budenNr].waitTime;
     }
 
-    public void addPlayer(){ playerCount++;}
-    public void removePlayer(){ playerCount--; }
+    public void addPlayer(AgentController ac){ playerCount++;alleCurrentAgents.Add(ac); }
+    public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Add(ac); }
 
     public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
 
     public void StartSimulation() { simulating = true; }
+    public void ResumeSimulation() {  simulating = true; foreach (AgentController ac in alleCurrentAgents) { ac.Resume(); } }
 
-    public void StopSimulation() {  simulating = false; }
+    public void StopSimulation() { simulating = false; foreach (AgentController ac in alleCurrentAgents) { ac.Stop(); } }
 
     public void ResetSimulation() {  simulating = false; foreach (Buden b in alleBuden) { b.Reset(); } }
 
@@ -83,6 +86,24 @@ public class AgentManager : MonoBehaviour
         alleBuden = tempList.ToArray();
     }
 
+    public void ToggleSimulation()
+    {
+        if (simulating)
+        {
+            StopSimulation();
+        }
+        else
+        {
+            if(playerCount == 0)
+            {
+                StartSimulation();
+            }
+            else
+            {
+                ResumeSimulation();
+            }
+        }
+    }
     public int BudenCount() { return alleBuden.Length; }
     public int ExitCount() { return alleExits.Length; }
 
