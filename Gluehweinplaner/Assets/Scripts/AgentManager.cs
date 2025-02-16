@@ -71,7 +71,7 @@ public class AgentManager : MonoBehaviour
     }
 
     public void addPlayer(AgentController ac){ playerCount++;alleCurrentAgents.Add(ac); }
-    public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Add(ac); Resources.UnloadUnusedAssets(); }
+    public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Add(ac); }
 
     public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
 
