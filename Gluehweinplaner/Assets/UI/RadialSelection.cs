@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using System;
 using UnityEngine.InputSystem;
 using System.Linq;
+using Unity.VisualScripting;
 
 
 public class RadicalSelection : MonoBehaviour
@@ -22,6 +23,9 @@ public class RadicalSelection : MonoBehaviour
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
 
+    public List<string> buttonLabels;  // Text for each button
+    public float textRotationOffset = 90f;  // Keep text upright
+
     public InputActionReference menuActivateAction;
 
     public float waitTimeUntilActivation = 2.0f;
@@ -32,6 +36,9 @@ public class RadicalSelection : MonoBehaviour
 
     void Start()
     {
+        buttonLabels.Add("Bude hinzufügen");
+        buttonLabels.Add("Toggle Simulation");
+
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
         //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
@@ -142,8 +149,22 @@ public class RadicalSelection : MonoBehaviour
             //var iconImage = spawnedRadialPart.transform.GetChild(0).GetComponent<Image>();
             //iconImage.sprite = buttonIcons[i];
             //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
+            Text buttonText = spawnedRadialPart.GetComponentInChildren<Text>();
+            if (buttonText != null && i < buttonLabels.Count)
+            {
+                buttonText.text = buttonLabels[i];
+                // Counteract radial rotation
+                buttonText.transform.localRotation = Quaternion.Euler(0, 0, textRotationOffset);
+            }
+
+            //// Add icon implementation (optional)
+            //Image iconImage = spawnedRadialPart.GetComponentInChildren<Image>();
+            //if (iconImage != null && i < buttonIcons.Count)
+            //{
+            //    iconImage.sprite = buttonIcons[i];
+            //    iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
+            //}
         }
     }
-
 }
 
