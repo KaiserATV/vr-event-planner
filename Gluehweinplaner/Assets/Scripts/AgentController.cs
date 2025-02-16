@@ -49,7 +49,7 @@ public class AgentController : MonoBehaviour
             if (waiting)
             {
                 timeLeftWaiting -= Time.deltaTime;
-                if (timeLeftWaiting < 0) { bude.RemovePlayer(cells,this); waiting = false; FindNextGoal(); }
+                if (timeLeftWaiting < 0) { bude.RemovePlayer(cells , this); waiting = false; FindNextGoal(); }
             }
             else if (agent.remainingDistance < goalThreshhold && !exiting)
             {

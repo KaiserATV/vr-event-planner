@@ -48,7 +48,7 @@ public class BitArray2D
 
     public void RemovePlayer(Vector2Int v, AgentController ac)
     {
-        registeredPlayers.Remove(ac);
+        if(registeredPlayers.Contains(ac)){ registeredPlayers.Remove(ac); };
         array[v.y * cellsX+ v.x] = false;
         full = false;
     }
