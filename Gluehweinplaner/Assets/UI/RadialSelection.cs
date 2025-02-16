@@ -17,8 +17,7 @@ public class RadicalSelection : MonoBehaviour
     public float angleBetweenPart = 10;
     public Transform handTransform;
     public ObjectSpawner objectSpawner;
-
-    public UnityEvent<int> OnPartSelected;
+    public List<UnityEvent<int>> partToFunction;
 
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
@@ -65,7 +64,7 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
-        OnPartSelected.Invoke(currentSelectedRadialPart);
+        partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
         radialPartCanvas.gameObject.SetActive(false);
     }
 
