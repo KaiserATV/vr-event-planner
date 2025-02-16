@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -99,6 +100,7 @@ public class AgentController : MonoBehaviour
 
     public void Destroy()
     {
+        agent.;
         sm.removePlayer(this);
         Destroy(this.gameObject);
     }

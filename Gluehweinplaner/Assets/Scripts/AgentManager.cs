@@ -76,7 +76,15 @@ public class AgentManager : MonoBehaviour
 
     public void StopSimulation() { simulating = false; foreach (AgentController ac in alleCurrentAgents) { ac.Stop(); } }
 
-    public void ResetSimulation() {  simulating = false; foreach (Buden b in alleBuden) { b.Reset(); } foreach (AgentController ac in alleCurrentAgents) { ac.Destroy(); } }
+    public void ResetSimulation() {  
+        simulating = false; 
+        foreach (Buden b in alleBuden) { b.Reset(); } 
+        AgentController ac; 
+        while(alleCurrentAgents.Count > 0) { 
+            ac = alleCurrentAgents[0];
+            alleCurrentAgents.Remove(ac);
+            ac.Destroy();
+        } }
 
    public void AddBude(Buden neueBude)
     {
