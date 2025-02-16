@@ -52,7 +52,6 @@ public class Buden : MonoBehaviour
             wait_L.RefreshPos();
             wait_R.RefreshPos();
             this.transform.hasChanged = false;
-            Debug.Log(this.transform.position);
         }
     }
 

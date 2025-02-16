@@ -461,6 +461,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MoveBuilding",
+                    "type": "Value",
+                    "id": "16dee660-f562-4846-9ca3-1192cffabca0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -714,6 +723,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleGodmode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1c7a27b-477a-457e-a646-5caaf9b14c2e",
+                    "path": "<ViveController>/trackpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveBuilding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1306,6 +1326,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotateBuilding",
+                    "type": "Value",
+                    "id": "15f2fa9c-7a4a-49a2-81c0-c211f36f7465",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1592,6 +1621,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Confirm Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9bd3b6d0-550b-42f7-9209-20415d49b934",
+                    "path": "<ViveController>/trackpad/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1018486d-ec01-4480-9476-e9f8afded74a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBuilding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
