@@ -29,7 +29,7 @@ public class RadicalSelection : MonoBehaviour
 
     public InputActionReference menuActivateAction;
 
-    public float waitTimeUntilActivation = 2.0f;
+    public float waitTimeUntilActivation = 1.0f;
     public float timeWaited = 0;
     public int waitingAt=-1;
 
