@@ -155,7 +155,6 @@ public class RadicalSelection : MonoBehaviour
             {
                 buttonText.text = buttonLabels[i];
                 // Counteract radial rotation
-                buttonText.transform.localRotation = Quaternion.Euler(0, 0, textRotationOffset);
             }
 
             //// Add icon implementation (optional)
