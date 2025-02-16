@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
 
 public class GodmodeController : MonoBehaviour
 {
     public GameObject xrRig; // XR Origin (Kamera + Controller)
-    public float moveSpeed = 3f;  
-    public float verticalSpeed = 2f; 
+    public float moveSpeed = 3f;
+    public float verticalSpeed = 2f;
+    public float transitionDuration = 1f;
 
     private bool isGodmodeActive = false;
 
@@ -25,7 +27,7 @@ public class GodmodeController : MonoBehaviour
     {
         if (toggleGodmodeAction.action.WasPressedThisFrame())
         {
-            ToggleGodmode();
+            StartCoroutine(ToggleGodmode());
         }
 
         if (isGodmodeActive)
@@ -34,29 +36,41 @@ public class GodmodeController : MonoBehaviour
         }
     }
 
-    void ToggleGodmode()
+    IEnumerator ToggleGodmode()
     {
         isGodmodeActive = !isGodmodeActive;
 
         if (isGodmodeActive)
         {
-            // Speichere Position und verschiebe nach oben
             originalPosition = xrRig.transform.position;
-            xrRig.transform.position += new Vector3(0, 5, 0);
+            Vector3 targetPosition = originalPosition + new Vector3(0, 5, 0);
+            yield return StartCoroutine(SmoothTransition(targetPosition));
 
-            // Locomotion deaktivieren
             if (teleportProvider != null) teleportProvider.enabled = false;
             if (snapTurnProvider != null) snapTurnProvider.enabled = false;
         }
         else
         {
-            // Zurück zur ursprünglichen Position
-            xrRig.transform.position = originalPosition;
+            yield return StartCoroutine(SmoothTransition(originalPosition));
 
-            // Locomotion wieder aktivieren
             if (teleportProvider != null) teleportProvider.enabled = true;
             if (snapTurnProvider != null) snapTurnProvider.enabled = true;
         }
+    }
+
+    IEnumerator SmoothTransition(Vector3 targetPosition)
+    {
+        Vector3 startPosition = xrRig.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < transitionDuration)
+        {
+            xrRig.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        xrRig.transform.position = targetPosition;
     }
 
     void MoveGodmode()
@@ -64,7 +78,11 @@ public class GodmodeController : MonoBehaviour
         float verticalMove = moveVerticalAction.action.ReadValue<float>() * verticalSpeed * Time.deltaTime;
         Vector2 horizontalInput = moveHorizontalAction.action.ReadValue<Vector2>();
 
-        Vector3 move = new Vector3(horizontalInput.x, verticalMove, horizontalInput.y) * moveSpeed * Time.deltaTime;
-        xrRig.transform.Translate(move, Space.Self);
+        Vector3 forward = new Vector3(xrRig.transform.forward.x, 0, xrRig.transform.forward.z).normalized;
+        Vector3 right = new Vector3(xrRig.transform.right.x, 0, xrRig.transform.right.z).normalized;
+        Vector3 horizontalMove = (forward * horizontalInput.y + right * horizontalInput.x) * moveSpeed * Time.deltaTime;
+        Vector3 verticalMovement = Vector3.up * verticalMove;
+
+        xrRig.transform.position += horizontalMove + verticalMovement;
     }
 }
