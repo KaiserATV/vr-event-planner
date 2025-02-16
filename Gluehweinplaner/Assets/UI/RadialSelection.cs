@@ -81,7 +81,7 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
-        if(timeWaited > waitTimeUntilActivation)
+        if(timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < partToFunction.Count)
         {
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
         }
