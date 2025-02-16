@@ -23,7 +23,6 @@ public class BitArray2D
     private float schiebX;
     private float schiebZ;
 
-
     public BitArray2D( Bounds b, Transform child, float aR, int p) { 
         bounds = b;
         childT = child;
@@ -40,11 +39,14 @@ public class BitArray2D
     public void AddPlayer(Vector2Int v, AgentController ac)
     {
         registeredPlayers.Add(ac);
+        ac.SetCells(v);
+        ac.SetBude(this);
+        ac.SetGoal(GetRealWorldCords(v));
         array[v.y * cellsX + v.x] = true;
         if(registeredPlayers.Count == cellsX * cellsZ) { full = true; }
     }
 
-    public void RemovePlayer(Vector3Int v, AgentController ac)
+    public void RemovePlayer(Vector2Int v, AgentController ac)
     {
         registeredPlayers.Remove(ac);
         array[v.y * cellsX+ v.x] = false;
@@ -123,7 +125,7 @@ public class BitArray2D
 
         foreach (AgentController ac in registeredPlayers)
         {
-            ac.InvalidatePosition(GetRealWorldCords(ac.cells));
+            ac.InvalidatePosition(GetRealWorldCords(ac.GetCells()));
         }
     }
 
@@ -139,11 +141,11 @@ public class BitArray2D
         cellsZ = Mathf.FloorToInt(bounds.size.z / agentRadius);
     }
 
-    public Vector3 GetRealWorldCords(Vector3Int cells)
+    public Vector2 GetRealWorldCords(Vector2Int cells)
     {
         float lx = (cellsX / 2 * schiebX) - (cells.x * schiebX) - schiebX / 2;
         float lz = (cellsZ / 2 * schiebZ) - (cells.y * schiebZ) - schiebZ / 2;
         Vector3 tV = childT.TransformPoint(new Vector3(lx, 0, lz));
-        return new Vector3(tV.x, tV.z, cells.z);
+        return new Vector3(tV.x, tV.z);
     }
 }

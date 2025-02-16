@@ -1,10 +1,11 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Buden : MonoBehaviour
 {
     public float agentRadius = 1f;
 
-    public float waitTime = 50.0f;
+    public float waitTime = 10.0f;
 
     private bool komplettAusgelastet = false;
 
@@ -25,7 +26,7 @@ public class Buden : MonoBehaviour
         //ziel Array
         Transform child = this.transform.GetChild(4);
         Bounds bound = child.GetComponent<MeshRenderer>().bounds;
-        ziel = new BitArray2D(bound, child, agentRadius,0);
+        ziel = new BitArray2D(bound, child, agentRadius, 0);
 
         //Wait_B Array
         child = this.transform.GetChild(1);
@@ -55,13 +56,11 @@ public class Buden : MonoBehaviour
         }
     }
 
-
-
     public Vector3Int GetNewPosition(AgentController ac)
     {
         Vector2Int cellCoord;
         int zone;
-
+        CheckAuslastung();
         if (!ziel.IsFull())
         {
             cellCoord = ziel.FindBestPositionAndAdd(ac);
@@ -83,48 +82,17 @@ public class Buden : MonoBehaviour
             zone = 3;
         }else
         {
-            komplettAusgelastet = true;
             //Needs to find another target
             return new Vector3Int(-1, -1, -1);
         }
         return new Vector3Int(cellCoord.x, cellCoord.y, zone);
     }
 
-    public Vector3 GetRealWorldCoords(Vector3Int cells)
+    public void CheckAuslastung()
     {
-        switch (cells.z)
-        {
-            case 0:
-                return ziel.GetRealWorldCords(cells);
-            case 1:
-                return wait_B.GetRealWorldCords(cells);
-            case 2:
-                return wait_L.GetRealWorldCords(cells);
-            case 3:
-                return wait_R.GetRealWorldCords(cells);
-            default:
-                return new Vector3(-1, -1,cells.z);
-        }
+        komplettAusgelastet = ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull();
     }
 
-    public void RemovePlayer(AgentController ac, Vector3Int cells)
-    {
-        switch (cells.z)
-        {
-            case 0:
-                ziel.RemovePlayer(cells, ac);
-                break;
-            case 1:
-                wait_B.RemovePlayer(cells, ac);
-                break;
-            case 2:
-                wait_L.RemovePlayer(cells, ac);
-                break;
-            case 3:
-                wait_R.RemovePlayer(cells, ac);
-                break;
-        }
-    }
 
     public void Reset()
     {

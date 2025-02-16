@@ -23,7 +23,7 @@ public class AgentManager : MonoBehaviour
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
     }
 
-    public Vector3Int GetNewCellsPos(out int budenNr, AgentController ac, List<int> besuchteBudenNr)
+    public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
         
         for(int i = 0; i < alleBuden.Length; i++)
@@ -32,25 +32,13 @@ public class AgentManager : MonoBehaviour
             
             if (!alleBuden[rand].IstAusgelasted() && !besuchteBudenNr.Contains(rand))
             {
-                budenNr = rand;
-                Debug.Log(rand);
-                return alleBuden[rand].GetNewPosition(ac);
+                alleBuden[rand].GetNewPosition(ac);
+                return rand;
             }
         }
-
-        budenNr = -1;
-        return new Vector3Int(-1, -1, -1);
+        return -1;
     }
 
-    public void DeRegisterPlayer(AgentController ac, Vector3Int cells,int goalNr)
-    {
-        alleBuden[goalNr].RemovePlayer(ac, cells);
-    }
-
-    public Vector3 GetNewWorldPos(Vector3Int v, int nr)
-    {
-            return alleBuden[nr].GetRealWorldCoords(v);
-    }
 
     public Vector3 GetClostestExit(Vector3 position)
     {
@@ -94,4 +82,8 @@ public class AgentManager : MonoBehaviour
         tempList.Add(neueBude);
         alleBuden = tempList.ToArray();
     }
+
+    public int BudenCount() { return alleBuden.Length; }
+    public int ExitCount() { return alleExits.Length; }
+
 }
