@@ -93,7 +93,7 @@ public class AgentController : MonoBehaviour
 
     public void InvalidatePosition(Vector3 newCoords)
     {
-        if (waiting) { waiting = false; }
+        if (waiting) { waiting = false; agent.isStopped = false; }
         goal = newCoords;
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
