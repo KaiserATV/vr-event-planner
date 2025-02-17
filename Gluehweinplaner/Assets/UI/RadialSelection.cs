@@ -56,7 +56,6 @@ public class RadicalSelection : MonoBehaviour
 
         gradient.SetKeys(colors, alphas);
 
-        gradient.mode = GradientMode.PerceptualBlend;
     }
 
     void Update()
