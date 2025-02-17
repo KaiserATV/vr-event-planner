@@ -47,11 +47,11 @@ public class RadicalSelection : MonoBehaviour
 
 
         var colors = new GradientColorKey[2];
-        colors[0] = new GradientColorKey(Color.yellow, 0.0f);
+        colors[0] = new GradientColorKey(Color.white, 0.0f);
         colors[1] = new GradientColorKey(Color.yellow, 1.0f);
 
         var alphas = new GradientAlphaKey[2];
-        alphas[0] = new GradientAlphaKey(0.0f, 0.0f);
+        alphas[0] = new GradientAlphaKey(1.0f, 0.0f);
         alphas[1] = new GradientAlphaKey(1.0f, 1.0f);
 
         gradient.SetKeys(colors, alphas);
