@@ -20,6 +20,7 @@ public class RadicalSelection : MonoBehaviour
     public Transform handTransform;
     public ObjectSpawner objectSpawner;
     public List<UnityEvent<int>> partToFunction;
+    public Gradient gradient = new Gradient();
 
     private List<GameObject> spawnedParts = new List<GameObject>();
     private int currentSelectedRadialPart = -1;
@@ -43,6 +44,18 @@ public class RadicalSelection : MonoBehaviour
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
         //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
+
+
+        var colors = new GradientColorKey[2];
+        colors[0] = new GradientColorKey(Color.yellow, 0.0f);
+        colors[1] = new GradientColorKey(Color.yellow, 1.0f);
+
+        var alphas = new GradientAlphaKey[2];
+        alphas[0] = new GradientAlphaKey(0.0f, 0.0f);
+        alphas[1] = new GradientAlphaKey(1.0f, 1.0f);
+
+        gradient.SetKeys(colors, alphas);
+
 
     }
 
@@ -113,7 +126,7 @@ public class RadicalSelection : MonoBehaviour
         {
             if (i == currentSelectedRadialPart)
             {
-                spawnedParts[i].GetComponent<Image>().color = new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, (timeWaited / waitTimeUntilActivation));
+                spawnedParts[i].GetComponent<Image>().color = gradient.Evaluate(timeWaited/waitTimeUntilActivation);
                 spawnedParts[i].transform.localScale = 1.1f * UnityEngine.Vector3.one;
             }
             else
