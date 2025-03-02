@@ -660,6 +660,7 @@ MonoBehaviour:
   waitingAt: -1
   spawnRadialPartSoundClip: {fileID: 8300000, guid: 1ed3360762628ac40b32606a6be84a83, type: 3}
   selectionChangeSoundClip: {fileID: 8300000, guid: 0a080161d8f2d4846a75867829c5fbd5, type: 3}
+  selectionConfirmSoundClip: {fileID: 8300000, guid: 136c08beefe835b449c466a7ef07d70d, type: 3}
 --- !u!1 &276246237
 GameObject:
   m_ObjectHideFlags: 0
@@ -3054,6 +3055,8 @@ MonoBehaviour:
   toggleGodmodeAction: {fileID: 5030052954490463457, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   teleportProvider: {fileID: 1731298971}
   snapTurnProvider: {fileID: 1731298973}
+  godmodeActivateSound: {fileID: 8300000, guid: 363327925c0cb0945aa7475d1da90c88, type: 3}
+  godmodeDeactivateSound: {fileID: 8300000, guid: 8a352b0dc888d71458f840dcf6dcded2, type: 3}
 --- !u!136 &1731298982
 CapsuleCollider:
   m_ObjectHideFlags: 0
