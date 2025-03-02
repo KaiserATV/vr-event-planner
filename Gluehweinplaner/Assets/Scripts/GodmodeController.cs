@@ -23,6 +23,9 @@ public class GodmodeController : MonoBehaviour
 
     private Vector3 originalPosition;
 
+    [SerializeField] private AudioClip godmodeActivateSound;
+    [SerializeField] private AudioClip godmodeDeactivateSound;
+
    void Update()
     {
         if (toggleGodmodeAction.action.WasPressedThisFrame())
@@ -39,6 +42,18 @@ public class GodmodeController : MonoBehaviour
     public IEnumerator ToggleGodmode()
     {
         isGodmodeActive = !isGodmodeActive;
+
+        // Play sound effect
+        if (isGodmodeActive)
+        {
+            if(godmodeActivateSound != null)
+                SoundFXManager.instance.PlaySoundFXClip(godmodeActivateSound, transform, 1f);
+        }
+        else
+        {
+            if(godmodeDeactivateSound != null)
+                SoundFXManager.instance.PlaySoundFXClip(godmodeDeactivateSound, transform, 1f);
+        }
 
         if (isGodmodeActive)
         {
