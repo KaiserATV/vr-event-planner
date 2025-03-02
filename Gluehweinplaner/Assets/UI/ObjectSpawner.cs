@@ -28,6 +28,8 @@ public class ObjectSpawner : MonoBehaviour
     private float rotationSpeed = 100f; // Geschwindigkeit der Rotation
     private bool hasManualRotation = false; // Merker für manuelle Drehung
 
+    [SerializeField] private AudioClip placementSoundClip;
+
     void Start()
     {
         budenContainer = GameObject.Find("BudenContainer");    
@@ -112,6 +114,10 @@ public class ObjectSpawner : MonoBehaviour
             budenContainer.transform);
 
         am.AddBude(newObj.GetComponent<Buden>());
+
+        //play Placement Sound Effect
+        SoundFXManager.instance.PlaySoundFXClip(placementSoundClip, transform, 1f);
+
         Destroy(currentPreview);
         selectedIndex = -1;
         hasManualRotation = false; // Reset nach Platzierung
