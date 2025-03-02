@@ -37,6 +37,7 @@ public class RadicalSelection : MonoBehaviour
     [SerializeField] private AudioClip spawnRadialPartSoundClip;
     [SerializeField] private AudioClip selectionChangeSoundClip;
     private int previousSelected = -1; // Track previous selection
+    [SerializeField] private AudioClip selectionConfirmSoundClip;
 
 
 
@@ -99,6 +100,12 @@ public class RadicalSelection : MonoBehaviour
     {
         if(timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < partToFunction.Count)
         {
+            // Play confirmation sound before invoking action
+            if(selectionConfirmSoundClip != null)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(selectionConfirmSoundClip, transform, 1f);
+            }
+            
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
         }
             radialPartCanvas.gameObject.SetActive(false);
