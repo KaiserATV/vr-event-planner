@@ -34,12 +34,14 @@ public class RadicalSelection : MonoBehaviour
     public float timeWaited = 0;
     public int waitingAt=-1;
 
+    [SerializeField] private AudioClip spawnRadialPartSoundClip;
+
 
 
     void Start()
     {
-        buttonLabels.Add("Bude");
-        buttonLabels.Add("Sim Tog");
+        buttonLabels.Add("Veranstaltungsobjekt");
+        buttonLabels.Add("Besucherstrom");
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
@@ -139,6 +141,10 @@ public class RadicalSelection : MonoBehaviour
     public void SpawnRadialPart()
     {
         radialPartCanvas.gameObject.SetActive(true);
+
+        //play Placement Sound Effect
+        SoundFXManager.instance.PlaySoundFXClip(spawnRadialPartSoundClip, transform, 1f);
+
         radialPartCanvas.position = handTransform.position;
         radialPartCanvas.rotation = handTransform.rotation;
 
