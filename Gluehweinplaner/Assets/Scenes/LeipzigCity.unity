@@ -659,6 +659,7 @@ MonoBehaviour:
   timeWaited: 0
   waitingAt: -1
   spawnRadialPartSoundClip: {fileID: 8300000, guid: 1ed3360762628ac40b32606a6be84a83, type: 3}
+  selectionChangeSoundClip: {fileID: 8300000, guid: 0a080161d8f2d4846a75867829c5fbd5, type: 3}
 --- !u!1 &276246237
 GameObject:
   m_ObjectHideFlags: 0
