@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 0
-  maxPlayerCount: 2000
+  maxPlayerCount: 200
   simulating: 0
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
@@ -2450,10 +2450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939ecdc81ff34c04db67323cd2727e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positions: []
-  properties: []
-  material: {fileID: 2100000, guid: 7742e2e1d830e4247add18d9ead6b8e0, type: 2}
-  count: 50
 --- !u!1 &1709099408
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,11 +2745,13 @@ MonoBehaviour:
   moveSpeed: 30
   verticalSpeed: 20
   transitionDuration: 1
-  moveVerticalAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  moveHorizontalAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  verticalMoveAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  horizontalMoveAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   toggleGodmodeAction: {fileID: 5030052954490463457, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  grabAction: {fileID: 0}
   teleportProvider: {fileID: 1731298971}
   snapTurnProvider: {fileID: 1731298973}
+  vignetteEffect: {fileID: 0}
 --- !u!136 &1731298982
 CapsuleCollider:
   m_ObjectHideFlags: 0

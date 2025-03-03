@@ -448,7 +448,7 @@
                     "name": "MoveVertical",
                     "type": "Value",
                     "id": "13692ec6-0a7a-4c1f-aafc-3403cd8aeb6a",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

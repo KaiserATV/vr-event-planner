@@ -11,26 +11,39 @@ public class GodmodeController : MonoBehaviour
     public float transitionDuration = 1f;
 
     private bool isGodmodeActive = false;
+    private bool isGrabbingObject = false;
 
-    // Input Actions für Trackpad-Steuerung
-    public InputActionReference moveVerticalAction;
-    public InputActionReference moveHorizontalAction;
+    // Input Actions für Steuerung
+    public InputActionReference verticalMoveAction; // Nur linker Controller für vertikale Bewegung
+    public InputActionReference horizontalMoveAction; // Nur rechter Controller für horizontale Bewegung
     public InputActionReference toggleGodmodeAction;
+    public InputActionReference grabAction;
 
     // Locomotion-System Komponenten
     public TeleportationProvider teleportProvider;
     public LocomotionProvider snapTurnProvider;
+    
+    public GameObject vignetteEffect; // Schwarze Vignette gegen Motion Sickness
 
     private Vector3 originalPosition;
 
-   void Update()
+    void Start()
+    {
+        if (grabAction != null)
+        {
+            grabAction.action.started += _ => isGrabbingObject = true;
+            grabAction.action.canceled += _ => isGrabbingObject = false;
+        }
+    }
+
+    void Update()
     {
         if (toggleGodmodeAction.action.WasPressedThisFrame())
         {
             StartCoroutine(ToggleGodmode());
         }
 
-        if (isGodmodeActive)
+        if (isGodmodeActive && !isGrabbingObject)
         {
             MoveGodmode();
         }
@@ -40,10 +53,15 @@ public class GodmodeController : MonoBehaviour
     {
         isGodmodeActive = !isGodmodeActive;
 
+        if (vignetteEffect != null)
+        {
+            vignetteEffect.SetActive(isGodmodeActive);
+        }
+
         if (isGodmodeActive)
         {
             originalPosition = xrRig.transform.position;
-            Vector3 targetPosition = originalPosition + new Vector3(0, 5, 0);
+            Vector3 targetPosition = originalPosition + Vector3.up * 5;
             yield return StartCoroutine(SmoothTransition(targetPosition));
 
             if (teleportProvider != null) teleportProvider.enabled = false;
@@ -69,20 +87,26 @@ public class GodmodeController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        
+
         xrRig.transform.position = targetPosition;
     }
 
     void MoveGodmode()
     {
-        float verticalMove = moveVerticalAction.action.ReadValue<float>() * verticalSpeed * Time.deltaTime;
-        Vector2 horizontalInput = moveHorizontalAction.action.ReadValue<Vector2>();
-
-        Vector3 forward = new Vector3(xrRig.transform.forward.x, 0, xrRig.transform.forward.z).normalized;
-        Vector3 right = new Vector3(xrRig.transform.right.x, 0, xrRig.transform.right.z).normalized;
-        Vector3 horizontalMove = (forward * horizontalInput.y + right * horizontalInput.x) * moveSpeed * Time.deltaTime;
+        // Vertikale Bewegung nur über linken Controller (y-Achse)
+        float verticalMove = verticalMoveAction.action.ReadValue<float>() * verticalSpeed * Time.deltaTime;
         Vector3 verticalMovement = Vector3.up * verticalMove;
 
+        // Horizontale Bewegung nur über rechten Controller (x- und y-Achse, aber ohne Höhenveränderung)
+        Vector2 horizontalInput = horizontalMoveAction.action.ReadValue<Vector2>();
+        Transform cameraTransform = Camera.main.transform;
+        
+        Vector3 moveDirection = (cameraTransform.forward * horizontalInput.y + cameraTransform.right * horizontalInput.x);
+        moveDirection.y = 0; // Höhenveränderung verhindern
+        moveDirection.Normalize();
+
+        Vector3 horizontalMove = moveDirection * moveSpeed * Time.deltaTime;
+        
         xrRig.transform.position += horizontalMove + verticalMovement;
     }
 }
