@@ -22,7 +22,8 @@ public class AgentController : MonoBehaviour
     public float goalThreshhold = 0.1f;
     public float exitTrashhold = 1f;
 
-    private Vector2Int cells;
+    private Vector2Int bitarrayCells;
+    private Vector2Int positionCells;
     private Vector2 goal;
     private BitArray2D bude;
     private AgentManager sm;
@@ -34,6 +35,7 @@ public class AgentController : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        //positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.y));
         agent.autoRepath = true;
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
         sm.addPlayer(this);
@@ -50,7 +52,7 @@ public class AgentController : MonoBehaviour
             {
                 timeLeftWaiting -= Time.deltaTime;
                 if (timeLeftWaiting < 0 && bude != null) { 
-                    bude.RemovePlayer(cells , this); 
+                    bude.RemovePlayer(bitarrayCells, this); 
                     waiting = false; 
                     FindNextGoal(); }
             }
@@ -63,6 +65,10 @@ public class AgentController : MonoBehaviour
             else if (agent.remainingDistance < exitTrashhold && exiting)
             {
                 Destroy();
+            }
+            else
+            {
+                //positionCells = sm.UpdatePositionInGrid(positionCells,new Vector2(transform.position.x,transform.position.y));
             }
         }
     }
@@ -110,6 +116,8 @@ public class AgentController : MonoBehaviour
         waiting = false;
         exiting = false;
 
+        //positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.y));
+
         timeLeftWaiting = 0.0f;
         visitedGoalNumbers = new List<int>();
         bude = null;
@@ -156,10 +164,10 @@ public class AgentController : MonoBehaviour
     }
     public void SetCells(Vector2Int v)
     {
-        cells = v;
+        bitarrayCells = v;
     }
     public Vector2Int GetCells()
     {
-        return cells;
+        return bitarrayCells;
     }
 }

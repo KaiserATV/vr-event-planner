@@ -16,7 +16,9 @@ public class AgentManager : MonoBehaviour
 
 
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
-    
+    //Heatmap hm;
+
+
     Buden[] alleBuden;
     Exits[] alleExits;
     CrowdGeneration[] spawner;
@@ -28,6 +30,7 @@ public class AgentManager : MonoBehaviour
         alleBuden = GameObject.Find(budenContainerName).GetComponentsInChildren<Buden>();
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
         spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
+        //hm = GameObject.Find("Heatmap").GetComponentInChildren<Heatmap>();
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
@@ -124,5 +127,14 @@ public class AgentManager : MonoBehaviour
     }
     public int BudenCount() { return alleBuden.Length; }
     public int ExitCount() { return alleExits.Length; }
+
+    //public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)
+    //{
+    //    return hm.Moved(from, to);
+    //}
+    //public Vector2Int UpdatePositionInGrid(Vector2 from)
+    //{
+    //    return hm.Spawned(from);
+    //}
 
 }
