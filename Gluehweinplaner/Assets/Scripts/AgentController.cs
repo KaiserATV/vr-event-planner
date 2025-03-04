@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,15 +32,18 @@ public class AgentController : MonoBehaviour
     private List<int> visitedGoalNumbers =  new List<int>();
 
 
+    public const float updateRate = 5.0f;
+    private float timeLeft = updateRate;
+
 
     // Update is called once per frame
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        //positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.y));
-        agent.autoRepath = true;
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoRepath = true;
         sm.addPlayer(this);
+        positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
         FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
@@ -68,7 +73,16 @@ public class AgentController : MonoBehaviour
             }
             else
             {
-                //positionCells = sm.UpdatePositionInGrid(positionCells,new Vector2(transform.position.x,transform.position.y));
+                if (timeLeft > 0)
+                {
+                    timeLeft -= Time.deltaTime;
+                }
+                else
+                {
+                    positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(transform.position.x, transform.position.z));
+                    timeLeft = updateRate;
+                }
+
             }
         }
     }
@@ -116,7 +130,7 @@ public class AgentController : MonoBehaviour
         waiting = false;
         exiting = false;
 
-        //positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.y));
+        positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
 
         timeLeftWaiting = 0.0f;
         visitedGoalNumbers = new List<int>();

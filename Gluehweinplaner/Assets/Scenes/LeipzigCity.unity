@@ -349,6 +349,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7742e2e1d830e4247add18d9ead6b8e0, type: 2}
+    - target: {fileID: 6219902843990209629, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
+      propertyPath: m_Name
+      value: TeleCube
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6895887226161143353, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
@@ -360,7 +364,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6219902843990209629, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1692122051}
+      addedObject: {fileID: 1692122055}
   m_SourcePrefab: {fileID: 100100000, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
 --- !u!1 &262669073
 GameObject:
@@ -403,7 +407,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262669073}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf755a06d0d765b4499645d240daf35a, type: 3}
   m_Name: 
@@ -1726,11 +1730,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 0
-  maxPlayerCount: 2000
+  maxPlayerCount: 50
   simulating: 0
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
   spawnerContainerName: SpawnerContainer
+  cellsizes: {x: 0, y: 0}
 --- !u!1 &1036977208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6328360384627795018, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
@@ -2438,7 +2443,7 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 1207638472165276436, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
   m_PrefabInstance: {fileID: 208985960}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1692122051
+--- !u!114 &1692122055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2447,13 +2452,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 817466792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939ecdc81ff34c04db67323cd2727e0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 14d41601ceb3ec34eb5b989ea7e97d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   positions: []
   properties: []
   material: {fileID: 2100000, guid: 7742e2e1d830e4247add18d9ead6b8e0, type: 2}
-  count: 50
+  cellsizeX: 0
+  cellsizeZ: 0
+  cols: 31
+  rows: 31
 --- !u!1 &1709099408
 GameObject:
   m_ObjectHideFlags: 0

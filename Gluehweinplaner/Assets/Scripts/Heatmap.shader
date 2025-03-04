@@ -33,8 +33,8 @@ Shader "Hidden/Heatmap" {
 		}
 
 		uniform int _Points_Length = 0;
-		uniform float4 _Points[100];		// (x, y, z) = position
-		uniform float4 _Properties[100];	// x = radius, y = intensity
+		uniform float4 _Points[2000];		// (x, y, z) = position
+		uniform float4 _Properties[2000];	// x = radius, y = intensity
 
 		sampler2D _HeatTex;
 
@@ -54,6 +54,7 @@ Shader "Hidden/Heatmap" {
 
 		// Converts (0-1) according to the heat texture
 		h = saturate(h);
+
 		half4 color = tex2D(_HeatTex, fixed2(h, 0.5));
 		return color;
 		}
