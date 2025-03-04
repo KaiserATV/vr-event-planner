@@ -73,15 +73,15 @@ public class AgentController : MonoBehaviour
             }
             else
             {
-                if (timeLeft > 0)
-                {
-                    timeLeft -= Time.deltaTime;
-                }
-                else
-                {
+                //if (timeLeft > 0)
+                //{
+                //    timeLeft -= Time.deltaTime;
+                //}
+                //else
+                //{
                     positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(transform.position.x, transform.position.z));
-                    timeLeft = updateRate;
-                }
+                    //timeLeft = updateRate;
+                //}
 
             }
         }
@@ -130,7 +130,7 @@ public class AgentController : MonoBehaviour
         waiting = false;
         exiting = false;
 
-        positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
+        positionCells = sm.UpdatePositionInGrid(positionCells,new Vector2(transform.position.x, transform.position.z));
 
         timeLeftWaiting = 0.0f;
         visitedGoalNumbers = new List<int>();

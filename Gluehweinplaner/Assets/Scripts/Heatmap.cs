@@ -5,9 +5,20 @@ using UnityEngine;
 public class Heatmap : MonoBehaviour
 {
 
-    public Vector4[] positions;
-    public Vector4[] properties;
+    public float[] properties;
+    public int[] playCellCount;
 
+    public struct usageCat{
+        public const int low = 3;
+        public const int high = 6;
+    }
+
+    public struct alphaCat
+    {
+        public const float low = 0.5f;
+        public const float medium = 0.75f;
+        public const float high = 1f;
+    }
 
     public Material material;
 
@@ -17,9 +28,6 @@ public class Heatmap : MonoBehaviour
     public float cellsizeZ;
     public int cols = 31;
     public int rows = 31;
-    public const float personInfluence = 0.5f;
-
-    private int prevPlayerCount;
 
 
     void Start ()
@@ -29,40 +37,23 @@ public class Heatmap : MonoBehaviour
         cellsizeX = b.size.x / cols;
         cellsizeZ = b.size.z / rows;
 
-        positions = new Vector4[cols * rows];
-        properties = new Vector4[cols * rows];
+        properties = new float[cols * rows];
+        playCellCount = new int[cols * rows];
 
-
-        int z = 0;
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                positions[z] = new Vector4((j * cellsizeX) + b.min.x +cellsizeX/2, 0, (i * cellsizeZ) + b.min.z+cellsizeZ / 2, 0);
-                z++;
-            }
-        }
-
-        for (int i = 0; i < positions.Length; i++)
-        {
-            properties[i] = new Vector4(Mathf.Min(cellsizeZ,cellsizeX)/2,0,0, 0);
-        }
-    
-        
-        material.SetInt("_Points_Length", cols * rows);
-        material.SetVectorArray("_Points", positions);
-        material.SetVectorArray("_Properties", properties);
-
+        material.SetInt("_Rows", rows);
+        material.SetFloat("_XDistance", cellsizeX);
+        material.SetFloat("_ZDistance", cellsizeZ);
+        material.SetVector("_MinVals", new Vector2(b.min.x, b.min.z));
     }
 
     void FixedUpdate()
     {
-        material.SetVectorArray("_Properties", properties);
+        material.SetFloatArray("_Properties", properties);
     }
 
-    public Vector2Int Spawned(Vector2 worldPos, int count)
+
+    public Vector2Int Spawned(Vector2 worldPos)
     {
-        prevPlayerCount = count;
         if (worldPos.x > b.min.x && worldPos.x < b.max.x)
         {
             if (worldPos.y > b.min.z && worldPos.y < b.max.z)
@@ -70,33 +61,47 @@ public class Heatmap : MonoBehaviour
                 Vector2Int cellCords = new Vector2Int();
                 cellCords.x = Mathf.FloorToInt((worldPos.x - b.min.x) / cellsizeX);
                 cellCords.y = Mathf.FloorToInt((worldPos.y - b.min.z) / cellsizeZ);
-                properties[rows * cellCords.y + cellCords.x].y += personInfluence;
-                /// prevPlayerCount;
+                playCellCount[rows * cellCords.y + cellCords.x] += 1;
+                properties[rows * cellCords.y + cellCords.x] = determineAlpha(playCellCount[rows *cellCords.y + cellCords.x]);
                 return cellCords;
             }
         }
         return new Vector2Int(-1, -1);
     }
 
-    public Vector2Int Moved(Vector2Int from, Vector2 to, int count)
+    public Vector2Int Moved(Vector2Int from, Vector2 to)
     {
-        int tmp;
-        if (!(from.x < 0 || from.y < 0)) {
-            properties[rows * from.y + from.x].y -= personInfluence; 
-        }
         if (to.x > b.min.x && to.y < b.max.x)
         {
+            playCellCount[rows * from.y + from.x] -= 1;
+            properties[rows * from.y + from.x] = determineAlpha(playCellCount[rows * from.y + from.x]);
+
             Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((to.x - b.min.x) / cellsizeX), Mathf.FloorToInt((to.y - b.min.z) / cellsizeZ));
-            tmp = Mathf.FloorToInt(properties[rows * newCells.y + newCells.x].y * prevPlayerCount);
-            properties[rows * newCells.y + newCells.x].y += personInfluence;
-            //(tmp + 1) / count;
-            //prevPlayerCount = count;
+            playCellCount[rows * newCells.y + newCells.x] += 1;
+            properties[rows * newCells.y + newCells.x] = determineAlpha(playCellCount[rows * newCells.y + newCells.x]);
             return newCells;
         }
-        prevPlayerCount = count;
         return new Vector2Int(-1, -1);
     }
 
-
+    public float determineAlpha(int usage)
+    {
+        if(usage == 0)
+        {
+            return 0;
+        }
+        if(usage <= usageCat.low)
+        {
+            return alphaCat.low;
+        }
+        else
+        {
+            if (usage >= usageCat.high)
+            {
+                return alphaCat.high;
+            }
+            return alphaCat.medium;
+        }
+    }
 
 }

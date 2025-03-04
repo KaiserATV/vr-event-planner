@@ -134,11 +134,11 @@ public class AgentManager : MonoBehaviour
 
     public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)
     {
-        return hm.Moved(from, to,playerCount);
+        return hm.Moved(from, to);
     }
     public Vector2Int UpdatePositionInGrid(Vector2 from)
     {
-        return hm.Spawned(from,playerCount);
+        return hm.Spawned(from);
     }
 
 }
