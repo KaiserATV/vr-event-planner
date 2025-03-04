@@ -35,7 +35,7 @@ public class RadicalSelection : MonoBehaviour
     public int waitingAt=-1;
 
     [SerializeField] private AudioClip spawnRadialPartSoundClip;
-    [SerializeField] private AudioClip selectionChangeSoundClip;
+    [SerializeField] private AudioClip[] selectionChangeSoundClip;
     private int previousSelected = -1; // Track previous selection
     [SerializeField] private AudioClip selectionConfirmSoundClip;
 
@@ -130,7 +130,7 @@ public class RadicalSelection : MonoBehaviour
         // Play sound when selection changes
         if (previousSelected != currentSelectedRadialPart)
         {
-            SoundFXManager.instance.PlaySoundFXClip(selectionChangeSoundClip, transform, 0.8f);
+            SoundFXManager.instance.PlayRandomSoundFXClip(selectionChangeSoundClip, transform, 0.8f);
             previousSelected = currentSelectedRadialPart;
         }
 
