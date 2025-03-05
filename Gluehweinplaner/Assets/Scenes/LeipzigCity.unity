@@ -2786,11 +2786,13 @@ MonoBehaviour:
   moveSpeed: 30
   verticalSpeed: 20
   transitionDuration: 1
-  moveVerticalAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  moveHorizontalAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  verticalMoveAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  horizontalMoveAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   toggleGodmodeAction: {fileID: 5030052954490463457, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  grabAction: {fileID: 0}
   teleportProvider: {fileID: 1731298971}
   snapTurnProvider: {fileID: 1731298973}
+  vignetteEffect: {fileID: 0}
 --- !u!136 &1731298982
 CapsuleCollider:
   m_ObjectHideFlags: 0
