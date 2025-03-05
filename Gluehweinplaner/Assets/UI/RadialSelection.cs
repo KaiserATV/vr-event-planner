@@ -39,6 +39,10 @@ public class RadicalSelection : MonoBehaviour
     private int previousSelected = -1; // Track previous selection
     [SerializeField] private AudioClip selectionConfirmSoundClip;
 
+    public GameObject volumeSliderPrefab;
+    private GameObject currentVolumeSlider;
+    private bool inVolumeMenu;
+
 
 
     void Start()
@@ -88,6 +92,18 @@ public class RadicalSelection : MonoBehaviour
             }
         }
 
+        if (menuActivateAction.action.WasReleasedThisFrame())
+        {
+            if(inVolumeMenu)
+            {
+                HideVolumeSlider();
+            }
+            else
+            {
+                HideAndTriggerSelected();
+            }
+        }
+
     }
 
     private void ResetWaitTimer(int newWait)
@@ -98,6 +114,12 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
+        if(inVolumeMenu)
+        {
+            HideVolumeSlider();
+            return;
+        }
+
         if(timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < partToFunction.Count)
         {
             // Play confirmation sound before invoking action
@@ -123,6 +145,12 @@ public class RadicalSelection : MonoBehaviour
             angle += 360;
         }
 
+        if(inVolumeMenu)
+            {
+                HandleVolumeControl();
+                return;
+            }
+
         //Debug.Log("ANGLE: " + angle);
 
         currentSelectedRadialPart = (int)angle * numberOfRadialPart / 360;
@@ -130,6 +158,11 @@ public class RadicalSelection : MonoBehaviour
         // Play sound when selection changes
         if (previousSelected != currentSelectedRadialPart)
         {
+            if(buttonLabels[currentSelectedRadialPart] == "Volume")
+            {
+                ShowVolumeSlider();
+            }
+            
             SoundFXManager.instance.PlayRandomSoundFXClip(selectionChangeSoundClip, transform, 0.8f);
             previousSelected = currentSelectedRadialPart;
         }
@@ -204,5 +237,38 @@ public class RadicalSelection : MonoBehaviour
             //}
         }
     }
+
+private void HandleVolumeControl()
+{
+    Vector2 input = menuActivateAction.action.ReadValue<Vector2>();
+    float newValue = currentVolumeSlider.GetComponent<RadialSlider>().slider.value + (input.x * Time.deltaTime);
+    newValue = Mathf.Clamp01(newValue);
+    currentVolumeSlider.GetComponent<RadialSlider>().slider.value = newValue;
+}
+
+private void ShowVolumeSlider()
+{
+    inVolumeMenu = true;
+    currentVolumeSlider = Instantiate(volumeSliderPrefab, radialPartCanvas);
+    currentVolumeSlider.transform.localPosition = Vector3.zero;
+    
+    // Hide regular menu items
+    foreach(var item in spawnedParts)
+    {
+        item.SetActive(false);
+    }
+}
+
+private void HideVolumeSlider()
+{
+    inVolumeMenu = false;
+    Destroy(currentVolumeSlider);
+    
+    // Show regular menu items
+    foreach(var item in spawnedParts)
+    {
+        item.SetActive(true);
+    }
+}
 }
 
