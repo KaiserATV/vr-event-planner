@@ -448,7 +448,7 @@
                     "name": "MoveVertical",
                     "type": "Value",
                     "id": "13692ec6-0a7a-4c1f-aafc-3403cd8aeb6a",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -707,7 +707,7 @@
                 {
                     "name": "",
                     "id": "f9409081-8119-4d4f-9f40-664e43357ce0",
-                    "path": "<ViveController>/trackpad/y",
+                    "path": "<ViveController>{LeftHand}/trackpad/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
