@@ -102,6 +102,8 @@ public class BitArray2D
         return new Vector2Int(-1, -1);
     }
 
+
+    //ToDo: Fix this shit
     public Vector2Int AddToRight(AgentController ac)
     {
         for (int x = 0; x < cellsX; x++)
@@ -138,6 +140,7 @@ public class BitArray2D
     {
         cellsX = Mathf.FloorToInt(bounds.size.x / agentRadius);
         cellsZ = Mathf.FloorToInt(bounds.size.z / agentRadius);
+        Debug.Log(cellsX+" "+cellsZ);
     }
 
     public Vector2 GetRealWorldCords(Vector2Int cells)

@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,14 +11,12 @@ public class AgentController : MonoBehaviour
     public int goalsBeforeExit;
     public int goalNr;
 
-
     public bool stopped = false;
     public bool waiting = false;
     public float timeLeftWaiting = 0.0f;
 
-
     public bool exiting = false;
-    public float goalThreshhold = 0.1f;
+    public float goalThreshhold = 1f;
     public float exitTrashhold = 1f;
 
     private Vector2Int bitarrayCells;
@@ -31,9 +26,7 @@ public class AgentController : MonoBehaviour
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
 
-
     public const float updateRate = 5.0f;
-    private float timeLeft = updateRate;
 
 
     // Update is called once per frame
@@ -55,11 +48,23 @@ public class AgentController : MonoBehaviour
         {
             if (waiting)
             {
-                timeLeftWaiting -= Time.deltaTime;
-                if (timeLeftWaiting < 0 && bude != null) { 
-                    bude.RemovePlayer(bitarrayCells, this); 
-                    waiting = false; 
-                    FindNextGoal(); }
+                if(Vector3.Distance(this.transform.position, agent.destination)>goalThreshhold)
+                {
+                    Debug.Log(Vector3.Distance(this.transform.position, agent.destination));
+                    waiting = false;
+                    stopped = false;
+                    agent.isStopped = false;
+                }
+                else
+                {
+                    timeLeftWaiting -= Time.deltaTime;
+                    if (timeLeftWaiting < 0 && bude != null)
+                    {
+                        bude.RemovePlayer(bitarrayCells, this);
+                        waiting = false;
+                        FindNextGoal();
+                    }
+                }
             }
             else if (agent.remainingDistance < goalThreshhold && !exiting)
             {
@@ -73,16 +78,7 @@ public class AgentController : MonoBehaviour
             }
             else
             {
-                //if (timeLeft > 0)
-                //{
-                //    timeLeft -= Time.deltaTime;
-                //}
-                //else
-                //{
-                    positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(transform.position.x, transform.position.z));
-                    //timeLeft = updateRate;
-                //}
-
+                positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(transform.position.x, transform.position.z));
             }
         }
     }
@@ -117,7 +113,7 @@ public class AgentController : MonoBehaviour
 
     public void InvalidatePosition(Vector3 newCoords)
     {
-        if (waiting) { waiting = false; agent.isStopped = false; }
+        if (waiting) { waiting = false; agent.isStopped = false; stopped = false; }
         goal = newCoords;
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }

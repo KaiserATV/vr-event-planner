@@ -148,5 +148,5 @@ MonoBehaviour:
   waiting: 0
   timeLeftWaiting: 0
   exiting: 0
-  goalThreshhold: 0.1
+  goalThreshhold: 0.5
   exitTrashhold: 1

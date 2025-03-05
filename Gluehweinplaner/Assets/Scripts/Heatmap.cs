@@ -24,18 +24,21 @@ public class Heatmap : MonoBehaviour
 
 
     private Bounds b;
-    public float cellsizeX;
-    public float cellsizeZ;
-    public int cols = 31;
-    public int rows = 31;
+    public float cellsizeX=10f;
+    public float cellsizeZ=10f;
+    public int cols;
+    public int rows;
 
 
     void Start ()
     {
         b = GetComponent<MeshRenderer>().bounds;
-        
-        cellsizeX = b.size.x / cols;
-        cellsizeZ = b.size.z / rows;
+
+        cols = Mathf.FloorToInt(b.size.x / cellsizeX);
+        rows = Mathf.FloorToInt(b.size.z / cellsizeZ);
+
+        //cellsizeX = b.size.x / cols;
+        //cellsizeZ = b.size.z / rows;
 
         properties = new float[cols * rows];
         playCellCount = new int[cols * rows];
@@ -83,6 +86,7 @@ public class Heatmap : MonoBehaviour
         }
         return new Vector2Int(-1, -1);
     }
+
 
     public float determineAlpha(int usage)
     {

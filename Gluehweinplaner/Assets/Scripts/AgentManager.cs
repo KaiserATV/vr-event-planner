@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class AgentManager : MonoBehaviour
     public string exitContainerName = "ExitContainer";
     public string spawnerContainerName = "SpawnerContainer";
 
+    public int allBudenWeigth;
 
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
     Heatmap hm;
@@ -33,25 +35,57 @@ public class AgentManager : MonoBehaviour
         spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
         hm = GameObject.Find("TeleCube").GetComponentInChildren<Heatmap>();
 
+        CalcAllBudenWeight();
+
         cellsizes.x = hm.cellsizeX;
         cellsizes.y = hm.cellsizeZ;
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
-        for(int i = 0; i < alleBuden.Length; i++)
-        {
-            int rand = Random.Range(0, alleBuden.Length);
-            
-            if (!alleBuden[rand].IstAusgelasted() && !besuchteBudenNr.Contains(rand))
-            {
-                alleBuden[rand].GetNewPosition(ac);
-                return rand;
-            }
+        int budenNummer;
+        if (besuchteBudenNr.Count == alleBuden.Length) {
+            return -1;
+        }else{
+                budenNummer = CalcNewWeightedBude(besuchteBudenNr);
         }
+        if(budenNummer == -1)
+        {
+            return -1;
+        }
+        if (!alleBuden[budenNummer].IstAusgelasted())
+        {
+            alleBuden[budenNummer].GetNewPosition(ac);
+            return budenNummer;
+        }
+
         return -1;
     }
 
+    private int CalcNewWeightedBude(List<int> besuchteBudenNr)
+    {
+        int rand = Random.Range(0, allBudenWeigth+1);
+        int bNr=-1;
+        int tmpCount=0;
+        for (int i = 0; i < alleBuden.Length; i++)
+        {
+            if (!besuchteBudenNr.Contains(i))
+            {
+                if(tmpCount > rand) { break; }
+                bNr = i;
+                tmpCount += alleBuden[i].attraktivitaet;
+            }
+        }
+        return bNr;
+    }
+
+    public void CalcAllBudenWeight()
+    {
+        foreach(Buden b in alleBuden)
+        {
+            allBudenWeigth += b.attraktivitaet;
+        }
+    }
 
     public Vector3 GetClostestExit(Vector3 position)
     {
@@ -83,7 +117,7 @@ public class AgentManager : MonoBehaviour
     public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
 
     public void StartSimulation() { simulating = true; }
-    public void ResumeSimulation() {  simulating = true; foreach (AgentController ac in alleCurrentAgents) { ac.Resume(); } }
+    public void ResumeSimulation() {  simulating = true; foreach (AgentController ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
 
     public void StopSimulation() { simulating = false; foreach (AgentController ac in alleCurrentAgents) { ac.Stop(); } }
 

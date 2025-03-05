@@ -7,7 +7,11 @@ public class Buden : MonoBehaviour
 
     public float waitTime = 10.0f;
 
+    public int attraktivitaet = 5; 
+
     private bool komplettAusgelastet = false;
+
+
 
     //To-Do: Optimize the Datastructure
     private BitArray2D wait_B;
@@ -92,6 +96,25 @@ public class Buden : MonoBehaviour
         komplettAusgelastet = ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull();
     }
 
+    public void increaseAttraktivität()
+    {
+        attraktivitaet++;
+
+    }
+    public void decreaseAttraktivität()
+    {
+        attraktivitaet--;
+    }
+
+    public void increaseWaittime()
+    {
+        waitTime++;
+
+    }
+    public void decreaseWaittime()
+    {
+        waitTime--;
+    }
 
     public void Reset()
     {
