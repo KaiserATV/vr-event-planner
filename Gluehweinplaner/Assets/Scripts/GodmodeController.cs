@@ -93,9 +93,13 @@ public class GodmodeController : MonoBehaviour
 
     void MoveGodmode()
     {
+        
+
+
         // Vertikale Bewegung nur über linken Controller (y-Achse)
         float verticalMove = verticalMoveAction.action.ReadValue<float>() * verticalSpeed * Time.deltaTime;
         Vector3 verticalMovement = Vector3.up * verticalMove;
+
 
         // Horizontale Bewegung nur über rechten Controller (x- und y-Achse, aber ohne Höhenveränderung)
         Vector2 horizontalInput = horizontalMoveAction.action.ReadValue<Vector2>();
@@ -106,7 +110,10 @@ public class GodmodeController : MonoBehaviour
         moveDirection.Normalize();
 
         Vector3 horizontalMove = moveDirection * moveSpeed * Time.deltaTime;
-        
+
+// Debug.Log($"Vertical Move Device: {verticalMoveAction.action.activeControl?.device.name}");
+// Debug.Log($"Horizontal Move Device: {horizontalMoveAction.action.activeControl?.device.name}");
+
         xrRig.transform.position += horizontalMove + verticalMovement;
     }
 }
