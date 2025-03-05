@@ -141,12 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af142ec17bd90da478bd125cb75a7017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomExitGoalNumber: 1
   goalsBeforeExit: 0
-  exiting: 0
+  goalNr: 0
+  stopped: 0
   waiting: 0
   timeLeftWaiting: 0
-  stopped: 0
+  exiting: 0
   goalThreshhold: 0.1
   exitTrashhold: 1
-  cells: {x: 0, y: 0}
-  goalNr: 0

@@ -55,6 +55,7 @@ public class RadicalSelection : MonoBehaviour
         alphas[1] = new GradientAlphaKey(1.0f, 1.0f);
 
         gradient.SetKeys(colors, alphas);
+        radialPartCanvas.gameObject.SetActive(false);
 
     }
 

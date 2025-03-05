@@ -1,38 +1,107 @@
 ﻿// Alan Zucconi
 // www.alanzucconi.com
 using UnityEngine;
-using System.Collections;
 
 public class Heatmap : MonoBehaviour
 {
 
-    public Vector4[] positions;
-    public Vector4[] properties;
+    public float[] properties;
+    public int[] playCellCount;
 
+    public struct usageCat{
+        public const int low = 3;
+        public const int high = 6;
+    }
+
+    public struct alphaCat
+    {
+        public const float low = 0.5f;
+        public const float medium = 0.75f;
+        public const float high = 1f;
+    }
 
     public Material material;
 
-    public int count = 50;
+
+    private Bounds b;
+    public float cellsizeX;
+    public float cellsizeZ;
+    public int cols = 31;
+    public int rows = 31;
+
 
     void Start ()
     {
-        positions = new Vector4[count];
-        properties = new Vector4[count];
+        b = GetComponent<MeshRenderer>().bounds;
+        
+        cellsizeX = b.size.x / cols;
+        cellsizeZ = b.size.z / rows;
 
-        for (int i = 0; i < positions.Length; i++)
+        properties = new float[cols * rows];
+        playCellCount = new int[cols * rows];
+
+        material.SetInt("_Rows", rows);
+        material.SetFloat("_XDistance", cellsizeX);
+        material.SetFloat("_ZDistance", cellsizeZ);
+        material.SetVector("_MinVals", new Vector2(b.min.x, b.min.z));
+    }
+
+    void FixedUpdate()
+    {
+        material.SetFloatArray("_Properties", properties);
+    }
+
+
+    public Vector2Int Spawned(Vector2 worldPos)
+    {
+        if (worldPos.x > b.min.x && worldPos.x < b.max.x)
         {
-            positions[i] = new Vector4(Random.Range(-0.4f, +0.4f), 0, Random.Range(-0.4f, +0.4f) , 0);
-            properties[i] = new Vector4(Random.Range(0f, 0.25f),Random.Range(-0.25f, 1f),0, 0);
+            if (worldPos.y > b.min.z && worldPos.y < b.max.z)
+            {
+                Vector2Int cellCords = new Vector2Int();
+                cellCords.x = Mathf.FloorToInt((worldPos.x - b.min.x) / cellsizeX);
+                cellCords.y = Mathf.FloorToInt((worldPos.y - b.min.z) / cellsizeZ);
+                playCellCount[rows * cellCords.y + cellCords.x] += 1;
+                properties[rows * cellCords.y + cellCords.x] = determineAlpha(playCellCount[rows *cellCords.y + cellCords.x]);
+                return cellCords;
+            }
+        }
+        return new Vector2Int(-1, -1);
+    }
+
+    public Vector2Int Moved(Vector2Int from, Vector2 to)
+    {
+        if (to.x > b.min.x && to.y < b.max.x)
+        {
+            playCellCount[rows * from.y + from.x] -= 1;
+            properties[rows * from.y + from.x] = determineAlpha(playCellCount[rows * from.y + from.x]);
+
+            Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((to.x - b.min.x) / cellsizeX), Mathf.FloorToInt((to.y - b.min.z) / cellsizeZ));
+            playCellCount[rows * newCells.y + newCells.x] += 1;
+            properties[rows * newCells.y + newCells.x] = determineAlpha(playCellCount[rows * newCells.y + newCells.x]);
+            return newCells;
+        }
+        return new Vector2Int(-1, -1);
+    }
+
+    public float determineAlpha(int usage)
+    {
+        if(usage == 0)
+        {
+            return 0;
+        }
+        if(usage <= usageCat.low)
+        {
+            return alphaCat.low;
+        }
+        else
+        {
+            if (usage >= usageCat.high)
+            {
+                return alphaCat.high;
+            }
+            return alphaCat.medium;
         }
     }
 
-    void Update()
-    {
-        for (int i = 0; i < positions.Length; i++)
-            positions[i] += new Vector4(Random.Range(-0.1f, +0.1f), 0, Random.Range(-0.1f, +0.1f), 0) * Time.deltaTime;
-
-        material.SetInt("_Points_Length", count);
-        material.SetVectorArray("_Points", positions);
-        material.SetVectorArray("_Properties", properties);
-    }
 }

@@ -16,8 +16,9 @@ public class AgentManager : MonoBehaviour
 
 
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
-    //Heatmap hm;
+    Heatmap hm;
 
+    public Vector2 cellsizes;
 
     Buden[] alleBuden;
     Exits[] alleExits;
@@ -30,7 +31,10 @@ public class AgentManager : MonoBehaviour
         alleBuden = GameObject.Find(budenContainerName).GetComponentsInChildren<Buden>();
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
         spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
-        //hm = GameObject.Find("Heatmap").GetComponentInChildren<Heatmap>();
+        hm = GameObject.Find("TeleCube").GetComponentInChildren<Heatmap>();
+
+        cellsizes.x = hm.cellsizeX;
+        cellsizes.y = hm.cellsizeZ;
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
@@ -128,13 +132,13 @@ public class AgentManager : MonoBehaviour
     public int BudenCount() { return alleBuden.Length; }
     public int ExitCount() { return alleExits.Length; }
 
-    //public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)
-    //{
-    //    return hm.Moved(from, to);
-    //}
-    //public Vector2Int UpdatePositionInGrid(Vector2 from)
-    //{
-    //    return hm.Spawned(from);
-    //}
+    public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)
+    {
+        return hm.Moved(from, to);
+    }
+    public Vector2Int UpdatePositionInGrid(Vector2 from)
+    {
+        return hm.Spawned(from);
+    }
 
 }
