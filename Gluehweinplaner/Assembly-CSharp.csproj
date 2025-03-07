@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Exits.cs" />
     <Compile Include="Assets\UI\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\BitArray2D.cs" />
+    <Compile Include="Assets\UI\VolumeMenuCloser.cs" />
     <Compile Include="Assets\Scripts\DebugTeleport.cs" />
   </ItemGroup>
   <ItemGroup>

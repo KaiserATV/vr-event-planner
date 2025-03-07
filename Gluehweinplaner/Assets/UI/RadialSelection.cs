@@ -39,12 +39,19 @@ public class RadicalSelection : MonoBehaviour
     private int previousSelected = -1; // Track previous selection
     [SerializeField] private AudioClip selectionConfirmSoundClip;
 
+    public GameObject volumeCanvas;
+    public UnityEvent onVolumeMenuOpen;
+    public UnityEvent onVolumeMenuClose;
+
+    private bool inSubMenu = false;
+
 
 
     void Start()
     {
         buttonLabels.Add("Veranstaltungsobjekt");
         buttonLabels.Add("Besucherstrom");
+        buttonLabels.Add("Lautstärke");
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
@@ -87,8 +94,8 @@ public class RadicalSelection : MonoBehaviour
                 HideAndTriggerSelected();
             }
         }
-
     }
+
 
     private void ResetWaitTimer(int newWait)
     {
@@ -104,6 +111,13 @@ public class RadicalSelection : MonoBehaviour
             if(selectionConfirmSoundClip != null)
             {
                 SoundFXManager.instance.PlaySoundFXClip(selectionConfirmSoundClip, transform, 1f);
+            }
+
+            // Handle volume menu special case
+            if(currentSelectedRadialPart == 2) // Index for volume button
+            {
+                ToggleVolumeMenu();
+                return;
             }
             
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
@@ -152,6 +166,25 @@ public class RadicalSelection : MonoBehaviour
                 spawnedParts[i].GetComponent<Image>().color = Color.white;
                 spawnedParts[i].transform.localScale = 1 * UnityEngine.Vector3.one;
             }
+        }
+    }
+
+     public void ToggleVolumeMenu()
+    {
+        inSubMenu = !inSubMenu;
+        volumeCanvas.SetActive(inSubMenu);
+        radialPartCanvas.gameObject.SetActive(!inSubMenu);
+        
+        if(inSubMenu) 
+        {
+            onVolumeMenuOpen.Invoke();
+            // Position volume menu relative to hand
+            volumeCanvas.transform.position = handTransform.position + handTransform.forward * 0.5f;
+            volumeCanvas.transform.rotation = handTransform.rotation;
+        }
+        else
+        {
+            onVolumeMenuClose.Invoke();
         }
     }
 
