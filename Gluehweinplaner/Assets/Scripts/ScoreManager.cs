@@ -33,7 +33,7 @@ public class ScoreManager : MonoBehaviour
 
         int Agents = agentManagerScript.playerCount;
 
-        scoreCount = BusyBuden + MaxBusyAreas * Buden / Agents;
+        //scoreCount = BusyBuden + MaxBusyAreas * Buden / Agents;
         UpdateUI();
     }
 
