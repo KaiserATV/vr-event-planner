@@ -40,7 +40,6 @@ public class RadicalSelection : MonoBehaviour
     [SerializeField] private AudioClip selectionConfirmSoundClip;
 
     public GameObject volumeCanvas;
-    private CanvasGroup volumeCanvasGroup;
     public UnityEvent onVolumeMenuOpen;
     public UnityEvent onVolumeMenuClose;
 
@@ -57,14 +56,6 @@ public class RadicalSelection : MonoBehaviour
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
         //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
-
-        // Initialize canvas group
-        volumeCanvasGroup = volumeCanvas.GetComponent<CanvasGroup>();
-        
-        // Start fully hidden
-        volumeCanvasGroup.alpha = 0;
-        volumeCanvasGroup.interactable = false;
-        volumeCanvasGroup.blocksRaycasts = false;
 
 
         var colors = new GradientColorKey[2];
@@ -183,11 +174,6 @@ public class RadicalSelection : MonoBehaviour
         inSubMenu = !inSubMenu;
         volumeCanvas.SetActive(inSubMenu);
         radialPartCanvas.gameObject.SetActive(!inSubMenu);
-
-        // Fade instead of instant toggle
-        volumeCanvasGroup.alpha = inSubMenu ? 1 : 0;
-        volumeCanvasGroup.interactable = inSubMenu;
-        volumeCanvasGroup.blocksRaycasts = inSubMenu;
         
         if(inSubMenu) 
         {
