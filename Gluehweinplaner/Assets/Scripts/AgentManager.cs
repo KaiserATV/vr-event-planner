@@ -23,6 +23,7 @@ public class AgentManager : MonoBehaviour
     public Vector2 cellsizes;
 
     Buden[] alleBuden;
+    public Buden[] AlleBuden { get => alleBuden; }
     Exits[] alleExits;
     CrowdGeneration[] spawner;
 
