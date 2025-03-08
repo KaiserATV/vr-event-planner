@@ -50,7 +50,6 @@ public class AgentController : MonoBehaviour
             {
                 if(Vector3.Distance(this.transform.position, agent.destination)>goalThreshhold)
                 {
-                    Debug.Log(Vector3.Distance(this.transform.position, agent.destination));
                     waiting = false;
                     stopped = false;
                     agent.isStopped = false;

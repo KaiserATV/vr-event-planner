@@ -29,22 +29,22 @@ public class Buden : MonoBehaviour
         //0 -directly infront of Bode, 1 - to the left of the Bude, 2- to the right of the Bude
         //ziel Array
         Transform child = this.transform.GetChild(4);
-        Bounds bound = child.GetComponent<MeshRenderer>().bounds;
+        Bounds bound = child.GetComponent<MeshRenderer>().localBounds;
         ziel = new BitArray2D(bound, child, agentRadius, 0);
 
         //Wait_B Array
         child = this.transform.GetChild(1);
-        bound = child.GetComponent<MeshRenderer>().bounds;
+        bound = child.GetComponent<MeshRenderer>().localBounds;
         wait_B = new BitArray2D(bound, child, agentRadius, 0);
 
         //Wait_L Array
         child = this.transform.GetChild(2);
-        bound = child.GetComponent<MeshRenderer>().bounds;
+        bound = child.GetComponent<MeshRenderer>().localBounds;
         wait_L = new BitArray2D(bound, child, agentRadius, 1);
 
         //Wait_R Array
         child = this.transform.GetChild(3);
-        bound = child.GetComponent<MeshRenderer>().bounds;
+        bound = child.GetComponent<MeshRenderer>().localBounds;
         wait_R = new BitArray2D(bound, child, agentRadius, 2);   
     }
 
