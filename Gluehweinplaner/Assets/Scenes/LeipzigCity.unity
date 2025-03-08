@@ -527,6 +527,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1692122055}
+        m_TargetAssemblyTypeName: Heatmap, Assembly-CSharp
+        m_MethodName: showMaxAlpha
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.9398438, b: 0, a: 1}
@@ -2580,6 +2594,7 @@ MonoBehaviour:
   cellsizeZ: 6
   cols: 0
   rows: 0
+  cells: 0
 --- !u!1 &1709099408
 GameObject:
   m_ObjectHideFlags: 0
