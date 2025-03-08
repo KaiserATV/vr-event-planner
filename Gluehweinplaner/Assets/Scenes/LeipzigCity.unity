@@ -428,7 +428,7 @@ PrefabInstance:
     - target: {fileID: 3084300495437852339, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7742e2e1d830e4247add18d9ead6b8e0, type: 2}
+      objectReference: {fileID: 5559263773472392200, guid: 714a27c3372b8074d8370e2bc0cecf56, type: 3}
     - target: {fileID: 6219902843990209629, guid: 3e07eccb5e6f459d886de95044adb1d9, type: 3}
       propertyPath: m_Name
       value: cube
@@ -515,20 +515,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1036096516}
         m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
         m_MethodName: ToggleSimulation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Heatmap, Assembly-CSharp
-        m_MethodName: ToggleAlphaMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1744,6 +1730,7 @@ MonoBehaviour:
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
   spawnerContainerName: SpawnerContainer
+  heatmapname: HeatMap
   allBudenWeigth: 0
   cellsizes: {x: 0, y: 0}
 --- !u!1 &1036977208 stripped
@@ -3122,7 +3109,7 @@ Transform:
   m_GameObject: {fileID: 2074132514}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
+  m_LocalPosition: {x: 0, y: 0.01, z: 2.5}
   m_LocalScale: {x: 180, y: 0.25, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children: []
