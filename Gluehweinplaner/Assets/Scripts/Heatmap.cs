@@ -88,11 +88,14 @@ public class Heatmap : MonoBehaviour
         cellCords.x = Mathf.FloorToInt((b.max.x - worldPos.x) / cellsizeX);
         cellCords.y = Mathf.FloorToInt((b.max.z - worldPos.y) / cellsizeZ);
         int index = rows * cellCords.x + cellCords.y;
-        if(index >= 0 && index <= cells) playCellCount[index] += 1;
-        int c = playCellCount[index];
-        int cM = playMaxCount[index];
-        if (c > cM) playMaxCount[index] = c;
-        properties[index] = determineAlpha(showMax ? cM : c);
+        if (index >= 0 && index <= cells)
+        {
+            playCellCount[index] += 1;
+            int c = playCellCount[index];
+            int cM = playMaxCount[index];
+            if (c > cM) playMaxCount[index] = c;
+            properties[index] = determineAlpha(showMax ? cM : c);
+        }
         return cellCords;
     }
 
