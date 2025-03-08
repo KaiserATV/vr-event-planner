@@ -1,6 +1,4 @@
-﻿// Alan Zucconi
-// www.alanzucconi.com
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Heatmap : MonoBehaviour
 {
@@ -13,14 +11,19 @@ public class Heatmap : MonoBehaviour
 
     private struct usageCat{
         public const int low = 3;
-        public const int high = 6;
+        public const int mediumLow = 6;
+        public const int medium = 9;
+        public const int mediumHigh = 12;
+        public const int high = 15;
     }
 
 
     private struct alphaCat
     {
-        public const float low = 0.5f;
-        public const float medium = 0.75f;
+        public const float low = 0.2f;
+        public const float mediumLow = 0.4f;
+        public const float medium = 0.6f;
+        public const float mediumHigh = 0.8f;
         public const float high = 1f;
     }
 
@@ -41,9 +44,6 @@ public class Heatmap : MonoBehaviour
         cols = Mathf.FloorToInt(b.size.x / cellsizeX);
         rows = Mathf.FloorToInt(b.size.z / cellsizeZ);
 
-        //cellsizeX = b.size.x / cols;
-        //cellsizeZ = b.size.z / rows;
-
         properties = new float[cols * rows];
         playCellCount = new int[cols * rows];
         playMaxCount = new int[cols * rows];
@@ -59,7 +59,6 @@ public class Heatmap : MonoBehaviour
         material.SetFloatArray("_Properties", properties);
     }
 
-    //Muss ausgeführt werden um auf maximal anzeige umzustellen
     public void showMaxAlpha()
     {
         for (int i = 0; i < properties.Length; i++)
@@ -133,13 +132,23 @@ public class Heatmap : MonoBehaviour
         {
             return alphaCat.low;
         }
+        else if (usage >= usageCat.high)
+        {
+                return alphaCat.high;
+        }
         else
         {
-            if (usage >= usageCat.high)
+            if(usage < usageCat.medium)
             {
-                return alphaCat.high;
+                return alphaCat.mediumLow;
+            }else if(usage < usageCat.mediumHigh)
+            {
+                return alphaCat.medium;
             }
-            return alphaCat.medium;
+            else
+            {
+                return alphaCat.mediumHigh;
+            }
         }
     }
 

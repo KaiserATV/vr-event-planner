@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,9 @@ public class AgentController : MonoBehaviour
     public bool randomExitGoalNumber = true;
     public int goalsBeforeExit;
     public int goalNr;
+    public const float patience = 120f;
+    public float patienceLost;
+
 
     public bool stopped = false;
     public bool waiting = false;
@@ -25,6 +29,7 @@ public class AgentController : MonoBehaviour
     private BitArray2D bude;
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
+    
 
     public const float updateRate = 5.0f;
 
@@ -77,7 +82,12 @@ public class AgentController : MonoBehaviour
             }
             else
             {
-                Debug.Log(this.transform.position);
+                patienceLost -= Time.deltaTime;
+                if (patienceLost < 0)
+                {
+                    bude.RemovePlayer(bitarrayCells, this);
+                    FindNextGoal();
+                }
                 positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
             }
         }
@@ -102,6 +112,7 @@ public class AgentController : MonoBehaviour
             FindExit();
         }
         agent.isStopped = false;
+        patienceLost = patience;
     }
 
     void FindExit()
@@ -149,6 +160,7 @@ public class AgentController : MonoBehaviour
     {
         agent.isStopped = false;
         stopped = false;
+        agent.destination = goal;
     }
 
     private void OnDrawGizmos()

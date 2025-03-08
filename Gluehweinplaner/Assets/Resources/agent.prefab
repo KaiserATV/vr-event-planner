@@ -144,9 +144,10 @@ MonoBehaviour:
   randomExitGoalNumber: 1
   goalsBeforeExit: 0
   goalNr: 0
+  patienceLost: 0
   stopped: 0
   waiting: 0
   timeLeftWaiting: 0
   exiting: 0
-  goalThreshhold: 0.5
+  goalThreshhold: 1
   exitTrashhold: 1
