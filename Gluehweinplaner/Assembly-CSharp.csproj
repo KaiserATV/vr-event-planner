@@ -70,6 +70,7 @@
     <Compile Include="Assets\UI\RadialSelection.cs" />
     <Compile Include="Assets\Scripts\AgentController.cs" />
     <Compile Include="Assets\Scripts\CrowdGeneration.cs" />
+    <Compile Include="Assets\Scripts\Budeninteraktion\XRGrabMove.cs" />
     <Compile Include="Assets\Scripts\GodmodeController.cs" />
     <Compile Include="Assets\Scripts\Exits.cs" />
     <Compile Include="Assets\UI\ObjectSpawner.cs" />
