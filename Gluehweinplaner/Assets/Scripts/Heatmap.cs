@@ -35,6 +35,7 @@ public class Heatmap : MonoBehaviour
     public float cellsizeZ=10f;
     public int cols;
     public int rows;
+    public int cells;
 
 
     void Start ()
@@ -44,9 +45,11 @@ public class Heatmap : MonoBehaviour
         cols = Mathf.FloorToInt(b.size.x / cellsizeX);
         rows = Mathf.FloorToInt(b.size.z / cellsizeZ);
 
-        properties = new float[cols * rows];
-        playCellCount = new int[cols * rows];
-        playMaxCount = new int[cols * rows];
+        cells = cols * rows;
+
+        properties = new float[cells];
+        playCellCount = new int[cells];
+        playMaxCount = new int[cells];
 
         material.SetInt("_Rows", rows);
         material.SetFloat("_XDistance", cellsizeX);
@@ -98,7 +101,7 @@ public class Heatmap : MonoBehaviour
         int index1 = rows * from.x + from.y;
         Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((b.max.x - to.x) / cellsizeX), Mathf.FloorToInt((b.max.z - to.y) / cellsizeZ));
         int index2 = rows * newCells.x + newCells.y;
-        if (index1 != index2 && index1 >= 0)
+        if (index1 != index2 && index1 >= 0 && index1 <= cells)
         {
             playCellCount[index1] -= 1;
             playCellCount[index2] += 1;
