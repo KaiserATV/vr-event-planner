@@ -77,7 +77,8 @@ public class AgentController : MonoBehaviour
             }
             else
             {
-                positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(transform.position.x, transform.position.z));
+                Debug.Log(this.transform.position);
+                positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
             }
         }
     }

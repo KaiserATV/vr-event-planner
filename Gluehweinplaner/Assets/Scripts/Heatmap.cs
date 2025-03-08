@@ -1,6 +1,5 @@
 ﻿// Alan Zucconi
 // www.alanzucconi.com
-using System;
 using UnityEngine;
 
 public class Heatmap : MonoBehaviour
@@ -52,7 +51,7 @@ public class Heatmap : MonoBehaviour
         material.SetInt("_Rows", rows);
         material.SetFloat("_XDistance", cellsizeX);
         material.SetFloat("_ZDistance", cellsizeZ);
-        material.SetVector("_MinVals", new Vector2(b.min.x, b.min.z));
+        material.SetVector("_MaxVals", new Vector2(b.max.x, b.max.z));
     }
 
     void FixedUpdate()
@@ -83,53 +82,44 @@ public class Heatmap : MonoBehaviour
 
     public Vector2Int Spawned(Vector2 worldPos)
     {
-        if (worldPos.x > b.min.x && worldPos.x < b.max.x)
-        {
-            if (worldPos.y > b.min.z && worldPos.y < b.max.z)
-            {
-                Vector2Int cellCords = new Vector2Int();
-                cellCords.x = Mathf.FloorToInt((worldPos.x - b.min.x) / cellsizeX);
-                cellCords.y = Mathf.FloorToInt((worldPos.y - b.min.z) / cellsizeZ);
-                int index = rows * cellCords.y + cellCords.x;
-                playCellCount[index] += 1;
-                int c = playCellCount[index];
-                int cM = playMaxCount[index];
-                if (c > cM) playMaxCount[index] = c;
-                properties[index] = determineAlpha((showMax) ? c :cM);
-                return cellCords;
-            }
-        }
-        return new Vector2Int(-1, -1);
+        Vector2Int cellCords = new Vector2Int();
+        cellCords.x = Mathf.FloorToInt((b.max.x - worldPos.x) / cellsizeX);
+        cellCords.y = Mathf.FloorToInt((b.max.z - worldPos.y) / cellsizeZ);
+        int index = rows * cellCords.x + cellCords.y;
+        playCellCount[index] += 1;
+        int c = playCellCount[index];
+        int cM = playMaxCount[index];
+        if (c > cM) playMaxCount[index] = c;
+        properties[index] = determineAlpha(showMax ? cM : c);
+        return cellCords;
     }
 
     public Vector2Int Moved(Vector2Int from, Vector2 to)
     {
-        if (to.x > b.min.x && to.y < b.max.x)
+        int index1 = rows * from.x + from.y;
+        Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((b.max.x - to.x) / cellsizeX), Mathf.FloorToInt((b.max.z - to.y) / cellsizeZ));
+        int index2 = rows * newCells.x + newCells.y;
+        if (index1 != index2 && index1 >= 0)
         {
-            int index1 = rows * from.y + from.x;
             playCellCount[index1] -= 1;
-
-            Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((to.x - b.min.x) / cellsizeX), Mathf.FloorToInt((to.y - b.min.z) / cellsizeZ));
-            int index2 = rows * newCells.y + newCells.x;
             playCellCount[index2] += 1;
+
             int c = playCellCount[index2];
             int cM = playMaxCount[index2];
+                
             if ( c>cM ) playMaxCount[index2] = c;
             if (showMax)
             {
+                properties[index1] = determineAlpha(playMaxCount[index1]);
                 properties[index2] = determineAlpha(cM);
-                properties[index1] = determineAlpha(cM);
             }
             else
             {
-                properties[index2] = determineAlpha(c);
-                properties[index1] = determineAlpha(c);
-
+                properties[index1] = determineAlpha(playCellCount[index1]);
+                properties[index2] = determineAlpha(playCellCount[index2]);
             }
-
-            return newCells;
         }
-        return new Vector2Int(-1, -1);
+        return newCells;
     }
 
 

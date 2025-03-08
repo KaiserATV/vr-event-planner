@@ -35,17 +35,16 @@ Shader "Hidden/Heatmap" {
 		uniform float _XDistance;
 		uniform float _ZDistance;
 		uniform float _Properties[2000];	// y = intensity
-		uniform float2 _MinVals;
+		uniform float2 _MaxVals;
 		uniform int _Rows;
 
 		sampler2D _HeatTex;
 
 		half4 frag(vertOutput output) : COLOR{
-			// Loops over all the points
-			int cellX = (output.worldPos.x - _MinVals.x)/_XDistance;
-			int cellZ = (output.worldPos.z - _MinVals.y)/_ZDistance;
+			int cellX = (_MaxVals.x - output.worldPos.x)/_XDistance;
+			int cellZ = (_MaxVals.y - output.worldPos.z)/_ZDistance;
 			
-			half h = _Properties[_Rows * cellZ + cellX];
+			half h = _Properties[_Rows * cellX + cellZ];
 			
 			half4 color = tex2D(_HeatTex, fixed2(h, 0.5));
 			return color;
