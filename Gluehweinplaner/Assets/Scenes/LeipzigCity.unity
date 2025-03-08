@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 0
-  maxPlayerCount: 2000
+  maxPlayerCount: 200
   simulating: 1
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
