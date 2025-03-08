@@ -62,7 +62,20 @@ public class Heatmap : MonoBehaviour
         material.SetFloatArray("_Properties", properties);
     }
 
-    public void showMaxAlpha()
+    public void ToggleAlphaMode()
+    {
+        if (showMax)
+        {
+            showCurrentAlpha();
+        }
+        else
+        {
+            showMaxAlpha();
+        }
+
+    }
+
+    private void showMaxAlpha()
     {
         for (int i = 0; i < properties.Length; i++)
         {
@@ -72,7 +85,7 @@ public class Heatmap : MonoBehaviour
     }
 
     //Muss ausgeführt werden um wieder die aktuelle anzeige anzuzeigen
-    public void showCurrentAlpha()
+    private void showCurrentAlpha()
     {
         for (int i = 0; i < properties.Length; i++)
         {
