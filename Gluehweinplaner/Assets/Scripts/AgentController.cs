@@ -85,7 +85,8 @@ public class AgentController : MonoBehaviour
                 patienceLost -= Time.deltaTime;
                 if (patienceLost < 0)
                 {
-                    bude.RemovePlayer(bitarrayCells, this);
+
+                    if (goalNr >= 0) { bude.RemovePlayer(bitarrayCells, this); }
                     FindNextGoal();
                 }
                 positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
