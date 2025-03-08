@@ -14,6 +14,7 @@ public class AgentManager : MonoBehaviour
     public string budenContainerName = "BudenContainer";
     public string exitContainerName = "ExitContainer";
     public string spawnerContainerName = "SpawnerContainer";
+    public string heatmapname = "HeatMap";
 
     public int allBudenWeigth;
 
@@ -33,7 +34,7 @@ public class AgentManager : MonoBehaviour
         alleBuden = GameObject.Find(budenContainerName).GetComponentsInChildren<Buden>();
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
         spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
-        hm = GameObject.Find("TeleCube").GetComponentInChildren<Heatmap>();
+        hm = GameObject.Find(heatmapname).GetComponentInChildren<Heatmap>();
 
         CalcAllBudenWeight();
 

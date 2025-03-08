@@ -1,7 +1,4 @@
-﻿// Alan Zucconi
-// www.alanzucconi.com
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Heatmap : MonoBehaviour
 {
@@ -14,14 +11,19 @@ public class Heatmap : MonoBehaviour
 
     private struct usageCat{
         public const int low = 3;
-        public const int high = 6;
+        public const int mediumLow = 6;
+        public const int medium = 9;
+        public const int mediumHigh = 12;
+        public const int high = 15;
     }
 
 
     private struct alphaCat
     {
-        public const float low = 0.5f;
-        public const float medium = 0.75f;
+        public const float low = 0.2f;
+        public const float mediumLow = 0.4f;
+        public const float medium = 0.6f;
+        public const float mediumHigh = 0.8f;
         public const float high = 1f;
     }
 
@@ -33,6 +35,7 @@ public class Heatmap : MonoBehaviour
     public float cellsizeZ=10f;
     public int cols;
     public int rows;
+    public int cells;
 
 
     void Start ()
@@ -42,17 +45,16 @@ public class Heatmap : MonoBehaviour
         cols = Mathf.FloorToInt(b.size.x / cellsizeX);
         rows = Mathf.FloorToInt(b.size.z / cellsizeZ);
 
-        //cellsizeX = b.size.x / cols;
-        //cellsizeZ = b.size.z / rows;
+        cells = cols * rows;
 
-        properties = new float[cols * rows];
-        playCellCount = new int[cols * rows];
-        playMaxCount = new int[cols * rows];
+        properties = new float[cells];
+        playCellCount = new int[cells];
+        playMaxCount = new int[cells];
 
         material.SetInt("_Rows", rows);
         material.SetFloat("_XDistance", cellsizeX);
         material.SetFloat("_ZDistance", cellsizeZ);
-        material.SetVector("_MinVals", new Vector2(b.min.x, b.min.z));
+        material.SetVector("_MaxVals", new Vector2(b.max.x, b.max.z));
     }
 
     void FixedUpdate()
@@ -60,8 +62,20 @@ public class Heatmap : MonoBehaviour
         material.SetFloatArray("_Properties", properties);
     }
 
-    //Muss ausgeführt werden um auf maximal anzeige umzustellen
-    public void showMaxAlpha()
+    public void ToggleAlphaMode()
+    {
+        if (showMax)
+        {
+            showCurrentAlpha();
+        }
+        else
+        {
+            showMaxAlpha();
+        }
+
+    }
+
+    private void showMaxAlpha()
     {
         for (int i = 0; i < properties.Length; i++)
         {
@@ -71,7 +85,7 @@ public class Heatmap : MonoBehaviour
     }
 
     //Muss ausgeführt werden um wieder die aktuelle anzeige anzuzeigen
-    public void showCurrentAlpha()
+    private void showCurrentAlpha()
     {
         for (int i = 0; i < properties.Length; i++)
         {
@@ -83,53 +97,47 @@ public class Heatmap : MonoBehaviour
 
     public Vector2Int Spawned(Vector2 worldPos)
     {
-        if (worldPos.x > b.min.x && worldPos.x < b.max.x)
+        Vector2Int cellCords = new Vector2Int();
+        cellCords.x = Mathf.FloorToInt((b.max.x - worldPos.x) / cellsizeX);
+        cellCords.y = Mathf.FloorToInt((b.max.z - worldPos.y) / cellsizeZ);
+        int index = rows * cellCords.x + cellCords.y;
+        if (index >= 0 && index <= cells)
         {
-            if (worldPos.y > b.min.z && worldPos.y < b.max.z)
-            {
-                Vector2Int cellCords = new Vector2Int();
-                cellCords.x = Mathf.FloorToInt((worldPos.x - b.min.x) / cellsizeX);
-                cellCords.y = Mathf.FloorToInt((worldPos.y - b.min.z) / cellsizeZ);
-                int index = rows * cellCords.y + cellCords.x;
-                playCellCount[index] += 1;
-                int c = playCellCount[index];
-                int cM = playMaxCount[index];
-                if (c > cM) playMaxCount[index] = c;
-                properties[index] = determineAlpha((showMax) ? c :cM);
-                return cellCords;
-            }
+            playCellCount[index] += 1;
+            int c = playCellCount[index];
+            int cM = playMaxCount[index];
+            if (c > cM) playMaxCount[index] = c;
+            properties[index] = determineAlpha(showMax ? cM : c);
         }
-        return new Vector2Int(-1, -1);
+        return cellCords;
     }
 
     public Vector2Int Moved(Vector2Int from, Vector2 to)
     {
-        if (to.x > b.min.x && to.y < b.max.x)
+        int index1 = rows * from.x + from.y;
+        Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((b.max.x - to.x) / cellsizeX), Mathf.FloorToInt((b.max.z - to.y) / cellsizeZ));
+        int index2 = rows * newCells.x + newCells.y;
+        if ((index1 != index2) && (index1 >= 0) && (index1 <= cells) && (index2 >= 0) && (index2 <= cells))
         {
-            int index1 = rows * from.y + from.x;
             playCellCount[index1] -= 1;
-
-            Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((to.x - b.min.x) / cellsizeX), Mathf.FloorToInt((to.y - b.min.z) / cellsizeZ));
-            int index2 = rows * newCells.y + newCells.x;
             playCellCount[index2] += 1;
+
             int c = playCellCount[index2];
             int cM = playMaxCount[index2];
+                
             if ( c>cM ) playMaxCount[index2] = c;
             if (showMax)
             {
+                properties[index1] = determineAlpha(playMaxCount[index1]);
                 properties[index2] = determineAlpha(cM);
-                properties[index1] = determineAlpha(cM);
             }
             else
             {
-                properties[index2] = determineAlpha(c);
-                properties[index1] = determineAlpha(c);
-
+                properties[index1] = determineAlpha(playCellCount[index1]);
+                properties[index2] = determineAlpha(playCellCount[index2]);
             }
-
-            return newCells;
         }
-        return new Vector2Int(-1, -1);
+        return newCells;
     }
 
 
@@ -143,13 +151,23 @@ public class Heatmap : MonoBehaviour
         {
             return alphaCat.low;
         }
+        else if (usage >= usageCat.high)
+        {
+                return alphaCat.high;
+        }
         else
         {
-            if (usage >= usageCat.high)
+            if(usage < usageCat.medium)
             {
-                return alphaCat.high;
+                return alphaCat.mediumLow;
+            }else if(usage < usageCat.mediumHigh)
+            {
+                return alphaCat.medium;
             }
-            return alphaCat.medium;
+            else
+            {
+                return alphaCat.mediumHigh;
+            }
         }
     }
 

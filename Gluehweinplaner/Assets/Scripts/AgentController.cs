@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,9 @@ public class AgentController : MonoBehaviour
     public bool randomExitGoalNumber = true;
     public int goalsBeforeExit;
     public int goalNr;
+    public const float patience = 120f;
+    public float patienceLost;
+
 
     public bool stopped = false;
     public bool waiting = false;
@@ -25,6 +29,7 @@ public class AgentController : MonoBehaviour
     private BitArray2D bude;
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
+    
 
     public const float updateRate = 5.0f;
 
@@ -62,6 +67,11 @@ public class AgentController : MonoBehaviour
                         bude.RemovePlayer(bitarrayCells, this);
                         waiting = false;
                         FindNextGoal();
+                    }else if(timeLeftWaiting < 0)
+                    {
+                        waiting = false;
+                        FindExit();
+                        agent.isStopped = false;
                     }
                 }
             }
@@ -77,7 +87,14 @@ public class AgentController : MonoBehaviour
             }
             else
             {
-                positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(transform.position.x, transform.position.z));
+                patienceLost -= Time.deltaTime;
+                if (patienceLost < 0)
+                {
+
+                    if (goalNr >= 0 && bude!=null) { bude.RemovePlayer(bitarrayCells, this); }
+                    FindNextGoal();
+                }
+                positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
             }
         }
     }
@@ -101,6 +118,7 @@ public class AgentController : MonoBehaviour
             FindExit();
         }
         agent.isStopped = false;
+        patienceLost = patience;
     }
 
     void FindExit()
@@ -148,6 +166,7 @@ public class AgentController : MonoBehaviour
     {
         agent.isStopped = false;
         stopped = false;
+        agent.destination = goal;
     }
 
     private void OnDrawGizmos()
