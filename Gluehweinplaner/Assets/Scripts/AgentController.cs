@@ -67,6 +67,11 @@ public class AgentController : MonoBehaviour
                         bude.RemovePlayer(bitarrayCells, this);
                         waiting = false;
                         FindNextGoal();
+                    }else if(timeLeftWaiting < 0)
+                    {
+                        waiting = false;
+                        FindExit();
+                        agent.isStopped = false;
                     }
                 }
             }
