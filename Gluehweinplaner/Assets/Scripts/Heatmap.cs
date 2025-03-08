@@ -104,7 +104,7 @@ public class Heatmap : MonoBehaviour
         int index1 = rows * from.x + from.y;
         Vector2Int newCells = new Vector2Int(Mathf.FloorToInt((b.max.x - to.x) / cellsizeX), Mathf.FloorToInt((b.max.z - to.y) / cellsizeZ));
         int index2 = rows * newCells.x + newCells.y;
-        if (index1 != index2 && index1 >= 0 && index1 <= cells)
+        if (!(index1 == index2) || !(index1 < 0) || !(index1 > cells) || !(index2 < 0) || !(index2 > cells))
         {
             playCellCount[index1] -= 1;
             playCellCount[index2] += 1;
