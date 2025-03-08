@@ -586,7 +586,7 @@ MonoBehaviour:
   buttonLabels: []
   textRotationOffset: 90
   menuActivateAction: {fileID: 3165258451067141589, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  waitTimeUntilActivation: 2
+  waitTimeUntilActivation: 1
   timeWaited: 0
   waitingAt: -1
 --- !u!1 &276246237
