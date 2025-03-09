@@ -38,7 +38,6 @@ public class GodmodeController : MonoBehaviour
     [SerializeField] private AudioClip godmodeActivateSound;
     [SerializeField] private AudioClip godmodeDeactivateSound;
 
-   void Update()
     void Start()
     {
         if (grabAction != null)
