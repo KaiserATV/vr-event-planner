@@ -115,13 +115,15 @@ public class BuildingDeletion : MonoBehaviour
 
     if (selectedBuilding != null)
     {
-        Debug.Log("ResetDeletionAfterTimeout: Zurücksetzen des Materials für " + selectedBuilding.name);
-
         Renderer renderer = selectedBuilding.GetComponent<Renderer>();
+        if (renderer == null) // Falls kein Renderer direkt vorhanden ist
+        {
+            renderer = selectedBuilding.GetComponentInChildren<Renderer>();
+        }
+
         if (renderer != null)
         {
-            Debug.Log("Material zurücksetzen auf: " + originalMaterial);
-            renderer.material = originalMaterial; // Originalmaterial zurücksetzen
+            renderer.material = originalMaterial;
         }
         else
         {
@@ -136,4 +138,5 @@ public class BuildingDeletion : MonoBehaviour
     isMarkedForDeletion = false;
     selectedBuilding = null;
 }
+
 }
