@@ -39,7 +39,7 @@ public class Heatmap : MonoBehaviour
     public int cols;
     public int rows;
     public int cells;
-
+    private int statCounter = 0;
 
     void Start ()
     {
@@ -64,20 +64,27 @@ public class Heatmap : MonoBehaviour
 
     public void ToggleAlphaMode()
     {
-        showClear = !(showClear || showMax);
-        if (showClear)
+
+        if (statCounter == 0)
         {
             showClearArray();
-        }else if (showMax)
+            showClear = true;
+            showMax = false;
+        }
+        else if (statCounter == 1)
         {
             showMaxAlpha();
+            showClear = false;
+            showMax = true;
         }
         else
         {
             showCurrentAlpha();
+            showClear = false;
+            showMax = false;
         }
 
-
+        statCounter= (statCounter+1) % 3;
     }
 
     private void showClearArray()
