@@ -729,7 +729,7 @@
                 {
                     "name": "",
                     "id": "b1c7a27b-477a-457e-a646-5caaf9b14c2e",
-                    "path": "<ViveController>/trackpad",
+                    "path": "<ViveController>{LeftHand}/trackpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1627,7 +1627,7 @@
                 {
                     "name": "",
                     "id": "9bd3b6d0-550b-42f7-9209-20415d49b934",
-                    "path": "<ViveController>/trackpad/x",
+                    "path": "<ViveController>{RightHand}/trackpad/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
