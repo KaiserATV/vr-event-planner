@@ -168,6 +168,8 @@ public class Heatmap : MonoBehaviour
                     properties[index1] = determineAlpha(playCellCount[index1]);
                     properties[index2] = determineAlpha(playCellCount[index2]);
                 }
+                material.SetFloatArray("_Properties", properties);
+
             }
         }
         return newCells;
