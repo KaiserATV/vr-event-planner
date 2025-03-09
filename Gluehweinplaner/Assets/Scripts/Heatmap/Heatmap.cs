@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using System;
 
 public class Heatmap : MonoBehaviour
 {
     public bool showMax = false;
-    public bool showClear = true;
+    public bool showClear = false;
 
 
     public float[] properties;
@@ -63,16 +64,17 @@ public class Heatmap : MonoBehaviour
 
     public void ToggleAlphaMode()
     {
+        showClear = !(showClear || showMax);
         if (showClear)
         {
             showClearArray();
         }else if (showMax)
         {
-            showCurrentAlpha();
+            showMaxAlpha();
         }
         else
         {
-            showMaxAlpha();
+            showCurrentAlpha();
         }
 
 
@@ -81,7 +83,6 @@ public class Heatmap : MonoBehaviour
     private void showClearArray()
     {
         material.SetFloatArray("_Properties", clear);
-        showClear = false;
     }
 
     private void showMaxAlpha()
@@ -90,8 +91,7 @@ public class Heatmap : MonoBehaviour
         {
             properties[i] = determineAlpha(playMaxCount[i]);
         }
-        showMax = true;
-        showClear = true;
+        showMax = false;
         material.SetFloatArray("_Properties", properties);
     }
 
@@ -102,7 +102,7 @@ public class Heatmap : MonoBehaviour
         {
             properties[i] = determineAlpha(playCellCount[i]);
         }
-        showMax = false;
+        showMax = true;
         material.SetFloatArray("_Properties", properties);
     }
 
