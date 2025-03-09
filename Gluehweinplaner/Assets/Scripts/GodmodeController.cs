@@ -191,4 +191,11 @@ public class GodmodeController : MonoBehaviour
     {
         isPlacingObject = false;
     }
+
+    public bool IsGodmodeActive()
+{
+    return isGodmodeActive;
 }
+
+}
+
