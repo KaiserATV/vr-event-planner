@@ -54,9 +54,9 @@ public class BuildingDeletion : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
-            if (hit.collider.gameObject.CompareTag("Bude")) // Prüft, ob das getroffene Objekt "dieBuuude" ist
+            if (hit.collider.gameObject.CompareTag("Bude")) // Prüft, ob das getroffene Objekt "Bude" ist
             {
-                GameObject parentBuilding = hit.collider.transform.parent?.gameObject; // Holt das "Cool"-Objekt
+                GameObject parentBuilding = hit.collider.transform.parent?.gameObject; // Holt das "Stand"-Objekt
 
                 if (parentBuilding == null)
                 {
@@ -110,19 +110,30 @@ public class BuildingDeletion : MonoBehaviour
     }
 
     IEnumerator ResetDeletionAfterTimeout()
+{
+    yield return new WaitForSeconds(deleteTimeout);
+
+    if (selectedBuilding != null)
     {
-        yield return new WaitForSeconds(deleteTimeout);
+        Debug.Log("ResetDeletionAfterTimeout: Zurücksetzen des Materials für " + selectedBuilding.name);
 
-        if (selectedBuilding != null)
+        Renderer renderer = selectedBuilding.GetComponent<Renderer>();
+        if (renderer != null)
         {
-            Renderer renderer = selectedBuilding.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.material = originalMaterial; // Originalmaterial zurücksetzen
-            }
+            Debug.Log("Material zurücksetzen auf: " + originalMaterial);
+            renderer.material = originalMaterial; // Originalmaterial zurücksetzen
         }
-
-        isMarkedForDeletion = false;
-        selectedBuilding = null;
+        else
+        {
+            Debug.LogWarning("Kein Renderer gefunden! Material konnte nicht zurückgesetzt werden.");
+        }
     }
+    else
+    {
+        Debug.LogWarning("selectedBuilding ist NULL in ResetDeletionAfterTimeout()");
+    }
+
+    isMarkedForDeletion = false;
+    selectedBuilding = null;
+}
 }
