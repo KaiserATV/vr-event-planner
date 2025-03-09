@@ -52,6 +52,8 @@ public class RadicalSelection : MonoBehaviour
         buttonLabels.Add("Veranstaltungsobjekt");
         buttonLabels.Add("Besucherstrom");
         buttonLabels.Add("Lautstärke");
+        buttonLabels.Add("Heatmap");
+        buttonLabels.Add("Godmode");
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");

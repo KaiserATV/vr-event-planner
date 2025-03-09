@@ -3,11 +3,13 @@
 public class Heatmap : MonoBehaviour
 {
     public bool showMax = false;
+    public bool showClear = true;
 
 
     public float[] properties;
     public int[] playCellCount;
     public int[] playMaxCount;
+    public float[] clear;
 
     private struct usageCat{
         public const int low = 3;
@@ -50,6 +52,8 @@ public class Heatmap : MonoBehaviour
         properties = new float[cells];
         playCellCount = new int[cells];
         playMaxCount = new int[cells];
+        clear = new float[cells];
+
 
         material.SetInt("_Rows", rows);
         material.SetFloat("_XDistance", cellsizeX);
@@ -57,14 +61,12 @@ public class Heatmap : MonoBehaviour
         material.SetVector("_MaxVals", new Vector2(b.max.x, b.max.z));
     }
 
-    void FixedUpdate()
-    {
-        material.SetFloatArray("_Properties", properties);
-    }
-
     public void ToggleAlphaMode()
     {
-        if (showMax)
+        if (showClear)
+        {
+            showClearArray();
+        }else if (showMax)
         {
             showCurrentAlpha();
         }
@@ -73,6 +75,13 @@ public class Heatmap : MonoBehaviour
             showMaxAlpha();
         }
 
+
+    }
+
+    private void showClearArray()
+    {
+        material.SetFloatArray("_Properties", clear);
+        showClear = false;
     }
 
     private void showMaxAlpha()
@@ -82,6 +91,7 @@ public class Heatmap : MonoBehaviour
             properties[i] = determineAlpha(playMaxCount[i]);
         }
         showMax = true;
+        showClear = true;
     }
 
     //Muss ausgeführt werden um wieder die aktuelle anzeige anzuzeigen
@@ -108,6 +118,14 @@ public class Heatmap : MonoBehaviour
             int cM = playMaxCount[index];
             if (c > cM) playMaxCount[index] = c;
             properties[index] = determineAlpha(showMax ? cM : c);
+            if (showClear) { 
+                material.SetFloatArray("_Properties", clear);
+            }
+            else
+            {
+                material.SetFloatArray("_Properties", properties);
+            }
+
         }
         return cellCords;
     }
@@ -126,15 +144,21 @@ public class Heatmap : MonoBehaviour
             int cM = playMaxCount[index2];
                 
             if ( c>cM ) playMaxCount[index2] = c;
-            if (showMax)
-            {
-                properties[index1] = determineAlpha(playMaxCount[index1]);
-                properties[index2] = determineAlpha(cM);
+            if (showClear) {
+                material.SetFloatArray("_Properties", clear);
             }
             else
             {
-                properties[index1] = determineAlpha(playCellCount[index1]);
-                properties[index2] = determineAlpha(playCellCount[index2]);
+                if (showMax)
+                {
+                    properties[index1] = determineAlpha(playMaxCount[index1]);
+                    properties[index2] = determineAlpha(cM);
+                }
+                else
+                {
+                    properties[index1] = determineAlpha(playCellCount[index1]);
+                    properties[index2] = determineAlpha(playCellCount[index2]);
+                }
             }
         }
         return newCells;
