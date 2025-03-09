@@ -29,7 +29,7 @@ public class ObjectSpawner : MonoBehaviour
     private float rotationSpeed = 100f;
     private bool hasManualRotation = false;
     private bool hasUsedMoveInput = false;
-private float lastRotationInput = 0f;
+    private float lastRotationInput = 0f;
 
     void Start()
     {
@@ -153,7 +153,7 @@ private float lastRotationInput = 0f;
             placementPosition, 
             Quaternion.Euler(0, placementRotationY, 0), 
             budenContainer.transform);
-
+        newObj.GetComponent<Buden>().SetTypeIndex(selectedIndex);
         am.AddBude(newObj.GetComponent<Buden>());
         Destroy(currentPreview);
         selectedIndex = -1;

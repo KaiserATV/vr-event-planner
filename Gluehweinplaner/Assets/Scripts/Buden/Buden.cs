@@ -11,6 +11,8 @@ public class Buden : MonoBehaviour
 
     private bool komplettAusgelastet = false;
 
+    private int typeIndex;
+
 
 
     //To-Do: Optimize the Datastructure
@@ -120,5 +122,19 @@ public class Buden : MonoBehaviour
     {
         Start();
     }
-    public bool IstAusgelasted() { return komplettAusgelastet; }
+    public bool IstAusgelasted() 
+    { 
+        return komplettAusgelastet; 
+    }
+
+    public BudenJSON GetBudenJSON()
+    {
+        return new BudenJSON(this.transform.position.x, this.transform.position.z, this.transform.eulerAngles.y, typeIndex);
+    }
+
+    public void SetTypeIndex(int i)
+    {
+        typeIndex = i;
+    }
+
 }

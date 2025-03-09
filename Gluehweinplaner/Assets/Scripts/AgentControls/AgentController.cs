@@ -92,6 +92,7 @@ public class AgentController : MonoBehaviour
                 {
 
                     if (goalNr >= 0 && bude!=null) { bude.RemovePlayer(bitarrayCells, this); }
+                    sm.LostPatience();
                     FindNextGoal();
                 }
                 positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
