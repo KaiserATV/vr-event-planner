@@ -221,7 +221,7 @@ public class AgentManager : MonoBehaviour
         Debug.Log("Speichere JSON");	
         string path = Application.persistentDataPath + "/Position.json";
         Debug.Log("Speichere JSON nach: " + path);
-        using(StreamWriter writer = new StreamWriter(path, true))
+        using(StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(CreateJSON());
         }
