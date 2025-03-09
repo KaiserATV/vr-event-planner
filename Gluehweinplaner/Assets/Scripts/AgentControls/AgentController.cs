@@ -61,18 +61,14 @@ public class AgentController : MonoBehaviour
                 else
                 {
                     timeLeftWaiting -= Time.deltaTime;
-                    if (timeLeftWaiting < 0 && bude != null)
+                    if (timeLeftWaiting < 0)
                     {
                         bude.RemovePlayer(bitarrayCells, this);
-                        FindNextGoal();
-                    }else if(timeLeftWaiting < 0 && bude!=null)
-                    {
-                        bude.RemovePlayer(bitarrayCells, this);
-                        FindExit();
-                    }
-                    else
-                    {
-                        FindExit();
+                        if (bude != null) {
+                            FindNextGoal();
+                        } else {
+                            FindExit();
+                        }
                     }
                 }
             }
