@@ -65,19 +65,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AgentControls\AgentController.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\Exits.cs" />
     <Compile Include="Assets\Scripts\Buden\Buden.cs" />
+    <Compile Include="Assets\UI\SetColorFromList.cs" />
+    <Compile Include="Assets\SpawnerDespawner\Exits.cs" />
     <Compile Include="Assets\Scripts\Buden\BitArray2D.cs" />
-    <Compile Include="Assets\Scripts\SpawnerDespawner\CrowdGeneration.cs" />
+    <Compile Include="Assets\UI\RadialSelection.cs" />
+    <Compile Include="Assets\SpawnerDespawner\CrowdGeneration.cs" />
     <Compile Include="Assets\Scripts\DeleteBuilding.cs" />
     <Compile Include="Assets\Scripts\Buden\BudenJSON.cs" />
     <Compile Include="Assets\Scripts\Heatmap\Heatmap.cs" />
     <Compile Include="Assets\Scripts\GodmodeController.cs" />
-    <Compile Include="Assets\Scripts\UI\ObjectSpawner.cs" />
-    <Compile Include="Assets\Scripts\UI\SetColorFromList.cs" />
+    <Compile Include="Assets\UI\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\AgentControls\AgentManager.cs" />
     <Compile Include="Assets\Scripts\DebugTeleport.cs" />
-    <Compile Include="Assets\Scripts\UI\RadialSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
