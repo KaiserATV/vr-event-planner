@@ -71,7 +71,6 @@
     <Compile Include="Assets\Scripts\Budeninteraktion\VelocityControl.cs" />
     <Compile Include="Assets\Scripts\AgentController.cs" />
     <Compile Include="Assets\Scripts\CrowdGeneration.cs" />
-    <Compile Include="Assets\Scripts\Budeninteraktion\XRGrabMove.cs" />
     <Compile Include="Assets\Scripts\GodmodeController.cs" />
     <Compile Include="Assets\Scripts\Exits.cs" />
     <Compile Include="Assets\UI\ObjectSpawner.cs" />
@@ -956,6 +955,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.XR.Hands">
       <HintPath>Library\ScriptAssemblies\Unity.XR.Hands.dll</HintPath>
       <Private>False</Private>
@@ -1230,6 +1233,10 @@
     </Reference>
     <Reference Include="Unity.Mathematics">
       <HintPath>Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">

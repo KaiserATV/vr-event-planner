@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using System.Collections;
 
 public class GodmodeController : MonoBehaviour
@@ -21,10 +23,13 @@ public class GodmodeController : MonoBehaviour
 
     public TeleportationProvider teleportProvider;
     public LocomotionProvider snapTurnProvider;
-    public XRRayInteractor teleportRayInteractor; // Neuer Teleport Ray Interactor
+    public XRRayInteractor teleportRayInteractor;
+
+    public Volume postProcessingVolume;
+    private Vignette vignette;
     
-    public GameObject vignetteEffect;
     private Vector3 originalPosition;
+    private float maxDistance = 10f; // Maximale Distanz für Vignette
 
     void Start()
     {
@@ -32,6 +37,11 @@ public class GodmodeController : MonoBehaviour
         {
             grabAction.action.started += _ => StartGrabbing();
             grabAction.action.canceled += _ => StopGrabbing();
+        }
+
+        if (postProcessingVolume != null)
+        {
+            postProcessingVolume.profile.TryGet(out vignette);
         }
     }
 
@@ -45,17 +55,13 @@ public class GodmodeController : MonoBehaviour
         if (isGodmodeActive && !isGrabbingObject && !isPlacingObject)
         {
             MoveGodmode();
+            UpdateVignetteIntensity();
         }
     }
 
     public IEnumerator ToggleGodmode()
     {
         isGodmodeActive = !isGodmodeActive;
-
-        if (vignetteEffect != null)
-        {
-            vignetteEffect.SetActive(isGodmodeActive);
-        }
 
         if (teleportRayInteractor != null)
         {
@@ -73,6 +79,7 @@ public class GodmodeController : MonoBehaviour
         }
         else
         {
+            StartCoroutine(StrongVignetteFadeOut());
             yield return StartCoroutine(SmoothTransition(originalPosition));
 
             if (teleportProvider != null) teleportProvider.enabled = true;
@@ -113,6 +120,36 @@ public class GodmodeController : MonoBehaviour
 
             xrRig.transform.position += horizontalMove + verticalMovement;
         }
+    }
+
+    void UpdateVignetteIntensity()
+    {
+        if (vignette == null) return;
+
+        float distance = Vector3.Distance(originalPosition, xrRig.transform.position);
+        float intensity = Mathf.Lerp(0.2f, 0.8f, distance / maxDistance); // Stärkere Vignette mit Distanz
+
+        vignette.intensity.value = intensity;
+    }
+
+    IEnumerator StrongVignetteFadeOut()
+    {
+        if (vignette == null) yield break;
+
+        vignette.intensity.value = 1f; // Setzt Vignette auf sehr stark
+        yield return new WaitForSeconds(0.3f); // Kurze starke Abdunklung
+
+        float elapsedTime = 0f;
+        float startIntensity = vignette.intensity.value;
+
+        while (elapsedTime < 1f)
+        {
+            vignette.intensity.value = Mathf.Lerp(startIntensity, 0.2f, elapsedTime / 1f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        vignette.intensity.value = 0.2f; // Setzt sie wieder auf normalen Wert
     }
 
     void StartGrabbing()
