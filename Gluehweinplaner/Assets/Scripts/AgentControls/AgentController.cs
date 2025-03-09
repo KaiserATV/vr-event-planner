@@ -101,7 +101,7 @@ public class AgentController : MonoBehaviour
     }
 
 
-    public void FindNextGoal()
+     void FindNextGoal()
     {
         waiting = false;
         stopped = false;
@@ -121,7 +121,6 @@ public class AgentController : MonoBehaviour
         {
             FindExit();
         }
-        agent.destination = goal;
         patienceLost = patience;
     }
 
@@ -157,6 +156,20 @@ public class AgentController : MonoBehaviour
 
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
         
+        agent.destination = new Vector3(goal.x, 0, goal.y);
+    }
+
+    public void BudeDestroyed()
+    {
+        stopped = false;
+        waiting = false;
+        exiting = false;
+
+        timeLeftWaiting = 0.0f;
+        bude = null;
+
+        FindNextGoal();
+
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
 

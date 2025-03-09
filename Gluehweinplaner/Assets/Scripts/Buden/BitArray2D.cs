@@ -159,7 +159,7 @@ public class BitArray2D
     {
         foreach(AgentController ac in registeredPlayers)
         {
-            ac.FindNextGoal();
+            ac.BudeDestroyed();
         }
 
 

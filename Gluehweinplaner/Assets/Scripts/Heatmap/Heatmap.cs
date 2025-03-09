@@ -4,7 +4,7 @@ using System;
 public class Heatmap : MonoBehaviour
 {
     public bool showMax = false;
-    public bool showClear = false;
+    public bool showClear = true;
 
 
     public float[] properties;
@@ -98,7 +98,6 @@ public class Heatmap : MonoBehaviour
         {
             properties[i] = determineAlpha(playMaxCount[i]);
         }
-        showMax = false;
         material.SetFloatArray("_Properties", properties);
     }
 
@@ -109,7 +108,6 @@ public class Heatmap : MonoBehaviour
         {
             properties[i] = determineAlpha(playCellCount[i]);
         }
-        showMax = true;
         material.SetFloatArray("_Properties", properties);
     }
 
