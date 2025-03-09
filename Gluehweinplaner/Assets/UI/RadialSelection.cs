@@ -140,7 +140,7 @@ public class RadicalSelection : MonoBehaviour
     public void SpawnRadialPart()
     {
         radialPartCanvas.gameObject.SetActive(true);
-        radialPartCanvas.position = handTransform.position;
+        radialPartCanvas.position = handTransform.position + new Vector3(0, 0, 0.2f);
         radialPartCanvas.rotation = handTransform.rotation;
 
         foreach (var item in spawnedParts)
