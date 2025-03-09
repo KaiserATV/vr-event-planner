@@ -144,6 +144,13 @@ public class AgentManager : MonoBehaviour
         alleBuden = tempList.ToArray();
     }
 
+    public void RemoveBude(Buden neueBude)
+    {
+        List<Buden> tempList = alleBuden.ToList();
+        tempList.Remove(neueBude);
+        alleBuden = tempList.ToArray();
+    }
+
     public void ToggleSimulation()
     {
         if (simulating)

@@ -9,10 +9,18 @@ public class BuildingDeletion : MonoBehaviour
     [SerializeField] private InputActionReference deleteBuildingAction; // Input Action für Trigger-Button
     [SerializeField] private Transform handTransform; // Transform des VR-Controllers
 
+    AgentManager am;
+
     private GameObject selectedBuilding;
     private Material originalMaterial;
     private bool isMarkedForDeletion = false;
     private Coroutine deletionCoroutine;
+
+    public void Start()
+    {
+        am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+    }
+
 
     private void OnEnable()
     {
@@ -86,6 +94,9 @@ public class BuildingDeletion : MonoBehaviour
         if (selectedBuilding != null)
         {
             Debug.Log("Gebäude gelöscht: " + selectedBuilding.name);
+            Buden b = selectedBuilding.GetComponent<Buden>();
+            b.ToBeDestroyed();
+            am.RemoveBude(b);
             Destroy(selectedBuilding);
         }
 

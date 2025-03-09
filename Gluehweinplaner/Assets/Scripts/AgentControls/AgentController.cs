@@ -101,8 +101,11 @@ public class AgentController : MonoBehaviour
     }
 
 
-    void FindNextGoal()
+    public void FindNextGoal()
     {
+        waiting = false;
+        stopped = false;
+        agent.isStopped = false;
         timeLeftWaiting = 0.0f;
         if (goalsBeforeExit > 0 && !exiting)
         {
@@ -118,7 +121,7 @@ public class AgentController : MonoBehaviour
         {
             FindExit();
         }
-        agent.isStopped = false;
+        agent.destination = goal;
         patienceLost = patience;
     }
 

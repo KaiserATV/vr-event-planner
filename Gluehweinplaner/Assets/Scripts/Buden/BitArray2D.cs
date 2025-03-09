@@ -155,4 +155,15 @@ public class BitArray2D
         return full;
     }
 
+    public void Destroying()
+    {
+        foreach(AgentController ac in registeredPlayers)
+        {
+            ac.FindNextGoal();
+        }
+
+
+    }
+
+
 }
