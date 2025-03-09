@@ -63,6 +63,7 @@ public class Heatmap : MonoBehaviour
 
     public void ToggleAlphaMode()
     {
+        Debug.Log(showClear + " " +showMax);
         if (showClear)
         {
             showClearArray();
