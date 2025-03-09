@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ObjectSpawner : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class ObjectSpawner : MonoBehaviour
     public Material previewMaterial;
     public GameObject budenContainer;
     public AgentManager am;
-    public GodmodeController godmodeController; // Nur noch GodmodeController
+    public GodmodeController godmodeController;
+    
+    public XRRayInteractor rayInteractor;
+    private GameObject selectedObject = null;
 
     private GameObject currentPreview;
     private int selectedIndex = -1;
@@ -20,6 +24,7 @@ public class ObjectSpawner : MonoBehaviour
     public InputActionReference moveAction;
     public InputActionReference rotateAction;
     public InputActionReference confirmAction;
+    public InputActionReference grabAction;
 
     private bool isPlacing = false;
     public bool IsPlacing => isPlacing;
@@ -36,11 +41,16 @@ public class ObjectSpawner : MonoBehaviour
         budenContainer = GameObject.Find("BudenContainer");    
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
         cameraTransform = Camera.main.transform;
-
         godmodeController = FindObjectOfType<GodmodeController>();
 
         if (godmodeController == null)
             Debug.LogError("GodmodeController wurde nicht gefunden!");
+        
+        if (rayInteractor == null)
+            Debug.LogError("RayInteractor wurde nicht zugewiesen!");
+        
+        grabAction.action.started += _ => TrySelectObject();
+        grabAction.action.canceled += _ => DeselectObject();
     }
 
     public void StartSpawning(int index)
@@ -51,7 +61,6 @@ public class ObjectSpawner : MonoBehaviour
         selectedIndex = index;
         CreatePreviewObject();
 
-        // Bewegung im Godmode deaktivieren
         if (godmodeController != null && godmodeController.IsGodmodeActive())
         {
             godmodeController.StartPlacingObject();
@@ -63,81 +72,120 @@ public class ObjectSpawner : MonoBehaviour
     }
 
     void Update()
-{
-    if (!isPlacing || currentPreview == null) return;
-
-    Vector3 handOffset = handTransform.position + handTransform.forward * placementDistance;
-    Vector3 newPosition = new Vector3(handOffset.x, 0, handOffset.z);
-    float handRotationY = handTransform.eulerAngles.y;
-
-    Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
-    float rotationInput = rotateAction.action.ReadValue<float>();
-
-    // **Bewegung relativ zur Blickrichtung berechnen**
-    if (moveInput.magnitude > 0.01f) 
     {
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+        if (!isPlacing && selectedObject == null) return;
 
-        forward.y = 0; right.y = 0;
-        forward.Normalize();
-        right.Normalize();
+        Vector3 handOffset = handTransform.position + handTransform.forward * placementDistance;
+        Vector3 newPosition = new Vector3(handOffset.x, 0, handOffset.z);
+        float handRotationY = handTransform.eulerAngles.y;
 
-        Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 2f;
+        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
+        float rotationInput = rotateAction.action.ReadValue<float>();
+
+        if (Mathf.Abs(rotationInput) > 0.01f) 
+        {
+            lastRotationInput = rotationInput;
+        }
+
+        // **Bewegung auch für bestehende Buden ermöglichen**
+        if (moveInput.magnitude > 0.01f) 
+{
+    Vector3 forward = cameraTransform.forward;
+    Vector3 right = cameraTransform.right;
+
+    forward.y = 0; 
+    right.y = 0;
+    forward.Normalize();
+    right.Normalize();
+
+    Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 2f;
+
+    if (isPlacing && currentPreview != null)
+    {
         placementPosition += movement;
-
         hasUsedMoveInput = true;
     }
-    else if (!hasUsedMoveInput)
+    else if (selectedObject != null)
     {
-        placementPosition = newPosition;
-    }
+        Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+        XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
 
-    // **Drehrichtung speichern**
-    if (Mathf.Abs(rotationInput) > 0.01f) 
-    {
-        lastRotationInput = rotationInput; // Speichert die Richtung der letzten Eingabe
-    }
-
-    // **Rotation - Kombinierte Steuerung (Klick & Halten)**
-    if (rotateAction.action.WasPressedThisFrame()) 
-    {
-        // Nutze die letzte gespeicherte Eingabe, um die Richtung zu bestimmen
-        if (lastRotationInput > 0) 
+        if (rb != null)
         {
-            placementRotationY += 5f; // Drehung nach rechts
+            bool wasKinematic = rb.isKinematic;
+            rb.isKinematic = false; // Physik-Kollisionen ausschalten, um Bewegung zu erlauben
+            selectedObject.transform.position += movement;
+            Debug.Log("Bestehende Bude '" + selectedObject.name + "' bewegt um " + movement);
+            rb.isKinematic = wasKinematic; // Nach Bewegung zurücksetzen
         }
-        else if (lastRotationInput < 0) 
+        else
         {
-            placementRotationY -= 5f; // Drehung nach links
+            selectedObject.transform.position += movement;
         }
 
-        hasManualRotation = true;
-    }
-    else if (Mathf.Abs(rotationInput) > 0.01f) 
-    {
-        // Falls die Taste gehalten wird, rotiere fließend
-        placementRotationY += rotationInput * rotationSpeed * Time.deltaTime;
-        hasManualRotation = true;
-    }
-    else if (!hasManualRotation) 
-    {
-        placementRotationY = handRotationY;
-    }
-
-    // **Vorschau-Objekt aktualisieren**
-    currentPreview.transform.position = placementPosition;
-    currentPreview.transform.rotation = Quaternion.Euler(0, placementRotationY, 0);
-
-    if (confirmAction.action.triggered)
-    {
-        PlaceObject();
-        isPlacing = false;
+        // Falls das Objekt ein XR Grab Interactable hat, verhindern, dass es beim Greifen "gezogen" wird
+        if (grabInteractable != null)
+        {
+            grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking; // Keine feste Bindung an den Controller
+        }
     }
 }
 
+        else if (!hasUsedMoveInput)
+        {
+            placementPosition = newPosition;
+        }
+
+        // **Rotation für neue oder bestehende Bude**
+        if (rotateAction.action.WasPressedThisFrame()) 
+{
+    float rotationStep = (lastRotationInput > 0) ? 5f : -5f; // Statt 45° nur 5° Schritte
+
+    if (isPlacing && currentPreview != null)
+    {
+        placementRotationY += rotationStep;
+    }
+    else if (selectedObject != null)
+    {
+        float currentRotation = selectedObject.transform.eulerAngles.y;
+        float newRotation = Mathf.Round((currentRotation + rotationStep) / 5f) * 5f; // Auf nächste 5° runden
+        selectedObject.transform.rotation = Quaternion.Euler(0, newRotation, 0);
+
+        Debug.Log("Bestehende Bude '" + selectedObject.name + "' exakt rotiert auf " + newRotation + " Grad.");
+    }
+
+    hasManualRotation = true;
+}
+else if (Mathf.Abs(rotationInput) > 0.01f) 
+{
+    float continuousRotation = rotationInput * rotationSpeed * Time.deltaTime;
+    
+    if (isPlacing && currentPreview != null)
+    {
+        placementRotationY += continuousRotation;
+    }
+    else if (selectedObject != null)
+    {
+        selectedObject.transform.rotation *= Quaternion.Euler(0, continuousRotation, 0);
+    }
+
+    hasManualRotation = true;
+}
 
 
+        // **Vorschau-Objekt aktualisieren**
+        if (isPlacing && currentPreview != null)
+        {
+            currentPreview.transform.position = placementPosition;
+            currentPreview.transform.rotation = Quaternion.Euler(0, placementRotationY, 0);
+        }
+
+        if (confirmAction.action.triggered && isPlacing)
+        {
+            PlaceObject();
+            isPlacing = false;
+        }
+    }
 
     void CreatePreviewObject()
     {
@@ -160,7 +208,6 @@ public class ObjectSpawner : MonoBehaviour
         hasManualRotation = false;
         hasUsedMoveInput = false;
 
-        // Bewegung im Godmode wieder aktivieren
         if (godmodeController != null && godmodeController.IsGodmodeActive())
         {
             godmodeController.StopPlacingObject();
@@ -174,4 +221,102 @@ public class ObjectSpawner : MonoBehaviour
             renderer.material = previewMaterial;
         }
     }
+
+    // **Objekt per Ray Interactor auswählen**
+    void TrySelectObject()
+{
+    if (rayInteractor == null) 
+    {
+        Debug.LogWarning("RayInteractor ist nicht zugewiesen!");
+        return;
+    }
+
+    RaycastHit hit;
+    if (rayInteractor.TryGetCurrent3DRaycastHit(out hit))
+    {
+        Debug.Log("Raycast hat etwas getroffen: " + hit.collider.gameObject.name);
+
+        Transform parent = hit.collider.transform;
+        while (parent.parent != null && !parent.name.Contains("Cool"))
+        {
+            parent = parent.parent;
+        }
+
+        if (parent.name.Contains("Cool"))
+        {
+            selectedObject = parent.gameObject;
+            Debug.Log("Objekt erfolgreich ausgewählt: " + selectedObject.name);
+
+            XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
+            if (grabInteractable != null)
+            {
+                grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking; // Verhindert Ziehen zum Controller
+                grabInteractable.attachTransform = selectedObject.transform; // Bleibt an Ort und Stelle
+            }
+        }
+    }
 }
+
+void DeselectObject()
+{
+    if (selectedObject != null)
+    {
+        Debug.Log("Objekt losgelassen: " + selectedObject.name);
+
+        XRGrabInteractable grabInteractable = selectedObject.GetComponent<XRGrabInteractable>();
+        Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+        XRGazeAssistance gazeAssist = selectedObject.GetComponent<XRGazeAssistance>();
+
+   if (grabInteractable != null)
+{
+    Transform tempAttach = new GameObject("TempAttachPoint").transform;
+    tempAttach.position = grabInteractable.transform.position + Vector3.up * 0.5f; // 0.5m über dem Objekt
+    grabInteractable.attachTransform = tempAttach;
+}
+
+{
+    try
+    {
+        gazeAssist.enabled = false;
+    }
+    catch (System.Exception e)
+    {
+        Debug.LogWarning("Fehler beim Deaktivieren von XRGazeAssistance: " + e.Message);
+    }
+}
+
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        StartCoroutine(ResetGrabInteractable(grabInteractable, 0.1f));
+    }
+
+    selectedObject = null;
+}
+
+private System.Collections.IEnumerator ResetGrabInteractable(XRGrabInteractable grabInteractable, float delay)
+{
+    if (grabInteractable != null)
+    {
+        yield return new WaitForSeconds(delay);
+        grabInteractable.interactionLayers = -1; // Objekt wieder für Interaktionen aktivieren
+    }
+}
+
+private System.Collections.IEnumerator ResetInteractionLayer(XRGrabInteractable grabInteractable, float delay)
+{
+    yield return new WaitForSeconds(delay);
+    if (grabInteractable != null)
+    {
+        grabInteractable.interactionLayers = -1; // Reaktiviert das Objekt für Interaktionen
+    }
+}
+}
+
+

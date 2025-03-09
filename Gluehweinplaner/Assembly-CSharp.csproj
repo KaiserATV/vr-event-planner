@@ -68,7 +68,7 @@
     <Compile Include="Assets\Scripts\AgentManager.cs" />
     <Compile Include="Assets\Scripts\Buden.cs" />
     <Compile Include="Assets\UI\RadialSelection.cs" />
-    <Compile Include="Assets\Scripts\Budeninteraktion\VelocityControl.cs" />
+    <Compile Include="Assets\Scripts\DeleteBuilding.cs" />
     <Compile Include="Assets\Scripts\AgentController.cs" />
     <Compile Include="Assets\Scripts\CrowdGeneration.cs" />
     <Compile Include="Assets\Scripts\GodmodeController.cs" />
