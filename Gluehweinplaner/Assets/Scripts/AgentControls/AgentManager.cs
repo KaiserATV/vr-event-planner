@@ -1,5 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +8,7 @@ public class AgentManager : MonoBehaviour
 {
     public int playerCount = 0;
     public int maxPlayerCount = 50;
+    public int agentsLostPatience = 0;
 
     public bool simulating = false;
 
@@ -40,6 +41,9 @@ public class AgentManager : MonoBehaviour
 
         cellsizes.x = hm.cellsizeX;
         cellsizes.y = hm.cellsizeZ;
+
+
+        LoadBudenFromJSON();
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
@@ -176,4 +180,76 @@ public class AgentManager : MonoBehaviour
         return hm.Spawned(from);
     }
 
+    public void LostPatience()
+    {
+        agentsLostPatience++;
+    }
+
+    private string CreateJSON()
+    {
+        AlleBudenJSON aB = new AlleBudenJSON(alleBuden.Length);
+        for(int i = 0; i < alleBuden.Length;i++)
+        {
+            aB.budenArray[i]=alleBuden[i].GetBudenJSON();
+        }
+        return JsonUtility.ToJson(aB);
+    }
+
+    public void SaveJSON()
+    {
+        string path = Application.persistentDataPath + "/Position.json";
+        using(StreamWriter writer = new StreamWriter(path, true))
+        {
+            writer.Write(CreateJSON());
+        }
+
+    }
+
+    private AlleBudenJSON ReadJSON()
+    {
+        string path = Application.persistentDataPath + "/Position.json";
+        AlleBudenJSON a = null;
+        try
+        {
+            
+            using (StreamReader reader = new StreamReader(path))
+            {
+                if (File.Exists(path))
+                {
+                    a = JsonUtility.FromJson<AlleBudenJSON>(reader.ReadToEnd());
+                }
+            }
+            return a;
+        }catch(System.Exception e)
+        {
+            Debug.LogWarning(e);
+            return a;
+        }
+
+    }
+
+    public void LoadBudenFromJSON()
+    {
+        AlleBudenJSON aB = ReadJSON();
+        GameObject o = Resources.Load("Cool") as GameObject;
+        if (aB != null)
+        {
+            GameObject budenContainer = GameObject.Find(budenContainerName);
+            foreach (BudenJSON b in aB.budenArray)
+            {
+                GameObject newObj = Instantiate(o,
+                    new Vector3(b.xPos, 0, b.zPos),
+                    Quaternion.Euler(0, b.yRot, 0));
+                Buden bd = newObj.GetComponent<Buden>();
+                newObj.transform.parent = budenContainer.transform;
+                bd.SetTypeIndex(1);
+                AddBude(bd);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Konnte keine Datei lesen von pfad: " + Application.persistentDataPath + "/Position.json");
+        }
+        
+    }
 }

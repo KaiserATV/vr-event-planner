@@ -201,7 +201,7 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
             placementPosition, 
             Quaternion.Euler(0, placementRotationY, 0), 
             budenContainer.transform);
-
+        newObj.GetComponent<Buden>().SetTypeIndex(selectedIndex);
         am.AddBude(newObj.GetComponent<Buden>());
         Destroy(currentPreview);
         selectedIndex = -1;
