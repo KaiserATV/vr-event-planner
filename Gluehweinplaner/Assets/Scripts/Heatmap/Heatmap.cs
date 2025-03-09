@@ -63,7 +63,6 @@ public class Heatmap : MonoBehaviour
 
     public void ToggleAlphaMode()
     {
-        Debug.Log(showClear + " " +showMax);
         if (showClear)
         {
             showClearArray();
@@ -93,6 +92,7 @@ public class Heatmap : MonoBehaviour
         }
         showMax = true;
         showClear = true;
+        material.SetFloatArray("_Properties", properties);
     }
 
     //Muss ausgeführt werden um wieder die aktuelle anzeige anzuzeigen
@@ -103,6 +103,7 @@ public class Heatmap : MonoBehaviour
             properties[i] = determineAlpha(playCellCount[i]);
         }
         showMax = false;
+        material.SetFloatArray("_Properties", properties);
     }
 
 
