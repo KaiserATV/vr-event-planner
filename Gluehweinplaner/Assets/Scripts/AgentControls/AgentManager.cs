@@ -47,7 +47,7 @@ public class AgentManager : MonoBehaviour
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
-        besuchteBudenNr.AddRange(leereStellen);
+        if (leereStellen.Count > 0) { besuchteBudenNr.AddRange(leereStellen);Debug.Log(besuchteBudenNr); }
         int budenNummer;
         if (besuchteBudenNr.Count == alleBuden.Length) {
             return -1;
