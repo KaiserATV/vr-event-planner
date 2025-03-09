@@ -212,5 +212,10 @@ public class GodmodeController : MonoBehaviour
     return isGodmodeActive;
 }
 
+public void ToggleGodmodeFromRadialMenu()
+{
+    StartCoroutine(ToggleGodmode());
+}
+
 }
 
