@@ -75,7 +75,7 @@ public class AgentController : MonoBehaviour
                     }
                 }
             }
-            else if (agent.remainingDistance < goalThreshhold && !exiting)
+            else if (agent.remainingDistance < goalThreshhold && !exiting && bude != null)
             {
                 timeLeftWaiting = sm.GetWaitTime(goalNr);
                 waiting = true;

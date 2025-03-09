@@ -111,6 +111,12 @@ public class Heatmap : MonoBehaviour
         material.SetFloatArray("_Properties", properties);
     }
 
+    public void Update()
+    {
+        material.SetFloatArray("_Properties", properties);
+    }
+
+
 
     public Vector2Int Spawned(Vector2 worldPos)
     {
@@ -152,7 +158,7 @@ public class Heatmap : MonoBehaviour
                 
             if ( c>cM ) playMaxCount[index2] = c;
             if (showClear) {
-                material.SetFloatArray("_Properties", clear);
+                //material.SetFloatArray("_Properties", clear);
             }
             else
             {
@@ -166,8 +172,8 @@ public class Heatmap : MonoBehaviour
                     properties[index1] = determineAlpha(playCellCount[index1]);
                     properties[index2] = determineAlpha(playCellCount[index2]);
                 }
-                material.SetFloatArray("_Properties", properties);
 
+                material.SetFloatArray("_Properties", properties);
             }
         }
         return newCells;
