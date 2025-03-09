@@ -1,9 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using System.Collections;
 
 public class GodmodeController : MonoBehaviour
 {
@@ -11,10 +9,17 @@ public class GodmodeController : MonoBehaviour
     public float moveSpeed = 3f;
     public float verticalSpeed = 2f;
     public float transitionDuration = 1f;
+    public float groundThreshold = 0.5f; // Höhe für automatisches Beenden des Godmode
+    public float cameraStandardHeight = 1.8f; // Standardhöhe der Kamera in Bodenperspektive
+    public float godmodeLiftHeight = 5f; // Wie weit man angehoben wird, wenn der Godmode aktiviert wird
+
+    public float vignetteSizeGodmode = 0.85f;  // Standardgröße in Godmode
+    public float vignetteSizeDuringReset = 0.65f;  // Vignette beim Zurücksetzen
 
     private bool isGodmodeActive = false;
     private bool isGrabbingObject = false;
     private bool isPlacingObject = false;
+    private bool canExitGodmode = false;
 
     public InputActionReference verticalMoveAction;
     public InputActionReference horizontalMoveAction;
@@ -25,11 +30,10 @@ public class GodmodeController : MonoBehaviour
     public LocomotionProvider snapTurnProvider;
     public XRRayInteractor teleportRayInteractor;
 
-    public Volume postProcessingVolume;
-    private Vignette vignette;
-    
+    public LocomotionVignetteProvider godmodeVignetteProvider;
+    public TunnelingVignetteController tunnelingVignetteController;
+
     private Vector3 originalPosition;
-    private float maxDistance = 10f; // Maximale Distanz für Vignette
 
     void Start()
     {
@@ -37,11 +41,6 @@ public class GodmodeController : MonoBehaviour
         {
             grabAction.action.started += _ => StartGrabbing();
             grabAction.action.canceled += _ => StopGrabbing();
-        }
-
-        if (postProcessingVolume != null)
-        {
-            postProcessingVolume.profile.TryGet(out vignette);
         }
     }
 
@@ -52,10 +51,18 @@ public class GodmodeController : MonoBehaviour
             StartCoroutine(ToggleGodmode());
         }
 
-        if (isGodmodeActive && !isGrabbingObject && !isPlacingObject)
+        if (isGodmodeActive)
         {
-            MoveGodmode();
-            UpdateVignetteIntensity();
+            if (!isGrabbingObject && !isPlacingObject)
+            {
+                MoveGodmode();
+            }
+
+            // Nach 2 Sekunden darf der Godmode durch Bodennähe beendet werden
+            if (canExitGodmode && xrRig.transform.position.y <= groundThreshold)
+            {
+                ExitGodmodeAtCurrentPosition();
+            }
         }
     }
 
@@ -71,20 +78,52 @@ public class GodmodeController : MonoBehaviour
         if (isGodmodeActive)
         {
             originalPosition = xrRig.transform.position;
-            Vector3 targetPosition = originalPosition + Vector3.up * 5;
+            canExitGodmode = false;
+
+            // Heben des Spielers um die definierte Höhe
+            Vector3 targetPosition = originalPosition + Vector3.up * godmodeLiftHeight;
             yield return StartCoroutine(SmoothTransition(targetPosition));
 
-            if (teleportProvider != null) teleportProvider.enabled = false;
-            if (snapTurnProvider != null) snapTurnProvider.enabled = false;
+            SetVignetteSize(vignetteSizeGodmode); // Nutzt den Wert aus dem Inspektor
+
+            yield return new WaitForSeconds(2f); // Erst nach 2 Sekunden kann der Godmode beendet werden
+            canExitGodmode = true;
         }
         else
         {
-            StartCoroutine(StrongVignetteFadeOut());
-            yield return StartCoroutine(SmoothTransition(originalPosition));
-
-            if (teleportProvider != null) teleportProvider.enabled = true;
-            if (snapTurnProvider != null) snapTurnProvider.enabled = true;
+            yield return StartCoroutine(TransitionOutOfGodmode());
         }
+    }
+
+    IEnumerator TransitionOutOfGodmode()
+    {
+        SetVignetteSize(vignetteSizeDuringReset); // Vignette beim Zurücksetzen aus dem Inspektor nutzen
+        yield return StartCoroutine(SmoothTransition(originalPosition)); // Zurück zum Startpunkt
+        tunnelingVignetteController.EndTunnelingVignette(godmodeVignetteProvider); // Vignette deaktivieren
+
+        if (teleportProvider != null) teleportProvider.enabled = true;
+        if (snapTurnProvider != null) snapTurnProvider.enabled = true;
+    }
+
+    void ExitGodmodeAtCurrentPosition()
+    {
+        isGodmodeActive = false;
+        canExitGodmode = false;
+
+        // Behalte die aktuelle Position, aber setze die Höhe auf Standard-Kamerahöhe
+        Vector3 newPosition = xrRig.transform.position;
+        newPosition.y = cameraStandardHeight;
+        xrRig.transform.position = newPosition;
+
+        tunnelingVignetteController.EndTunnelingVignette(godmodeVignetteProvider); // Vignette sofort deaktivieren
+
+        if (teleportRayInteractor != null)
+        {
+            teleportRayInteractor.enabled = true;
+        }
+
+        if (teleportProvider != null) teleportProvider.enabled = true;
+        if (snapTurnProvider != null) snapTurnProvider.enabled = true;
     }
 
     IEnumerator SmoothTransition(Vector3 targetPosition)
@@ -122,34 +161,15 @@ public class GodmodeController : MonoBehaviour
         }
     }
 
-    void UpdateVignetteIntensity()
+    void SetVignetteSize(float size)
     {
-        if (vignette == null) return;
+        if (godmodeVignetteProvider == null) return;
 
-        float distance = Vector3.Distance(originalPosition, xrRig.transform.position);
-        float intensity = Mathf.Lerp(0.2f, 0.8f, distance / maxDistance); // Stärkere Vignette mit Distanz
+        godmodeVignetteProvider.overrideDefaultParameters = true;
+        godmodeVignetteProvider.overrideParameters.apertureSize = size;
+        godmodeVignetteProvider.overrideParameters.featheringEffect = 0.1f; // Kleinere Übergangszone
 
-        vignette.intensity.value = intensity;
-    }
-
-    IEnumerator StrongVignetteFadeOut()
-    {
-        if (vignette == null) yield break;
-
-        vignette.intensity.value = 1f; // Setzt Vignette auf sehr stark
-        yield return new WaitForSeconds(0.3f); // Kurze starke Abdunklung
-
-        float elapsedTime = 0f;
-        float startIntensity = vignette.intensity.value;
-
-        while (elapsedTime < 1f)
-        {
-            vignette.intensity.value = Mathf.Lerp(startIntensity, 0.2f, elapsedTime / 1f);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        vignette.intensity.value = 0.2f; // Setzt sie wieder auf normalen Wert
+        tunnelingVignetteController.BeginTunnelingVignette(godmodeVignetteProvider);
     }
 
     void StartGrabbing()
