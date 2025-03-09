@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf755a06d0d765b4499645d240daf35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRadialPart: 3
+  numberOfRadialPart: 5
   radialPartPrefab: {fileID: 6344817068492183187, guid: c9baa7d63ec1fd34e866198d1fe57371, type: 3}
   radialPartCanvas: {fileID: 1256138947}
   angleBetweenPart: 10
@@ -3356,7 +3356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefabs:
-  - {fileID: 9049856161015455508, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
+  - {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
   - {fileID: 2101239683972800553, guid: 14698aca17af77d4aab6f4562533b1d1, type: 3}
   - {fileID: 1404043761636636274, guid: b7eb61db15232924aa040b64fee0290b, type: 3}
   placementDistance: 5

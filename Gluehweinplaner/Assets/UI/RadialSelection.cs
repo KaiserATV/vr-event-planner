@@ -116,7 +116,7 @@ public class RadicalSelection : MonoBehaviour
                 SoundFXManager.instance.PlaySoundFXClip(selectionConfirmSoundClip, transform, 1f);
             }
 
-            // Handle volume menu special case
+            // Handle volume menu special case ist das so gewollt, dass das immer auf index 2 liegt
             if(currentSelectedRadialPart == 2) // Index for volume button
             {
                 ToggleVolumeMenu();
