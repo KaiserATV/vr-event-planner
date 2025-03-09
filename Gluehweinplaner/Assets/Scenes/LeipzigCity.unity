@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96101760}
+  - component: {fileID: 96101761}
   m_Layer: 0
   m_Name: BudenContainer
   m_TagString: Untagged
@@ -163,6 +164,22 @@ Transform:
   - {fileID: 1285346526}
   m_Father: {fileID: 1341412598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &96101761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96101759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad42d74507d65447988294ed3f24d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 7573719f9e3cc4f4d9c4a26e42ff3fad, type: 2}
+  deleteTimeout: 3
+  deleteBuildingAction: {fileID: 2092682618185865965, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  handTransform: {fileID: 1356023311}
 --- !u!1 &107909522
 GameObject:
   m_ObjectHideFlags: 0
