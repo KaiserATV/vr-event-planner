@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -62,20 +61,18 @@ public class AgentController : MonoBehaviour
                 else
                 {
                     timeLeftWaiting -= Time.deltaTime;
-                    if (timeLeftWaiting < 0 && bude != null)
+                    if (timeLeftWaiting < 0)
                     {
                         bude.RemovePlayer(bitarrayCells, this);
-                        waiting = false;
-                        FindNextGoal();
-                    }else if(timeLeftWaiting < 0)
-                    {
-                        waiting = false;
-                        FindExit();
-                        agent.isStopped = false;
+                        if (bude != null) {
+                            FindNextGoal();
+                        } else {
+                            FindExit();
+                        }
                     }
                 }
             }
-            else if (agent.remainingDistance < goalThreshhold && !exiting)
+            else if (agent.remainingDistance < goalThreshhold && !exiting && bude != null)
             {
                 timeLeftWaiting = sm.GetWaitTime(goalNr);
                 waiting = true;
@@ -101,8 +98,11 @@ public class AgentController : MonoBehaviour
     }
 
 
-    void FindNextGoal()
+     void FindNextGoal()
     {
+        waiting = false;
+        stopped = false;
+        agent.isStopped = false;
         timeLeftWaiting = 0.0f;
         if (goalsBeforeExit > 0 && !exiting)
         {
@@ -118,12 +118,14 @@ public class AgentController : MonoBehaviour
         {
             FindExit();
         }
-        agent.isStopped = false;
         patienceLost = patience;
     }
 
     void FindExit()
     {
+        agent.isStopped = false;
+        stopped = false;
+        waiting = false;
         exiting = true;
         goal = sm.GetClostestExit(transform.position);
         agent.destination = new Vector3(goal.x, 0, goal.y);
@@ -154,6 +156,21 @@ public class AgentController : MonoBehaviour
 
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
         
+        agent.destination = new Vector3(goal.x, 0, goal.y);
+    }
+
+    public void BudeDestroyed()
+    {
+        stopped = false;
+        waiting = false;
+        exiting = false;
+        agent.isStopped = false;
+
+        timeLeftWaiting = 0.0f;
+        bude = null;
+
+        FindNextGoal();
+
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
 

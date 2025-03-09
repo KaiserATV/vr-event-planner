@@ -35,6 +35,9 @@ public class GodmodeController : MonoBehaviour
 
     private Vector3 originalPosition;
 
+    [SerializeField] private AudioClip godmodeActivateSound;
+    [SerializeField] private AudioClip godmodeDeactivateSound;
+
     void Start()
     {
         if (grabAction != null)
@@ -69,6 +72,18 @@ public class GodmodeController : MonoBehaviour
     public IEnumerator ToggleGodmode()
     {
         isGodmodeActive = !isGodmodeActive;
+
+        // Play sound effect
+        if (isGodmodeActive)
+        {
+            if(godmodeActivateSound != null)
+                SoundFXManager.instance.PlaySoundFXClip(godmodeActivateSound, transform, 1f);
+        }
+        else
+        {
+            if(godmodeDeactivateSound != null)
+                SoundFXManager.instance.PlaySoundFXClip(godmodeDeactivateSound, transform, 1f);
+        }
 
         if (teleportRayInteractor != null)
         {
@@ -195,6 +210,11 @@ public class GodmodeController : MonoBehaviour
     public bool IsGodmodeActive()
 {
     return isGodmodeActive;
+}
+
+public void ToggleGodmodeFromRadialMenu()
+{
+    StartCoroutine(ToggleGodmode());
 }
 
 }

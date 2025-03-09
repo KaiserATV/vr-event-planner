@@ -137,4 +137,12 @@ public class Buden : MonoBehaviour
         typeIndex = i;
     }
 
+    public void ToBeDestroyed()
+    {
+        ziel.Destroying();
+        wait_B.Destroying();
+        wait_L.Destroying();
+        wait_R.Destroying();
+    }
+
 }

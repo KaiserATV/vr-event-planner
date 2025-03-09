@@ -34,12 +34,28 @@ public class RadicalSelection : MonoBehaviour
     public float timeWaited = 0;
     public int waitingAt=-1;
 
+    [SerializeField] private AudioClip spawnRadialPartSoundClip;
+    [SerializeField] private AudioClip[] selectionChangeSoundClip;
+    private int previousSelected = -1; // Track previous selection
+    [SerializeField] private AudioClip selectionConfirmSoundClip;
+
+    public GameObject volumeCanvas;
+    public UnityEvent onVolumeMenuOpen;
+    public UnityEvent onVolumeMenuClose;
+
+    private bool inSubMenu = false;
+
 
 
     void Start()
     {
-        buttonLabels.Add("Bude");
-        buttonLabels.Add("Sim Tog");
+        buttonLabels.Add("Veranstaltungsobjekt");
+        buttonLabels.Add("Besucherstrom");
+        buttonLabels.Add("Lautstärke");
+        buttonLabels.Add("Heatmap");
+        buttonLabels.Add("Godmode");
+        buttonLabels.Add("Speichern");
+        buttonLabels.Add("Laden");
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
@@ -83,8 +99,8 @@ public class RadicalSelection : MonoBehaviour
                 HideAndTriggerSelected();
             }
         }
-
     }
+
 
     private void ResetWaitTimer(int newWait)
     {
@@ -96,6 +112,19 @@ public class RadicalSelection : MonoBehaviour
     {
         if(timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < partToFunction.Count)
         {
+            // Play confirmation sound before invoking action
+            if(selectionConfirmSoundClip != null)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(selectionConfirmSoundClip, transform, 1f);
+            }
+
+            // Handle volume menu special case ist das so gewollt, dass das immer auf index 2 liegt
+            if(currentSelectedRadialPart == 2) // Index for volume button
+            {
+                ToggleVolumeMenu();
+                return;
+            }
+            
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
         }
             radialPartCanvas.gameObject.SetActive(false);
@@ -116,6 +145,14 @@ public class RadicalSelection : MonoBehaviour
         //Debug.Log("ANGLE: " + angle);
 
         currentSelectedRadialPart = (int)angle * numberOfRadialPart / 360;
+
+        // Play sound when selection changes
+        if (previousSelected != currentSelectedRadialPart)
+        {
+            SoundFXManager.instance.PlayRandomSoundFXClip(selectionChangeSoundClip, transform, 0.8f);
+            previousSelected = currentSelectedRadialPart;
+        }
+
         if(currentSelectedRadialPart != waitingAt)
         {
             ResetWaitTimer(currentSelectedRadialPart);
@@ -137,10 +174,34 @@ public class RadicalSelection : MonoBehaviour
         }
     }
 
+     public void ToggleVolumeMenu()
+    {
+        inSubMenu = !inSubMenu;
+        volumeCanvas.SetActive(inSubMenu);
+        radialPartCanvas.gameObject.SetActive(!inSubMenu);
+        
+        if(inSubMenu) 
+        {
+            onVolumeMenuOpen.Invoke();
+            // Position volume menu relative to hand
+            volumeCanvas.transform.position = handTransform.position + handTransform.forward * 0.5f;
+            volumeCanvas.transform.rotation = handTransform.rotation;
+        }
+        else
+        {
+            onVolumeMenuClose.Invoke();
+        }
+    }
+
     public void SpawnRadialPart()
     {
         radialPartCanvas.gameObject.SetActive(true);
-        radialPartCanvas.position = handTransform.position + new Vector3(0, 0, 0.2f);
+
+        //play Placement Sound Effect
+        SoundFXManager.instance.PlaySoundFXClip(spawnRadialPartSoundClip, transform, 1f);
+
+        radialPartCanvas.position = handTransform.position;
+        radialPartCanvas.position = handTransform.position;
         radialPartCanvas.rotation = handTransform.rotation;
 
         foreach (var item in spawnedParts)

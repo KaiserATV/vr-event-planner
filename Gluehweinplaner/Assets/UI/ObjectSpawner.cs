@@ -36,6 +36,8 @@ public class ObjectSpawner : MonoBehaviour
     private bool hasUsedMoveInput = false;
     private float lastRotationInput = 0f;
 
+    [SerializeField] private AudioClip placementSoundClip;
+
     void Start()
     {
         budenContainer = GameObject.Find("BudenContainer");    
@@ -203,6 +205,10 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
             budenContainer.transform);
         newObj.GetComponent<Buden>().SetTypeIndex(selectedIndex);
         am.AddBude(newObj.GetComponent<Buden>());
+
+        //play Placement Sound Effect
+        SoundFXManager.instance.PlaySoundFXClip(placementSoundClip, transform, 1f);
+
         Destroy(currentPreview);
         selectedIndex = -1;
         hasManualRotation = false;

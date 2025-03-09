@@ -20,6 +20,7 @@ public class AgentManager : MonoBehaviour
     public int allBudenWeigth;
 
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
+    private LinkedList<int>leereStellen=new LinkedList<int>();
     Heatmap hm;
 
     public Vector2 cellsizes;
@@ -42,12 +43,11 @@ public class AgentManager : MonoBehaviour
         cellsizes.x = hm.cellsizeX;
         cellsizes.y = hm.cellsizeZ;
 
-
-        LoadBudenFromJSON();
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
+        if (leereStellen.Count > 0) { besuchteBudenNr.AddRange(leereStellen);Debug.Log(besuchteBudenNr); }
         int budenNummer;
         if (besuchteBudenNr.Count == alleBuden.Length) {
             return -1;
@@ -140,10 +140,31 @@ public class AgentManager : MonoBehaviour
 
    public void AddBude(Buden neueBude)
     {
-        neueBude.Start();
-        List<Buden> tempList = alleBuden.ToList();
-        tempList.Add(neueBude);
-        alleBuden = tempList.ToArray();
+        if (leereStellen.Count > 0)
+        {
+            neueBude.Start();
+            alleBuden[leereStellen.First.Value] = neueBude;
+            leereStellen.RemoveFirst();
+        }
+        else
+        {
+            neueBude.Start();
+            List<Buden> tempList = alleBuden.ToList();
+            tempList.Add(neueBude);
+            alleBuden = tempList.ToArray();
+        }
+    }
+
+    public void RemoveBude(Buden wegBude)
+    {
+        for(int i =0; i <alleBuden.Length; i++)
+        {
+            if(alleBuden[i]== wegBude)
+            {
+                alleBuden[i] = null;
+                leereStellen.AddFirst(i);
+            }
+        }
     }
 
     public void ToggleSimulation()
@@ -197,8 +218,10 @@ public class AgentManager : MonoBehaviour
 
     public void SaveJSON()
     {
+        Debug.Log("Speichere JSON");	
         string path = Application.persistentDataPath + "/Position.json";
-        using(StreamWriter writer = new StreamWriter(path, true))
+        Debug.Log("Speichere JSON nach: " + path);
+        using(StreamWriter writer = new StreamWriter(path, false))
         {
             writer.Write(CreateJSON());
         }
@@ -206,37 +229,52 @@ public class AgentManager : MonoBehaviour
     }
 
     private AlleBudenJSON ReadJSON()
-    {
-        string path = Application.persistentDataPath + "/Position.json";
-        AlleBudenJSON a = null;
-        try
-        {
-            
-            using (StreamReader reader = new StreamReader(path))
-            {
-                if (File.Exists(path))
-                {
-                    a = JsonUtility.FromJson<AlleBudenJSON>(reader.ReadToEnd());
-                }
-            }
-            return a;
-        }catch(System.Exception e)
-        {
-            Debug.LogWarning(e);
-            return a;
-        }
+{
+    string path = Application.persistentDataPath + "/Position.json";
+    AlleBudenJSON a = null;
 
+    if (!File.Exists(path))
+    {
+        Debug.LogWarning("Datei existiert nicht: " + path);
+        return null;
     }
+
+    try
+    {
+        Debug.Log("Lese Datei von Pfad: " + path);
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string jsonContent = reader.ReadToEnd();
+            Debug.Log("JSON-Inhalt: " + jsonContent);
+
+            a = JsonUtility.FromJson<AlleBudenJSON>(jsonContent);
+
+            if (a == null)
+            {
+                Debug.LogWarning("Fehler beim Parsen der JSON-Datei.");
+            }
+        }
+    }
+    catch (System.Exception e)
+    {
+        Debug.LogWarning("Fehler beim Lesen der Datei: " + e);
+    }
+
+    return a;
+}
+
 
     public void LoadBudenFromJSON()
     {
         AlleBudenJSON aB = ReadJSON();
-        GameObject o = Resources.Load("Cool") as GameObject;
+        GameObject o = Resources.Load("Stand") as GameObject;
         if (aB != null)
         {
             GameObject budenContainer = GameObject.Find(budenContainerName);
             foreach (BudenJSON b in aB.budenArray)
             {
+                Debug.Log("Lade Bude: " + b.xPos + " " + b.zPos + " " + b.yRot);
                 GameObject newObj = Instantiate(o,
                     new Vector3(b.xPos, 0, b.zPos),
                     Quaternion.Euler(0, b.yRot, 0));
