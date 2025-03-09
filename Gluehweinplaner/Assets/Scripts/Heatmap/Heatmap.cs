@@ -111,12 +111,6 @@ public class Heatmap : MonoBehaviour
         material.SetFloatArray("_Properties", properties);
     }
 
-    public void Update()
-    {
-        material.SetFloatArray("_Properties", properties);
-    }
-
-
 
     public Vector2Int Spawned(Vector2 worldPos)
     {
@@ -158,7 +152,7 @@ public class Heatmap : MonoBehaviour
                 
             if ( c>cM ) playMaxCount[index2] = c;
             if (showClear) {
-                //material.SetFloatArray("_Properties", clear);
+                material.SetFloatArray("_Properties", clear);
             }
             else
             {
