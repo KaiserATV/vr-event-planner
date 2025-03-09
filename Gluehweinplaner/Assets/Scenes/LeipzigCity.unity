@@ -682,6 +682,22 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls: []
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 829851554}
+        m_TargetAssemblyTypeName: Heatmap, Assembly-CSharp
+        m_MethodName: ToggleAlphaMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls: []
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -726,7 +742,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d36dfdeb13c444447b81db5f2537c287, type: 3}
   - {fileID: 8300000, guid: 19086f7c7a39f4c46bb37d8775d29d65, type: 3}
   selectionConfirmSoundClip: {fileID: 8300000, guid: 136c08beefe835b449c466a7ef07d70d, type: 3}
-  volumeCanvas: {fileID: 0}
+  volumeCanvas: {fileID: 1936752096}
   onVolumeMenuOpen:
     m_PersistentCalls:
       m_Calls: []
@@ -2419,9 +2435,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showMax: 0
+  showClear: 1
   properties: []
   playCellCount: 
   playMaxCount: 
+  clear: []
   material: {fileID: 2100000, guid: 7742e2e1d830e4247add18d9ead6b8e0, type: 2}
   cellsizeX: 6
   cellsizeZ: 6
