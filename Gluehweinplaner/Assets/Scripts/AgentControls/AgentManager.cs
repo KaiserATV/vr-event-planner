@@ -20,6 +20,7 @@ public class AgentManager : MonoBehaviour
     public int allBudenWeigth;
 
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
+    private LinkedList<int>leereStellen=new LinkedList<int>();
     Heatmap hm;
 
     public Vector2 cellsizes;
@@ -46,6 +47,7 @@ public class AgentManager : MonoBehaviour
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
+        besuchteBudenNr.AddRange(leereStellen);
         int budenNummer;
         if (besuchteBudenNr.Count == alleBuden.Length) {
             return -1;
@@ -138,17 +140,31 @@ public class AgentManager : MonoBehaviour
 
    public void AddBude(Buden neueBude)
     {
-        neueBude.Start();
-        List<Buden> tempList = alleBuden.ToList();
-        tempList.Add(neueBude);
-        alleBuden = tempList.ToArray();
+        if (leereStellen.Count > 0)
+        {
+            neueBude.Start();
+            alleBuden[leereStellen.First.Value] = neueBude;
+            leereStellen.RemoveFirst();
+        }
+        else
+        {
+            neueBude.Start();
+            List<Buden> tempList = alleBuden.ToList();
+            tempList.Add(neueBude);
+            alleBuden = tempList.ToArray();
+        }
     }
 
-    public void RemoveBude(Buden neueBude)
+    public void RemoveBude(Buden wegBude)
     {
-        List<Buden> tempList = alleBuden.ToList();
-        tempList.Remove(neueBude);
-        alleBuden = tempList.ToArray();
+        for(int i =0; i <alleBuden.Length; i++)
+        {
+            if(alleBuden[i]== wegBude)
+            {
+                alleBuden[i] = null;
+                leereStellen.AddFirst(i);
+            }
+        }
     }
 
     public void ToggleSimulation()
