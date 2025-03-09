@@ -67,10 +67,9 @@ public class Heatmap : MonoBehaviour
 
         if (statCounter == 0)
         {
-            showClearArray();
-            showClear = true;
-            showMax = false;
-        }
+            showCurrentAlpha();
+            showClear = false;
+            showMax = false;        }
         else if (statCounter == 1)
         {
             showMaxAlpha();
@@ -79,12 +78,12 @@ public class Heatmap : MonoBehaviour
         }
         else
         {
-            showCurrentAlpha();
-            showClear = false;
+            showClearArray();
+            showClear = true;
             showMax = false;
         }
 
-        statCounter= (statCounter+1) % 3;
+        statCounter = (statCounter+1) % 3;
     }
 
     private void showClearArray()

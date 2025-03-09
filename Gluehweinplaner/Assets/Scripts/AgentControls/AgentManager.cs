@@ -236,7 +236,7 @@ public class AgentManager : MonoBehaviour
     public void LoadBudenFromJSON()
     {
         AlleBudenJSON aB = ReadJSON();
-        GameObject o = Resources.Load("Cool") as GameObject;
+        GameObject o = Resources.Load("Stand") as GameObject;
         if (aB != null)
         {
             GameObject budenContainer = GameObject.Find(budenContainerName);
