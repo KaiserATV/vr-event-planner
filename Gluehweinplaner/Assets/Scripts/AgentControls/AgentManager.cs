@@ -229,27 +229,41 @@ public class AgentManager : MonoBehaviour
     }
 
     private AlleBudenJSON ReadJSON()
-    {
-        string path = Application.persistentDataPath + "/Position.json";
-        AlleBudenJSON a = null;
-        try
-        {
-            
-            using (StreamReader reader = new StreamReader(path))
-            {
-                if (File.Exists(path))
-                {
-                    a = JsonUtility.FromJson<AlleBudenJSON>(reader.ReadToEnd());
-                }
-            }
-            return a;
-        }catch(System.Exception e)
-        {
-            Debug.LogWarning(e);
-            return a;
-        }
+{
+    string path = Application.persistentDataPath + "/Position.json";
+    AlleBudenJSON a = null;
 
+    if (!File.Exists(path))
+    {
+        Debug.LogWarning("Datei existiert nicht: " + path);
+        return null;
     }
+
+    try
+    {
+        Debug.Log("Lese Datei von Pfad: " + path);
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string jsonContent = reader.ReadToEnd();
+            Debug.Log("JSON-Inhalt: " + jsonContent);
+
+            a = JsonUtility.FromJson<AlleBudenJSON>(jsonContent);
+
+            if (a == null)
+            {
+                Debug.LogWarning("Fehler beim Parsen der JSON-Datei.");
+            }
+        }
+    }
+    catch (System.Exception e)
+    {
+        Debug.LogWarning("Fehler beim Lesen der Datei: " + e);
+    }
+
+    return a;
+}
+
 
     public void LoadBudenFromJSON()
     {
@@ -260,6 +274,7 @@ public class AgentManager : MonoBehaviour
             GameObject budenContainer = GameObject.Find(budenContainerName);
             foreach (BudenJSON b in aB.budenArray)
             {
+                Debug.Log("Lade Bude: " + b.xPos + " " + b.zPos + " " + b.yRot);
                 GameObject newObj = Instantiate(o,
                     new Vector3(b.xPos, 0, b.zPos),
                     Quaternion.Euler(0, b.yRot, 0));
