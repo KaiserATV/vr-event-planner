@@ -7845,8 +7845,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a2309aac56ee246aea04cdac257d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPrefabs: []
-  placementDistance: 2
+  objectPrefabs:
+  - {fileID: 9049856161015455508, guid: 713429ddc2fd2524aa1242e31c8abad1, type: 3}
+  - {fileID: 2101239683972800553, guid: 14698aca17af77d4aab6f4562533b1d1, type: 3}
+  - {fileID: 1404043761636636274, guid: b7eb61db15232924aa040b64fee0290b, type: 3}
+  placementDistance: 5
   previewMaterial: {fileID: 2100000, guid: de170742f427a0c4f9b8a3233ab76f9a, type: 2}
   budenContainer: {fileID: 96101759}
   am: {fileID: 1036096516}

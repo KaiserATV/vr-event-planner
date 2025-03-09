@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ObjectSpawner : MonoBehaviour
 {
     public List<GameObject> objectPrefabs;
-    public float placementDistance = 2f;
+    public float placementDistance = 5f;
     public Material previewMaterial;
     public GameObject budenContainer;
     public AgentManager am;
