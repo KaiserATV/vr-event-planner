@@ -164,6 +164,7 @@ public class AgentController : MonoBehaviour
         stopped = false;
         waiting = false;
         exiting = false;
+        agent.isStopped = false;
 
         timeLeftWaiting = 0.0f;
         bude = null;
