@@ -9,15 +9,16 @@ public class ObjectSpawner : MonoBehaviour
     public Material previewMaterial;
     public GameObject budenContainer;
     public AgentManager am;
+    public GodmodeController godmodeController; // Nur noch GodmodeController
 
     private GameObject currentPreview;
     private int selectedIndex = -1;
 
     public Transform handTransform;
-    public Transform cameraTransform; // VR-Kamera für bessere Positionierung
-    
-    public InputActionReference moveAction;  // Linker Controller (X/Z-Bewegung) - Vector2
-    public InputActionReference rotateAction; // Rechter Controller (Rotation) - float
+    public Transform cameraTransform;
+
+    public InputActionReference moveAction;
+    public InputActionReference rotateAction;
     public InputActionReference confirmAction;
 
     private bool isPlacing = false;
@@ -25,76 +26,118 @@ public class ObjectSpawner : MonoBehaviour
 
     private Vector3 placementPosition;
     private float placementRotationY = 0f;
-    private float rotationSpeed = 100f; // Geschwindigkeit der Rotation
-    private bool hasManualRotation = false; // Merker für manuelle Drehung
+    private float rotationSpeed = 100f;
+    private bool hasManualRotation = false;
+    private bool hasUsedMoveInput = false;
+private float lastRotationInput = 0f;
 
     void Start()
     {
         budenContainer = GameObject.Find("BudenContainer");    
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
-        cameraTransform = Camera.main.transform; // Setzt die VR-Kamera
+        cameraTransform = Camera.main.transform;
+
+        godmodeController = FindObjectOfType<GodmodeController>();
+
+        if (godmodeController == null)
+            Debug.LogError("GodmodeController wurde nicht gefunden!");
     }
 
     public void StartSpawning(int index)
     {
-        if(index < 0 || index >= objectPrefabs.Count) return;
-        
+        if (index < 0 || index >= objectPrefabs.Count) return;
+
         isPlacing = true;
         selectedIndex = index;
         CreatePreviewObject();
 
-        // **Startposition: Vor dem Spieler, nicht in der Hand**
-        Vector3 forwardOffset = cameraTransform.forward * placementDistance; // Abstand von der Kamera aus
+        // Bewegung im Godmode deaktivieren
+        if (godmodeController != null && godmodeController.IsGodmodeActive())
+        {
+            godmodeController.StartPlacingObject();
+        }
+
+        Vector3 forwardOffset = cameraTransform.forward * placementDistance;
         placementPosition = new Vector3(forwardOffset.x, 0, forwardOffset.z) + cameraTransform.position;
-        placementRotationY = cameraTransform.eulerAngles.y; // Initiale Rotation übernimmt Blickrichtung
+        placementRotationY = cameraTransform.eulerAngles.y;
     }
 
     void Update()
+{
+    if (!isPlacing || currentPreview == null) return;
+
+    Vector3 handOffset = handTransform.position + handTransform.forward * placementDistance;
+    Vector3 newPosition = new Vector3(handOffset.x, 0, handOffset.z);
+    float handRotationY = handTransform.eulerAngles.y;
+
+    Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
+    float rotationInput = rotateAction.action.ReadValue<float>();
+
+    // **Bewegung relativ zur Blickrichtung berechnen**
+    if (moveInput.magnitude > 0.01f) 
     {
-        if (!isPlacing || currentPreview == null) return;
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
 
-        // **Falls Trackpad nicht genutzt wird, Handbewegung als Basis nehmen**
-        Vector3 handOffset = handTransform.position + handTransform.forward * placementDistance;
-        Vector3 newPosition = new Vector3(handOffset.x, 0, handOffset.z); // Y bleibt 0
-        
-        float handRotationY = handTransform.eulerAngles.y; // Rotation der Hand
+        forward.y = 0; right.y = 0;
+        forward.Normalize();
+        right.Normalize();
 
-        // **Manuelle Steuerung über Trackpad (X/Z-Bewegung)**
-        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();  // Linker Controller → Vector2
-        float rotationInput = rotateAction.action.ReadValue<float>(); // Rechter Controller → float für Rotation
+        Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 2f;
+        placementPosition += movement;
 
-        // **Falls das Trackpad für Bewegung genutzt wird → Bewege Objekt nur auf X/Z**
-        if (moveInput.magnitude > 0.01f) 
-        {
-            placementPosition += new Vector3(moveInput.x, 0, moveInput.y) * Time.deltaTime * 2f;
-        }
-        else 
-        {
-            placementPosition = newPosition; // Falls Trackpad nicht genutzt wird → Bewegung über Hand
-        }
-
-        // **Falls Rotationseingabe vorhanden ist → Manuelle Rotation setzen**
-        if (Mathf.Abs(rotationInput) > 0.01f) 
-        {
-            placementRotationY += rotationInput * rotationSpeed * Time.deltaTime;
-            hasManualRotation = true;
-        }
-        else if (!hasManualRotation) 
-        {
-            placementRotationY = handRotationY; // Falls keine manuelle Rotation gemacht wurde → Handrotation übernehmen
-        }
-
-        // **Vorschau-Objekt aktualisieren**
-        currentPreview.transform.position = placementPosition;
-        currentPreview.transform.rotation = Quaternion.Euler(0, placementRotationY, 0);
-
-        // **Platzierung bestätigen**
-        if (confirmAction.action.triggered)
-        {
-            PlaceObject();
-            isPlacing = false;
-        }
+        hasUsedMoveInput = true;
     }
+    else if (!hasUsedMoveInput)
+    {
+        placementPosition = newPosition;
+    }
+
+    // **Drehrichtung speichern**
+    if (Mathf.Abs(rotationInput) > 0.01f) 
+    {
+        lastRotationInput = rotationInput; // Speichert die Richtung der letzten Eingabe
+    }
+
+    // **Rotation - Kombinierte Steuerung (Klick & Halten)**
+    if (rotateAction.action.WasPressedThisFrame()) 
+    {
+        // Nutze die letzte gespeicherte Eingabe, um die Richtung zu bestimmen
+        if (lastRotationInput > 0) 
+        {
+            placementRotationY += 5f; // Drehung nach rechts
+        }
+        else if (lastRotationInput < 0) 
+        {
+            placementRotationY -= 5f; // Drehung nach links
+        }
+
+        hasManualRotation = true;
+    }
+    else if (Mathf.Abs(rotationInput) > 0.01f) 
+    {
+        // Falls die Taste gehalten wird, rotiere fließend
+        placementRotationY += rotationInput * rotationSpeed * Time.deltaTime;
+        hasManualRotation = true;
+    }
+    else if (!hasManualRotation) 
+    {
+        placementRotationY = handRotationY;
+    }
+
+    // **Vorschau-Objekt aktualisieren**
+    currentPreview.transform.position = placementPosition;
+    currentPreview.transform.rotation = Quaternion.Euler(0, placementRotationY, 0);
+
+    if (confirmAction.action.triggered)
+    {
+        PlaceObject();
+        isPlacing = false;
+    }
+}
+
+
+
 
     void CreatePreviewObject()
     {
@@ -114,7 +157,14 @@ public class ObjectSpawner : MonoBehaviour
         am.AddBude(newObj.GetComponent<Buden>());
         Destroy(currentPreview);
         selectedIndex = -1;
-        hasManualRotation = false; // Reset nach Platzierung
+        hasManualRotation = false;
+        hasUsedMoveInput = false;
+
+        // Bewegung im Godmode wieder aktivieren
+        if (godmodeController != null && godmodeController.IsGodmodeActive())
+        {
+            godmodeController.StopPlacingObject();
+        }
     }
 
     void SetMaterialTransparent(GameObject obj)
