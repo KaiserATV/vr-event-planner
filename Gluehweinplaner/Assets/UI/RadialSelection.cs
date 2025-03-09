@@ -54,6 +54,7 @@ public class RadicalSelection : MonoBehaviour
         buttonLabels.Add("Lautstärke");
         buttonLabels.Add("Heatmap");
         buttonLabels.Add("Godmode");
+        buttonLabels.Add("Speichern");
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
         //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
