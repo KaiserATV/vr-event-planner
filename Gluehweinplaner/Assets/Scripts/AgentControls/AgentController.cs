@@ -64,13 +64,15 @@ public class AgentController : MonoBehaviour
                     if (timeLeftWaiting < 0 && bude != null)
                     {
                         bude.RemovePlayer(bitarrayCells, this);
-                        waiting = false;
                         FindNextGoal();
-                    }else if(timeLeftWaiting < 0)
+                    }else if(timeLeftWaiting < 0 && bude!=null)
                     {
-                        waiting = false;
+                        bude.RemovePlayer(bitarrayCells, this);
                         FindExit();
-                        agent.isStopped = false;
+                    }
+                    else
+                    {
+                        FindExit();
                     }
                 }
             }
@@ -125,6 +127,9 @@ public class AgentController : MonoBehaviour
 
     void FindExit()
     {
+        agent.isStopped = false;
+        stopped = false;
+        waiting = false;
         exiting = true;
         goal = sm.GetClostestExit(transform.position);
         agent.destination = new Vector3(goal.x, 0, goal.y);
