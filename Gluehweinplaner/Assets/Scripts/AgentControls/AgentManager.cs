@@ -42,8 +42,6 @@ public class AgentManager : MonoBehaviour
         cellsizes.x = hm.cellsizeX;
         cellsizes.y = hm.cellsizeZ;
 
-
-        LoadBudenFromJSON();
     }
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
