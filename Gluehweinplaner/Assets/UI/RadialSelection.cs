@@ -67,6 +67,7 @@ public class RadicalSelection : MonoBehaviour
         alphas[1] = new GradientAlphaKey(1.0f, 1.0f);
 
         gradient.SetKeys(colors, alphas);
+        radialPartCanvas.gameObject.SetActive(false);
 
     }
 
@@ -195,6 +196,7 @@ public class RadicalSelection : MonoBehaviour
         //play Placement Sound Effect
         SoundFXManager.instance.PlaySoundFXClip(spawnRadialPartSoundClip, transform, 1f);
 
+        radialPartCanvas.position = handTransform.position;
         radialPartCanvas.position = handTransform.position;
         radialPartCanvas.rotation = handTransform.rotation;
 
