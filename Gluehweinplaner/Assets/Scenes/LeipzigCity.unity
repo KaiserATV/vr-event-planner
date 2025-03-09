@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 96101760}
+  - component: {fileID: 96101761}
   m_Layer: 0
   m_Name: BudenContainer
   m_TagString: Untagged
@@ -163,6 +164,22 @@ Transform:
   - {fileID: 1285346526}
   m_Father: {fileID: 1341412598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &96101761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96101759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad42d74507d65447988294ed3f24d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: 7573719f9e3cc4f4d9c4a26e42ff3fad, type: 2}
+  deleteTimeout: 3
+  deleteBuildingAction: {fileID: 2092682618185865965, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  handTransform: {fileID: 1356023311}
 --- !u!1 &107909522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1263,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &481330450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9032954039820430273, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+  m_PrefabInstance: {fileID: 1731298970}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481330436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &527709581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1596,9 +1624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bc53bf5799abb4aa85319b876667a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactor: {fileID: 0}
-  rotateBuildingAction: {fileID: 1819435917546743786, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  rotationSpeed: 100
 --- !u!1001 &666194235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2461,55 +2486,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506806597}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1607898237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1607898238}
-  - component: {fileID: 1607898239}
-  m_Layer: 6
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1607898238
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607898237}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3614397, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1607898239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607898237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: b41eef7a10290e546b81b8ba98cc157e, type: 2}
-  isGlobal: 1
-  blendDistance: 0
-  weight: 1
-  priority: 0
 --- !u!1001 &1631240221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2699,11 +2675,13 @@ MonoBehaviour:
   budenContainer: {fileID: 96101759}
   am: {fileID: 1036096516}
   godmodeController: {fileID: 1731298975}
+  rayInteractor: {fileID: 481330450}
   handTransform: {fileID: 1356023311}
   cameraTransform: {fileID: 2138623512}
   moveAction: {fileID: 6908099972277021250, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rotateAction: {fileID: 1819435917546743786, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   confirmAction: {fileID: 6666153290515788830, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  grabAction: {fileID: 15759602096507913, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1001 &1713846264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2850,13 +2828,29 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6694496370488184924, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectExitDuration
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694496370488184924, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectEnterDuration
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694496370488184924, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectExitIntensity
+      value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694496370488184924, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectEnterIntensity
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7002313976673130572, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7303196168416792226, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_DelayTime
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_Name
@@ -2865,6 +2859,14 @@ PrefabInstance:
     - target: {fileID: 7602005377494257453, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_DefaultParameters.m_EaseInTime
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_DefaultParameters.m_EaseOutTime
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 7690080512698956842, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_DefaultParameters.m_ApertureSize
@@ -2950,6 +2952,14 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9014170784424948805, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectExitIntensity
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014170784424948805, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectEnterIntensity
+      value: 0.21
+      objectReference: {fileID: 0}
     - target: {fileID: 9032954039820430273, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_MaxRaycastDistance
       value: 40
@@ -2957,6 +2967,22 @@ PrefabInstance:
     - target: {fileID: 9067829889149138881, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146015503685400394, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticHoverExitIntensity
+      value: 0.208
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146015503685400394, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticHoverEnterIntensity
+      value: 0.196
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146015503685400394, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectExitIntensity
+      value: 0.203
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146015503685400394, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_HapticSelectEnterIntensity
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3076,8 +3102,8 @@ MonoBehaviour:
   groundThreshold: 1.79
   cameraStandardHeight: 1.3614
   godmodeLiftHeight: 5
-  vignetteSizeGodmode: 0.81
-  vignetteSizeDuringReset: 0.6
+  vignetteSizeGodmode: 0.8
+  vignetteSizeDuringReset: 0.77
   verticalMoveAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   horizontalMoveAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   toggleGodmodeAction: {fileID: 5030052954490463457, guid: c348712bda248c246b8c49b3db54643f, type: 3}
@@ -3090,7 +3116,7 @@ MonoBehaviour:
     m_Enabled: 0
     m_OverrideDefaultParameters: 0
     m_OverrideParameters:
-      m_ApertureSize: 0.125
+      m_ApertureSize: 0.8
       m_FeatheringEffect: 0.4
       m_EaseInTime: 0.22
       m_EaseOutTime: 0.22
@@ -3580,4 +3606,3 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1341412598}
-  - {fileID: 1607898238}
