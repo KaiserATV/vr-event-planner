@@ -95,9 +95,7 @@ public class RadicalSelection : MonoBehaviour
             left = false;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
-        }
-
-        if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
+        }else if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
         {
             left = true;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
@@ -126,8 +124,8 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
-        int count = (isBude)? partToFunctionHouse.Count : partToFunction.Count;
-        if(timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < count)
+        int count = (isBude) ? partToFunctionHouse.Count : ((left) ? partToFunctionLeft.Count : partToFunction.Count);
+        if (timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < count)
         {
             // Play confirmation sound before invoking action
             if(selectionConfirmSoundClip != null)
@@ -239,9 +237,12 @@ public class RadicalSelection : MonoBehaviour
         if (isBude)
         {
             selectedBude = hit.collider.gameObject.GetComponent<Buden>();
-            Renderer r = selectedBude.gameObject.GetComponent<Renderer>();
-            before = r.material;
-            r.material= highlightMaterial;
+            if (selectedBude)
+            {
+                Renderer r = selectedBude.gameObject.GetComponent<Renderer>();
+                before = r.material;
+                r.material = highlightMaterial;
+            }
         }
         else
         {
@@ -286,7 +287,8 @@ public class RadicalSelection : MonoBehaviour
             //iconImage.sprite = buttonIcons[i];
             //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
             TextMeshProUGUI buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshProUGUI>();
-            if (buttonText != null && i < buttonLabels.Count)
+            int count = (isBude) ? partToFunctionHouse.Count : (left)?partToFunctionLeft.Count :partToFunction.Count;
+            if (buttonText != null && i < count)
             {
                 buttonText.text = (isBude) ? buttonLabelsHouse[i] : (left) ? buttonLabelsLeft[i] :buttonLabels[i];
                 // Counteract radial rotation
