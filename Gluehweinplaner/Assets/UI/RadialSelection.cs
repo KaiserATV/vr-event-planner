@@ -236,7 +236,7 @@ public class RadicalSelection : MonoBehaviour
         }
         if (isBude)
         {
-            selectedBude = hit.collider.gameObject.GetComponent<Buden>();
+            selectedBude = hit.collider.transform.parent?.gameObject.GetComponent<Buden>();
             if (selectedBude)
             {
                 Renderer r = selectedBude.gameObject.GetComponent<Renderer>();
