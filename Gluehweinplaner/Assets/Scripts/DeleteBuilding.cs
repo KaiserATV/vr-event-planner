@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class BuildingDeletion : MonoBehaviour
 {
-    [SerializeField] private Material highlightMaterial; // Material für Markierung
+    [SerializeField] public Material highlightMaterial; // Material für Markierung
     [SerializeField] private float deleteTimeout = 3f; // Zeit, nach der die Markierung entfernt wird
     [SerializeField] private InputActionReference deleteBuildingAction; // Input Action für Trigger-Button
     [SerializeField] private Transform handTransform; // Transform des VR-Controllers
@@ -88,6 +88,7 @@ public class BuildingDeletion : MonoBehaviour
             Debug.Log("Kein Objekt getroffen.");
         }
     }
+
 
     void DeleteBuilding()
     {
