@@ -47,18 +47,18 @@ public class AgentManager : MonoBehaviour
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
-        if (leereStellen.Count > 0) { besuchteBudenNr.AddRange(leereStellen);Debug.Log(besuchteBudenNr); }
+        if (leereStellen.Count > 0) { besuchteBudenNr.AddRange(leereStellen);}
         int budenNummer;
         if (besuchteBudenNr.Count == alleBuden.Length) {
             return -1;
         }else{
-                budenNummer = CalcNewWeightedBude(besuchteBudenNr);
+            budenNummer = CalcNewWeightedBude(besuchteBudenNr);
         }
         if(budenNummer == -1)
         {
             return -1;
         }
-        if (!alleBuden[budenNummer].IstAusgelasted())
+        if (!alleBuden[budenNummer].CheckAuslastung())
         {
             alleBuden[budenNummer].GetNewPosition(ac);
             return budenNummer;
@@ -246,7 +246,6 @@ public class AgentManager : MonoBehaviour
         using (StreamReader reader = new StreamReader(path))
         {
             string jsonContent = reader.ReadToEnd();
-            Debug.Log("JSON-Inhalt: " + jsonContent);
 
             a = JsonUtility.FromJson<AlleBudenJSON>(jsonContent);
 
@@ -274,7 +273,6 @@ public class AgentManager : MonoBehaviour
             GameObject budenContainer = GameObject.Find(budenContainerName);
             foreach (BudenJSON b in aB.budenArray)
             {
-                Debug.Log("Lade Bude: " + b.xPos + " " + b.zPos + " " + b.yRot);
                 GameObject newObj = Instantiate(o,
                     new Vector3(b.xPos, 0, b.zPos),
                     Quaternion.Euler(0, b.yRot, 0));

@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class Buden : MonoBehaviour
@@ -8,8 +7,6 @@ public class Buden : MonoBehaviour
     public float waitTime = 10.0f;
 
     public int attraktivitaet = 5; 
-
-    private bool komplettAusgelastet = false;
 
     private int typeIndex;
 
@@ -65,7 +62,6 @@ public class Buden : MonoBehaviour
     {
         Vector2Int cellCoord;
         int zone;
-        CheckAuslastung();
         if (!ziel.IsFull())
         {
             cellCoord = ziel.FindBestPositionAndAdd(ac);
@@ -93,9 +89,9 @@ public class Buden : MonoBehaviour
         return new Vector3Int(cellCoord.x, cellCoord.y, zone);
     }
 
-    public void CheckAuslastung()
+    public bool CheckAuslastung()
     {
-        komplettAusgelastet = ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull();
+        return ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull();
     }
 
     public void increaseAttraktivität()
@@ -121,10 +117,6 @@ public class Buden : MonoBehaviour
     public void Reset()
     {
         Start();
-    }
-    public bool IstAusgelasted() 
-    { 
-        return komplettAusgelastet; 
     }
 
     public BudenJSON GetBudenJSON()
