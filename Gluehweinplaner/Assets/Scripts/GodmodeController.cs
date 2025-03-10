@@ -23,6 +23,7 @@ public class GodmodeController : MonoBehaviour
 
     public InputActionReference verticalMoveAction;
     public InputActionReference horizontalMoveAction;
+    public InputActionReference toggleGodmodeAction;
     public InputActionReference grabAction;
 
     public TeleportationProvider teleportProvider;
