@@ -714,7 +714,7 @@ MonoBehaviour:
   radialPartCanvas: {fileID: 1256138947}
   angleBetweenPart: 10
   handTransform: {fileID: 1356023311}
-  handTransformLeft: {fileID: 0}
+  handTransformLeft: {fileID: 850671835}
   objectSpawner: {fileID: 1709099410}
   partToFunction:
   - m_PersistentCalls:
@@ -952,7 +952,7 @@ MonoBehaviour:
   - Beenden
   textRotationOffset: 90
   menuActivateAction: {fileID: 3165258451067141589, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  menuActivateActionLeft: {fileID: 0}
+  menuActivateActionLeft: {fileID: 6920277203642251579, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   waitTimeUntilActivation: 1
   timeWaited: 0
   waitingAt: -1
@@ -2669,6 +2669,11 @@ MonoBehaviour:
   cols: 0
   rows: 0
   cells: 0
+--- !u!4 &850671835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9014170785475729501, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+  m_PrefabInstance: {fileID: 1731298970}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &910438227
 GameObject:
   m_ObjectHideFlags: 0
