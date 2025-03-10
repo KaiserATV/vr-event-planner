@@ -140,9 +140,9 @@ public class RadicalSelection : MonoBehaviour
                 return;
             }
 
-            if (isBude && selectedBude)
+            if (isBude)
             {
-                selectedBude.gameObject.GetComponent<Renderer>().material = before;
+                if(selectedBude){ selectedBude.gameObject.GetComponent<Renderer>().material = before; }
                 partToFunctionHouse[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
             }
             else
