@@ -137,7 +137,6 @@ public class RadicalSelection : MonoBehaviour
             if(currentSelectedRadialPart == 2) // Index for volume button
             {
                 ToggleVolumeMenu();
-                return;
             }
 
             if (isBude)
@@ -215,13 +214,21 @@ public class RadicalSelection : MonoBehaviour
         if(inSubMenu) 
         {
             onVolumeMenuOpen.Invoke();
-            // Position volume menu relative to hand
-            volumeCanvas.transform.position = handTransform.position + handTransform.forward * 0.5f;
-            volumeCanvas.transform.rotation = handTransform.rotation;
+            
+            Transform referenceTransform = Camera.main.transform;
+        float distance = 1.75f; 
+
+        // Positionierung des Volume-Menüs
+        Vector3 forwardDirection = Vector3.ProjectOnPlane(referenceTransform.forward, Vector3.up).normalized;
+        volumeCanvas.transform.position = referenceTransform.position + forwardDirection * distance;
+
+        Quaternion lookRotation = Quaternion.LookRotation(forwardDirection, Vector3.up);
+        volumeCanvas.transform.rotation = lookRotation;
         }
         else
         {
             onVolumeMenuClose.Invoke();
+            radialPartCanvas.gameObject.SetActive(false);
         }
     }
 
