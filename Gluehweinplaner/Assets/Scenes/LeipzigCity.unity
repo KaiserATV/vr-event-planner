@@ -709,10 +709,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfRadialPart: 8
   numberOfHouseParts: 2
+  numberOfLeftParts: 2
   radialPartPrefab: {fileID: 6344817068492183187, guid: c9baa7d63ec1fd34e866198d1fe57371, type: 3}
   radialPartCanvas: {fileID: 1256138947}
   angleBetweenPart: 10
   handTransform: {fileID: 1356023311}
+  handTransformLeft: {fileID: 0}
   objectSpawner: {fileID: 1709099410}
   partToFunction:
   - m_PersistentCalls:
@@ -886,6 +888,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  partToFunctionLeft:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1036096516}
+        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
+        m_MethodName: Beenden
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -916,10 +933,26 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  buttonLabels: []
-  buttonLabelsHouse: []
+  buttonLabels:
+  - Veranstaltungsobjekt
+  - Besucherstrom
+  - "Lautst\xE4rke"
+  - Heatmap
+  - Godmode
+  - Speichern
+  - Laden
+  - Beenden
+  buttonLabelsHouse:
+  - Atrak. +
+  - Atrak. -
+  - Wait +
+  - Wait -
+  - Destroy
+  buttonLabelsLeft:
+  - Beenden
   textRotationOffset: 90
   menuActivateAction: {fileID: 3165258451067141589, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  menuActivateActionLeft: {fileID: 0}
   waitTimeUntilActivation: 1
   timeWaited: 0
   waitingAt: -1

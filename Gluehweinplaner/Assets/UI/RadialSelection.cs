@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
 using UnityEngine.InputSystem;
-using System.Linq;
-using Unity.VisualScripting;
 using TMPro;
-using Unity.XR.CoreUtils.Capabilities;
 
 
 public class RadicalSelection : MonoBehaviour
@@ -17,13 +13,17 @@ public class RadicalSelection : MonoBehaviour
     public int numberOfRadialPart;
     [Range(2, 10)]
     public int numberOfHouseParts;
+    [Range(2, 10)]
+    public int numberOfLeftParts;
     public GameObject radialPartPrefab;
     public Transform radialPartCanvas;
     public float angleBetweenPart = 10;
     public Transform handTransform;
+    public Transform handTransformLeft;
     public ObjectSpawner objectSpawner;
     public List<UnityEvent<int>> partToFunction;
     public List<UnityEvent<int>> partToFunctionHouse;
+    public List<UnityEvent<int>> partToFunctionLeft;
     public Gradient gradient = new Gradient();
 
     private List<GameObject> spawnedParts = new List<GameObject>();
@@ -31,9 +31,11 @@ public class RadicalSelection : MonoBehaviour
 
     public List<string> buttonLabels;  // Text for each button
     public List<string> buttonLabelsHouse;  // Text for each button
+    public List<string> buttonLabelsLeft;  // Text for each button
     public float textRotationOffset = 90f;  // Keep text upright
 
     public InputActionReference menuActivateAction;
+    public InputActionReference menuActivateActionLeft;
 
     public float waitTimeUntilActivation = 1.0f;
     public float timeWaited = 0;
@@ -53,28 +55,13 @@ public class RadicalSelection : MonoBehaviour
     private Buden selectedBude = null;
     private Material before;
     private Material highlightMaterial;
-    private Coroutine deletionCoroutine;
     private AgentManager am;
+    private bool left;
 
 
     void Start()
     {
-        buttonLabels.Add("Veranstaltungsobjekt");
-        buttonLabels.Add("Besucherstrom");
-        buttonLabels.Add("Lautstärke");
-        buttonLabels.Add("Heatmap");
-        buttonLabels.Add("Godmode");
-        buttonLabels.Add("Speichern");
-        buttonLabels.Add("Laden");
-        buttonLabels.Add("Beenden");
-
-
-        buttonLabelsHouse.Add("test");
-        buttonLabelsHouse.Add("test");
-        buttonLabelsHouse.Add("test");
-        buttonLabelsHouse.Add("test");
-        buttonLabelsHouse.Add("test");
-
+    
         highlightMaterial = GameObject.Find("BudenContainer").GetComponent<BuildingDeletion>().highlightMaterial;
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
 
@@ -105,6 +92,14 @@ public class RadicalSelection : MonoBehaviour
         // Check if the menu activation button is pressed
         if (menuActivateAction.action.triggered && !objectSpawner.IsPlacing)
         {
+            left = false;
+            radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
+            SpawnRadialPart(); // Populate the radial menu
+        }
+
+        if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
+        {
+            left = true;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
         }
@@ -154,7 +149,14 @@ public class RadicalSelection : MonoBehaviour
             }
             else
             {
-                partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
+                if (left)
+                {
+                    partToFunctionLeft[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
+                }
+                else
+                {
+                    partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
+                }
             }
         }
             radialPartCanvas.gameObject.SetActive(false);
@@ -163,7 +165,8 @@ public class RadicalSelection : MonoBehaviour
     public void GetSelectedRadialPart(float time)
     {
         int number = (isBude) ? numberOfHouseParts : numberOfRadialPart;
-        Vector3 centerToHand = handTransform.position - radialPartCanvas.position;
+        number = (left)?numberOfLeftParts : number;
+        Vector3 centerToHand = ((left)? handTransformLeft.position:handTransform.position) - radialPartCanvas.position;
         Vector3 centerToHandProjected = Vector3.ProjectOnPlane(centerToHand, radialPartCanvas.forward);
 
         float angle = Vector3.SignedAngle(radialPartCanvas.up, centerToHandProjected, -radialPartCanvas.forward);
@@ -251,9 +254,9 @@ public class RadicalSelection : MonoBehaviour
         //play Placement Sound Effect
         SoundFXManager.instance.PlaySoundFXClip(spawnRadialPartSoundClip, transform, 1f);
 
-        radialPartCanvas.position = handTransform.position;
-        radialPartCanvas.position = handTransform.position;
-        radialPartCanvas.rotation = handTransform.rotation;
+        radialPartCanvas.position = (left) ? handTransformLeft.position : handTransform.position;
+        radialPartCanvas.position = (left) ? handTransformLeft.position : handTransform.position;
+        radialPartCanvas.rotation = (left) ? handTransformLeft.rotation : handTransform.rotation;
 
         foreach (var item in spawnedParts)
         {
@@ -263,7 +266,7 @@ public class RadicalSelection : MonoBehaviour
         spawnedParts.Clear();
 
         int number = (isBude) ? numberOfHouseParts : numberOfRadialPart;
-
+        number = (left) ? numberOfLeftParts : number;
 
         for (int i = 0; i < number; i++)
         {
@@ -285,7 +288,7 @@ public class RadicalSelection : MonoBehaviour
             TextMeshProUGUI buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshProUGUI>();
             if (buttonText != null && i < buttonLabels.Count)
             {
-                buttonText.text = (isBude) ? buttonLabelsHouse[i] : buttonLabels[i];
+                buttonText.text = (isBude) ? buttonLabelsHouse[i] : (left) ? buttonLabelsLeft[i] :buttonLabels[i];
                 // Counteract radial rotation
             }
 
