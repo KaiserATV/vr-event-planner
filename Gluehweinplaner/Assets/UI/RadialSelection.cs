@@ -124,7 +124,7 @@ public class RadicalSelection : MonoBehaviour
             if(currentSelectedRadialPart == 2) // Index for volume button
             {
                 ToggleVolumeMenu();
-                return;
+                radialPartCanvas.gameObject.SetActive(false);
             }
             
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
@@ -192,6 +192,7 @@ public class RadicalSelection : MonoBehaviour
         else
         {
             onVolumeMenuClose.Invoke();
+            radialPartCanvas.gameObject.SetActive(false);
         }
     }
 
