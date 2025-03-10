@@ -9,6 +9,7 @@ public class VolumeManager : MonoBehaviour
 
     public void SetMasterVolume(float level) 
     {
-        audioMixer.SetFloat("masterVolume", Mathf.Log10(level) * 20f);
+        float dB = Mathf.Clamp(Mathf.Log10(level) * 20f, -80f, 0f);
+        audioMixer.SetFloat("masterVolume", dB);
     }
 }
