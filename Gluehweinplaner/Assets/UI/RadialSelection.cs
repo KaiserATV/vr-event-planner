@@ -124,7 +124,6 @@ public class RadicalSelection : MonoBehaviour
             if(currentSelectedRadialPart == 2) // Index for volume button
             {
                 ToggleVolumeMenu();
-                radialPartCanvas.gameObject.SetActive(false);
             }
             
             partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
