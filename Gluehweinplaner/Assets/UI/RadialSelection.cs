@@ -237,9 +237,10 @@ public class RadicalSelection : MonoBehaviour
         if (isBude)
         {
             selectedBude = hit.collider.transform.parent?.gameObject.GetComponent<Buden>();
+            Debug.Log(selectedBude);
             if (selectedBude)
             {
-                Renderer r = hit.collider.GetComponent<Renderer>(); ;
+                Renderer r = hit.collider.GetComponent<Renderer>();
                 before = r.material;
                 r.material = highlightMaterial;
             }
@@ -335,7 +336,6 @@ public class RadicalSelection : MonoBehaviour
             selectedBude.decreaseWaittime();
         }
     }
-
 
     public void DeleteBuilding()
     {
