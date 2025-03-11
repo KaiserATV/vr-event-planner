@@ -1084,7 +1084,7 @@ MonoBehaviour:
   - Godmode
   - Besucherstrom
   - Heatmap
-  - Effizienzscore
+  - Reset
   buttonLabelsHouse:
   - Atrak. +
   - Atrak. -
