@@ -158,8 +158,7 @@ public class RadicalSelection : MonoBehaviour
 
     public void GetSelectedRadialPart(float time)
     {
-        int number = (isBude) ? numberOfHouseParts : numberOfRadialPart;
-        number = (left)?numberOfLeftParts : number;
+        int number = (isBude) ? numberOfHouseParts : ((left) ? numberOfLeftParts : numberOfRadialPart);
         Vector3 centerToHand = ((left)? handTransformLeft.position:handTransform.position) - radialPartCanvas.position;
         Vector3 centerToHandProjected = Vector3.ProjectOnPlane(centerToHand, radialPartCanvas.forward);
 
