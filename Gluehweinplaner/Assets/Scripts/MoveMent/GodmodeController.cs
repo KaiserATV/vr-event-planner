@@ -23,7 +23,6 @@ public class GodmodeController : MonoBehaviour
 
     public InputActionReference verticalMoveAction;
     public InputActionReference horizontalMoveAction;
-    public InputActionReference toggleGodmodeAction;
     public InputActionReference grabAction;
 
     public TeleportationProvider teleportProvider;
@@ -48,26 +47,22 @@ public class GodmodeController : MonoBehaviour
     }
 
     void Update()
+{
+    if (isGodmodeActive)
     {
-        if (toggleGodmodeAction.action.WasPressedThisFrame())
+        if (!isGrabbingObject && !isPlacingObject)
         {
-            StartCoroutine(ToggleGodmode());
+            MoveGodmode();
         }
 
-        if (isGodmodeActive)
+        // Nach 2 Sekunden darf der Godmode durch Bodennähe beendet werden
+        if (canExitGodmode && xrRig.transform.position.y <= groundThreshold)
         {
-            if (!isGrabbingObject && !isPlacingObject)
-            {
-                MoveGodmode();
-            }
-
-            // Nach 2 Sekunden darf der Godmode durch Bodennähe beendet werden
-            if (canExitGodmode && xrRig.transform.position.y <= groundThreshold)
-            {
-                ExitGodmodeAtCurrentPosition();
-            }
+            ExitGodmodeAtCurrentPosition();
         }
     }
+}
+
 
     public IEnumerator ToggleGodmode()
     {

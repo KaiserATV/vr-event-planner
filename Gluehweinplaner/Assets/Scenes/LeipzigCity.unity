@@ -843,7 +843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfRadialPart: 5
   numberOfHouseParts: 4
-  numberOfLeftParts: 4
+  numberOfLeftParts: 5
   radialPartPrefab: {fileID: 6344817068492183187, guid: c9baa7d63ec1fd34e866198d1fe57371, type: 3}
   radialPartCanvas: {fileID: 1256138947}
   angleBetweenPart: 10
@@ -4596,7 +4596,7 @@ MonoBehaviour:
   vignetteSizeDuringReset: 0.77
   verticalMoveAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   horizontalMoveAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  toggleGodmodeAction: {fileID: 5825226938762934180, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  toggleGodmodeAction: {fileID: 2869410428622933342, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   grabAction: {fileID: 15759602096507913, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   teleportProvider: {fileID: 1731298971}
   snapTurnProvider: {fileID: 1731298973}
