@@ -3,7 +3,7 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    [HideInInspector]public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreText;
     public Heatmap heatmapScript;
     [SerializeField]private float scoreCount = 0;
     public AgentManager agentManagerScript;
