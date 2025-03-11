@@ -999,6 +999,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isBude: 0
+  highlightMaterial: {fileID: 2100000, guid: de170742f427a0c4f9b8a3233ab76f9a, type: 2}
 --- !u!1 &273305580
 GameObject:
   m_ObjectHideFlags: 0

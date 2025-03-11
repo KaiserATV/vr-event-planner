@@ -54,7 +54,7 @@ public class RadicalSelection : MonoBehaviour
     public bool isBude = false;
     private Buden selectedBude = null;
     private Material before;
-    private Material highlightMaterial;
+    [SerializeField] private Material highlightMaterial;
     private AgentManager am;
     private bool left;
 
@@ -62,7 +62,6 @@ public class RadicalSelection : MonoBehaviour
     void Start()
     {
     
-        highlightMaterial = GameObject.Find("BudenContainer").GetComponent<BuildingDeletion>().highlightMaterial;
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
 
         //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
