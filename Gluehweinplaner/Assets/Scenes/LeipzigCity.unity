@@ -997,7 +997,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1216239834}
         m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
-        m_MethodName: ToogleScore
+        m_MethodName: ToggleScore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

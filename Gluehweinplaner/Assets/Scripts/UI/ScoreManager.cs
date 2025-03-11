@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public AgentManager agentManagerScript;
     private bool show=false;
 
-    public void ToogleScore()
+    public void ToggleScore()
     {
         show = !show;
     }
