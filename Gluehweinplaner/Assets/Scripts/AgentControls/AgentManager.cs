@@ -290,9 +290,4 @@ public class AgentManager : MonoBehaviour
         
     }
 
-    public void Beenden()
-    {
-        Application.Quit();
-    }
-
 }
