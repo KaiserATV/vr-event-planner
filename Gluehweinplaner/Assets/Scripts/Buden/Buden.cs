@@ -80,8 +80,6 @@ public class Buden : MonoBehaviour
 
     public void Reset()
     {
-        waitTime = 10.0f;
-        attraktivitaet = 5;
         ziel.Reset();
         wait_B.Reset();
         wait_L.Reset();
@@ -153,7 +151,7 @@ public class Buden : MonoBehaviour
 
     public BudenJSON GetBudenJSON()
     {
-        return new BudenJSON(this.transform.position.x, this.transform.position.z, this.transform.eulerAngles.y, typeIndex);
+        return new BudenJSON(this.transform.position.x, this.transform.position.z, this.transform.eulerAngles.y, typeIndex, attraktivitaet, waitTime);
     }
 
     public void SetTypeIndex(int i)
