@@ -46,7 +46,7 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.Log(i);
             Debug.Log("usageCat.medium" + usageCat.medium);
-            if (array[i] =< 6)
+            if (array[i] <= 6)
             {
                 good++;
             }
