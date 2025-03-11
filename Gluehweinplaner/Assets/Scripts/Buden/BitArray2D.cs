@@ -38,6 +38,16 @@ public class BitArray2D
 
     }
 
+    public void Reset()
+    {
+        registeredPlayers = new List<AgentController>();
+        array = new BitArray(cellsX * cellsZ);
+    }
+    public int GetKapa()
+    {
+        return cellsX * cellsZ;
+    }
+
 
     private void CalcWidthHeight()
     {
@@ -161,9 +171,5 @@ public class BitArray2D
         {
             ac.BudeDestroyed();
         }
-
-
     }
-
-
 }

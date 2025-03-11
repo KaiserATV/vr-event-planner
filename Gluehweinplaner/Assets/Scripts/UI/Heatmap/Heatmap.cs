@@ -44,6 +44,17 @@ public class Heatmap : MonoBehaviour
         material.SetFloat("_ZDistance", cellsizeZ);
         material.SetVector("_MaxVals", new Vector2(b.max.x, b.max.z));
     }
+    public void Reset()
+    {
+        properties = new float[cells];
+        playCellCount = new int[cells];
+        playMaxCount = new int[cells];
+        showMax = false;
+        showClear = true;
+        statCounter = 0;
+        material.SetFloatArray("_Properties", clear);
+    }
+
 
     public void ToggleAlphaMode()
     {

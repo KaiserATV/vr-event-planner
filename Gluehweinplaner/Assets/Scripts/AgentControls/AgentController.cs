@@ -96,6 +96,13 @@ public class AgentController : MonoBehaviour
             }
         }
     }
+    public void SetInactive()
+    {
+        agent.isStopped=true;
+        stopped = true;
+        waiting = false;
+        agent.Warp(sm.GetIACPos());
+    }
 
 
      void FindNextGoal()

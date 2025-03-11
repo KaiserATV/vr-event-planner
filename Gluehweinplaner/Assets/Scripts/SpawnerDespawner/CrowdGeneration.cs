@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CrowdGeneration : MonoBehaviour
@@ -9,6 +10,7 @@ public class CrowdGeneration : MonoBehaviour
     public float minWorldLimitZ = 0;
     public float maxWorldLimitZ = 0;
     public float spawnTime = 1f;
+    public float gedrosseltSpawnTime = 5f;
     public float agentradius = 1f;
 
     private float zeitVergangen;
@@ -16,12 +18,14 @@ public class CrowdGeneration : MonoBehaviour
     private AgentManager am;
     private MeshCollider col;
     private List<Vector3> m_agentPositions;
+    private InactiveAgentsContainer iac;
 
     // Start is called before the first frame update
     void Start()
     {
         zeitVergangen = spawnTime;
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+        iac = GameObject.Find("InactiveAgentHolder").GetComponent<InactiveAgentsContainer>();
 
         prop = Resources.Load("agent") as GameObject;
         col = GetComponent<MeshCollider>();
@@ -48,15 +52,28 @@ public class CrowdGeneration : MonoBehaviour
                 Vector3 position = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
 
-                // Instantiate agent
-                GameObject agent = Instantiate(prop, position, rotation);
 
-                // Set the parent of the instantiated props to be this CrowdGenerator
-                agent.transform.parent = transform;
 
-                m_agentPositions.Add(position);
-                zeitVergangen = spawnTime;
+                if (iac.GetStoredCount()>0)
+                {
+                    AgentController ac = iac.GetAgent();
+                    ac.Destroy();
+                }
+                else 
+                {
+                    GameObject agent = Instantiate(prop, position, rotation);
+                    agent.transform.parent = transform;
+                    m_agentPositions.Add(position);
+                }
+                
+                if(am.SpawnSlower()){
+                    zeitVergangen = gedrosseltSpawnTime;
+                }
+                else{
+                    zeitVergangen = spawnTime;
+                }
             }
+
         }
     }
 
