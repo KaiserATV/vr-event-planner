@@ -209,7 +209,7 @@ public class RadicalSelection : MonoBehaviour
         {
             onVolumeMenuOpen.Invoke();
             
-            Transform referenceTransform = Camera.main.transform;
+        Transform referenceTransform = Camera.main.transform;
         float distance = 1.75f; 
 
         // Positionierung des Volume-Menüs
@@ -249,9 +249,6 @@ public class RadicalSelection : MonoBehaviour
         {
             selectedBude = null;
         }
-        Debug.Log(selectedBude);
-
-
 
         radialPartCanvas.gameObject.SetActive(true);
 
