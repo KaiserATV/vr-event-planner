@@ -4,7 +4,7 @@ public class Buden : MonoBehaviour
 {
     public float agentRadius = 1f;
 
-    public float waitTime = 10.0f;
+    public int waitTime = 10;
 
     public int attraktivitaet = 5;
     public int kapazität;
