@@ -2808,7 +2808,7 @@ GameObject:
   - component: {fileID: 829851552}
   - component: {fileID: 829851551}
   - component: {fileID: 829851554}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: HeatMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4486,7 +4486,7 @@ GameObject:
   - component: {fileID: 1888413063}
   - component: {fileID: 1888413062}
   - component: {fileID: 1888413066}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
