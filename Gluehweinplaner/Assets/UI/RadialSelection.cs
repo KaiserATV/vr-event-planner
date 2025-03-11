@@ -95,7 +95,8 @@ public class RadicalSelection : MonoBehaviour
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
         }else if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
-        {
+        {   
+            Debug.Log("Left Hand Menu Activation");
             left = true;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
@@ -104,11 +105,13 @@ public class RadicalSelection : MonoBehaviour
         // Keep the menu active and update selection
         if (radialPartCanvas.gameObject.activeSelf)
         {
+            Debug.Log("Radial Part Canvas is active");
             GetSelectedRadialPart(Time.deltaTime);
 
             // Hide and trigger the selected part when the button is released
-            if (menuActivateAction.action.WasReleasedThisFrame())
+            if (menuActivateAction.action.WasReleasedThisFrame() || menuActivateActionLeft.action.WasReleasedThisFrame())
             {
+                Debug.Log("Menu Activation Button Released");
                 HideAndTriggerSelected();
             }
         }
@@ -123,6 +126,7 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
+        Debug.Log("Hiding and triggering selected part");
         int count = (isBude) ? partToFunctionHouse.Count : ((left) ? partToFunctionLeft.Count : partToFunction.Count);
         if (timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < count)
         {
