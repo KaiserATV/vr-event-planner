@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Heatmap\Heatmap.cs" />
     <Compile Include="Assets\Scripts\GodmodeController.cs" />
     <Compile Include="Assets\UI\ObjectSpawner.cs" />
+    <Compile Include="Assets\UI\Audio\VolumeChangeSound.cs" />
     <Compile Include="Assets\UI\VolumeMenuCloser.cs" />
     <Compile Include="Assets\Scripts\AgentControls\AgentManager.cs" />
     <Compile Include="Assets\Scripts\DebugTeleport.cs" />

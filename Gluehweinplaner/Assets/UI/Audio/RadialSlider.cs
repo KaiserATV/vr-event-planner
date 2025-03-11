@@ -8,8 +8,6 @@ public class RadialSlider : MonoBehaviour
     public TextMeshProUGUI valueText;
     public VolumeManager volumeManager;
 
-    [SerializeField] private AudioClip updateVolumeSoundClip;
-
     void Start()
     {
         // Initialize with saved volume
@@ -26,7 +24,5 @@ public class RadialSlider : MonoBehaviour
         
         // Save preference
         PlayerPrefs.SetFloat("MasterVolume", value);
-
-        SoundFXManager.instance.PlaySoundFXClip(updateVolumeSoundClip, transform, 1f);
     }
 }
