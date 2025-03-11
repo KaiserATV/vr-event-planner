@@ -809,9 +809,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf755a06d0d765b4499645d240daf35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRadialPart: 8
-  numberOfHouseParts: 5
-  numberOfLeftParts: 2
+  numberOfRadialPart: 4
+  numberOfHouseParts: 4
+  numberOfLeftParts: 4
   radialPartPrefab: {fileID: 6344817068492183187, guid: c9baa7d63ec1fd34e866198d1fe57371, type: 3}
   radialPartCanvas: {fileID: 1256138947}
   angleBetweenPart: 10
@@ -825,48 +825,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: ObjectSpawner, Assembly-CSharp
         m_MethodName: StartSpawning
         m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1036096516}
-        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: ToggleSimulation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 262669076}
-        m_TargetAssemblyTypeName: RadicalSelection, Assembly-CSharp
-        m_MethodName: ToggleVolumeMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 829851554}
-        m_TargetAssemblyTypeName: Heatmap, Assembly-CSharp
-        m_MethodName: ToggleAlphaMode
-        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -893,7 +851,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1036096516}
         m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: SaveJSON
+        m_MethodName: ToggleSimulation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -905,23 +863,9 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1036096516}
-        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: LoadBudenFromJSON
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1036096516}
-        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: Beenden
+      - m_Target: {fileID: 829851554}
+        m_TargetAssemblyTypeName: Heatmap, Assembly-CSharp
+        m_MethodName: ToggleAlphaMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -988,26 +932,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  partToFunctionLeft:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 262669076}
         m_TargetAssemblyTypeName: RadicalSelection, Assembly-CSharp
-        m_MethodName: DeleteBuilding
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  partToFunctionLeft:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1036096516}
-        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: ToggleSimulation
+        m_MethodName: ToggleVolumeMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1021,7 +951,35 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1036096516}
         m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
-        m_MethodName: ToggleSimulation
+        m_MethodName: SaveJSON
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1036096516}
+        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
+        m_MethodName: LoadBudenFromJSON
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1731298983}
+        m_TargetAssemblyTypeName: BeendenSzene, Assembly-CSharp
+        m_MethodName: Beenden
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1063,22 +1021,19 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   buttonLabels:
   - Veranstaltungsobjekt
-  - Besucherstrom
-  - "Lautst\xE4rke"
-  - Heatmap
   - Godmode
-  - Speichern
-  - Laden
-  - Beenden
+  - Besucherstrom
+  - Heatmap
   buttonLabelsHouse:
   - Atrak. +
   - Atrak. -
   - Wait +
   - Wait -
-  - Destroy
   buttonLabelsLeft:
-  - Toggle
-  - Toggle
+  - "Lautst\xE4rke"
+  - Speichern
+  - Laden
+  - Beenden
   textRotationOffset: 90
   menuActivateAction: {fileID: 3165258451067141589, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   menuActivateActionLeft: {fileID: 6920277203642251579, guid: c348712bda248c246b8c49b3db54643f, type: 3}
@@ -3404,10 +3359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eabdcfddb2638a4d956053c14719939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  heatmapScript: {fileID: 829851554}
-  scoreCount: 0
-  agentManagerScript: {fileID: 1036096516}
 --- !u!1 &1256138943
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,6 +4245,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1731298982}
+    - targetCorrespondingSourceObject: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1731298983}
     - targetCorrespondingSourceObject: {fileID: 9014170783809206332, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1731298972}
@@ -4452,6 +4406,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1731298983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731298974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2542d8108166d874d9f7fba37981bd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1834337114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7712547942246075122, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
