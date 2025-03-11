@@ -220,13 +220,19 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
         }
     }
 
-    void SetMaterialTransparent(GameObject obj)
+void SetMaterialTransparent(GameObject obj)
+{
+    Transform budeTransform = obj.transform.Find("Bude"); // Sucht das Unterobjekt „Bude“
+    if (budeTransform != null)
     {
-        foreach(var renderer in obj.GetComponentsInChildren<Renderer>())
+        Renderer budeRenderer = budeTransform.GetComponent<Renderer>();
+        if (budeRenderer != null)
         {
-            renderer.material = previewMaterial;
+            budeRenderer.material = previewMaterial;
         }
     }
+}
+
 
     // **Objekt per Ray Interactor auswählen**
     void TrySelectObject()
