@@ -7,7 +7,6 @@ public class ScoreManager : MonoBehaviour
     public Heatmap heatmapScript;
     [SerializeField]private float scoreCount = 0;
     public AgentManager agentManagerScript;
-    public Heatmap hm;
     private bool show=false;
 
     public void ToogleScore()
@@ -18,8 +17,6 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText = GetComponent<TextMeshProUGUI>();
-        agentManagerScript = GetComponent<AgentManager>();
         UpdateUI();
     }
 
@@ -41,7 +38,7 @@ public class ScoreManager : MonoBehaviour
 
     private float CalcHeatMapScore()
     {
-        int[] array = hm.playMaxCount;
+        int[] array = heatmapScript.playMaxCount;
         int good = 0;
         int bad = 0;
         foreach (int i in array)
