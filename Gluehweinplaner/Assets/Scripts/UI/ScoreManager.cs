@@ -25,7 +25,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (show)
         {
-            Buden[] AlleBuden = agentManagerScript.AlleBuden;
+            Buden[] AlleBuden = agentManagerScript.alleBuden;
             int BusyBuden = 0;
             foreach (Buden Bude in AlleBuden)
             {
