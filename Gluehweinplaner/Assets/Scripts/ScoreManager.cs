@@ -24,16 +24,15 @@ public class ScoreManager : MonoBehaviour
         int BusyBuden = 0;
         foreach (Buden Bude in AlleBuden)
         {
-            if (Bude.IstAusgelasted()) BusyBuden++;
+            if (Bude.CheckAuslastung()) BusyBuden++;
         }
-
-        //int MaxBusyAreas = heatmapScript.playMaxCount;
 
         int Buden = agentManagerScript.BudenCount();
 
         int Agents = agentManagerScript.playerCount;
 
-        //scoreCount = BusyBuden + MaxBusyAreas * Buden / Agents;
+        //MAX HIER ScoreCount ANPASSEN, DER REST PASSIERT AUTOMATISCH
+        //scoreCount = cellScore - BusyBuden * 10;
         UpdateUI();
     }
 
