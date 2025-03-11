@@ -30,6 +30,10 @@ public class AgentManager : MonoBehaviour
     Exits[] alleExits;
     CrowdGeneration[] spawner;
 
+    [SerializeField] private AudioClip deleteSoundClip;
+    [SerializeField] private AudioClip saveSoundClip;
+    [SerializeField] private AudioClip loadSoundClip;
+
 
     // Start is called before the first frame update
     void Start()
@@ -158,7 +162,9 @@ public class AgentManager : MonoBehaviour
 
     public void RemoveBude(Buden wegBude)
     {
-        for(int i =0; i <alleBuden.Length; i++)
+        SoundFXManager.instance.PlaySoundFXClip(deleteSoundClip, transform, 1f);
+
+        for(int i = 0; i <alleBuden.Length; i++)
         {
             if(alleBuden[i]== wegBude)
             {
@@ -227,6 +233,7 @@ public class AgentManager : MonoBehaviour
             writer.Write(CreateJSON());
         }
 
+        SoundFXManager.instance.PlaySoundFXClip(saveSoundClip, transform, 1f);
     }
 
     private AlleBudenJSON ReadJSON()
@@ -282,6 +289,7 @@ public class AgentManager : MonoBehaviour
                 bd.SetTypeIndex(1);
                 AddBude(bd);
             }
+            SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
         }
         else
         {
