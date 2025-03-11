@@ -1,4 +1,4 @@
-public class usageCat
+public static class usageCat
 {
     public const int low = 3;
     public const int mediumLow = 6;
@@ -8,7 +8,7 @@ public class usageCat
 }
 
 
-public class alphaCat
+public static class alphaCat
 {
     public const float low = 0.2f;
     public const float mediumLow = 0.4f;
