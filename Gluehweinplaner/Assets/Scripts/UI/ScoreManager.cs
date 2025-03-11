@@ -7,22 +7,12 @@ public class ScoreManager : MonoBehaviour
     public Heatmap heatmapScript;
     [SerializeField]private float scoreCount = 0;
     public AgentManager agentManagerScript;
-    private bool show=false;
+    private bool show=true;
 
     public void ToggleScore()
     {
+        Debug.Log("Toggle Score");
         show = !show;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        UpdateUI();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         if (show)
         {
             Buden[] AlleBuden = agentManagerScript.alleBuden;
@@ -32,8 +22,19 @@ public class ScoreManager : MonoBehaviour
                 if (Bude.CheckAuslastung()) BusyBuden++;
             }
             scoreCount = CalcHeatMapScore() + BusyBuden * (agentManagerScript.playerCount / AlleBuden.Length);
+            // Debug.Log("Score: " + scoreCount);
+            // Debug.Log("Heatmap: " + CalcHeatMapScore());
+            // Debug.Log("BusyBuden: " + BusyBuden);
+            // Debug.Log("PlayerCount: " + agentManagerScript.playerCount);
+            // Debug.Log("BudenCount: " + AlleBuden.Length);
             UpdateUI();
+        }  
         }
+        
+            // Start is called before the first frame update
+    void Start()
+    {
+        UpdateUI();
     }
 
     private float CalcHeatMapScore()
@@ -43,7 +44,10 @@ public class ScoreManager : MonoBehaviour
         int bad = 0;
         foreach (int i in array)
         {
-            if(i > usageCat.medium)
+            Debug.Log(i);
+            Debug.Log("usageCat.medium" + usageCat.medium);
+            if(i > 0)
+            
             {
                 bad++;
             }
@@ -51,8 +55,11 @@ public class ScoreManager : MonoBehaviour
             {
                 good++;
             }
+        Debug.Log("bad" + bad);
+        Debug.Log("good" + good);
         }
         return (bad/good* 2000);
+
     }
 
     private void UpdateUI()
