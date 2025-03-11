@@ -46,14 +46,13 @@ public class ScoreManager : MonoBehaviour
         {
             Debug.Log(i);
             Debug.Log("usageCat.medium" + usageCat.medium);
-            if(i > 0)
-            
+            if (array[i] =< 6)
             {
-                bad++;
+                good++;
             }
             else
             {
-                good++;
+                bad++;
             }
         Debug.Log("bad" + bad);
         Debug.Log("good" + good);
