@@ -28,6 +28,7 @@ public class AgentController : MonoBehaviour
     private BitArray2D bude;
     private AgentManager sm;
     private List<int> visitedGoalNumbers =  new List<int>();
+    private Rigidbody rb;
     
 
     public const float updateRate = 5.0f;
@@ -37,6 +38,7 @@ public class AgentController : MonoBehaviour
     void Start()
     {
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoRepath = true;
         sm.addPlayer(this);
@@ -98,6 +100,8 @@ public class AgentController : MonoBehaviour
     }
     public void SetInactive()
     {
+        rb.detectCollisions = false;
+        rb.isKinematic = false;
         agent.isStopped=true;
         stopped = true;
         waiting = false;
@@ -148,6 +152,8 @@ public class AgentController : MonoBehaviour
     public void Destroy()
     {
         agent.Warp(sm.GetNewSpawnPoint());//to random spawner
+        rb.detectCollisions = false;
+        rb.isKinematic = false;
 
         stopped = false;
         waiting = false;

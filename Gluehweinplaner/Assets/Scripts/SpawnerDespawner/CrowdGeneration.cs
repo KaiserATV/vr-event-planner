@@ -17,7 +17,6 @@ public class CrowdGeneration : MonoBehaviour
 
     private AgentManager am;
     private MeshCollider col;
-    private List<Vector3> m_agentPositions;
     private InactiveAgentsContainer iac;
 
     // Start is called before the first frame update
@@ -29,8 +28,6 @@ public class CrowdGeneration : MonoBehaviour
 
         prop = Resources.Load("agent") as GameObject;
         col = GetComponent<MeshCollider>();
-        // Initialize my agents' position list
-        m_agentPositions = new List<Vector3>();
 
         minWorldLimitX = col.bounds.min.x;
         maxWorldLimitX = col.bounds.max.x;
@@ -63,7 +60,6 @@ public class CrowdGeneration : MonoBehaviour
                 {
                     GameObject agent = Instantiate(prop, position, rotation);
                     agent.transform.parent = transform;
-                    m_agentPositions.Add(position);
                 }
                 
                 if(am.SpawnSlower()){
@@ -76,7 +72,6 @@ public class CrowdGeneration : MonoBehaviour
 
         }
     }
-
 
     public Vector3 GenerateRandomPosition()
     {
