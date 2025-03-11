@@ -841,7 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf755a06d0d765b4499645d240daf35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRadialPart: 4
+  numberOfRadialPart: 5
   numberOfHouseParts: 4
   numberOfLeftParts: 4
   radialPartPrefab: {fileID: 6344817068492183187, guid: c9baa7d63ec1fd34e866198d1fe57371, type: 3}
@@ -898,6 +898,20 @@ MonoBehaviour:
       - m_Target: {fileID: 829851554}
         m_TargetAssemblyTypeName: Heatmap, Assembly-CSharp
         m_MethodName: ToggleAlphaMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1216239834}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: ToogleScore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1056,6 +1070,7 @@ MonoBehaviour:
   - Godmode
   - Besucherstrom
   - Heatmap
+  - Effizienzscore
   buttonLabelsHouse:
   - Atrak. +
   - Atrak. -
