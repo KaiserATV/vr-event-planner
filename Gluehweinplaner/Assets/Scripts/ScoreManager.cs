@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         scoreText = GetComponent<TextMeshProUGUI>();
-       agentManagerScript = GetComponent<AgentManager>();
+        agentManagerScript = GetComponent<AgentManager>();
         UpdateUI();
     }
 
@@ -34,14 +34,6 @@ public class ScoreManager : MonoBehaviour
             {
                 if (Bude.CheckAuslastung()) BusyBuden++;
             }
-
-            int Buden = agentManagerScript.BudenCount();
-
-            int Agents = agentManagerScript.playerCount;
-
-
-
-            //MAX HIER ScoreCount ANPASSEN, DER REST PASSIERT AUTOMATISCH
             scoreCount = CalcHeatMapScore() + BusyBuden * (agentManagerScript.playerCount / AlleBuden.Length);
             UpdateUI();
         }
@@ -71,6 +63,10 @@ public class ScoreManager : MonoBehaviour
         if (show)
         {
             scoreText.text = "Effizienz Score: " + scoreCount.ToString();
+        }
+        else
+        {
+            scoreText.text = "";
         }
     }
 }
