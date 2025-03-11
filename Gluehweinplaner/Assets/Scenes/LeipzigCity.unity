@@ -909,9 +909,9 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1216239834}
-        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
-        m_MethodName: ToogleScore
+      - m_Target: {fileID: 1036096516}
+        m_TargetAssemblyTypeName: AgentManager, Assembly-CSharp
+        m_MethodName: ResetSimulation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -984,6 +984,20 @@ MonoBehaviour:
       - m_Target: {fileID: 262669076}
         m_TargetAssemblyTypeName: RadicalSelection, Assembly-CSharp
         m_MethodName: ToggleVolumeMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1216239834}
+        m_TargetAssemblyTypeName: ScoreManager, Assembly-CSharp
+        m_MethodName: ToogleScore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1078,6 +1092,7 @@ MonoBehaviour:
   - Wait -
   buttonLabelsLeft:
   - "Lautst\xE4rke"
+  - Effizienzscore
   - Speichern
   - Laden
   - Beenden
@@ -3277,6 +3292,7 @@ MonoBehaviour:
   heatmapname: HeatMap
   allBudenWeigth: 0
   cellsizes: {x: 0, y: 0}
+  alleBuden: []
   deleteSoundClip: {fileID: 8300000, guid: f48b8acc29f909c4ea1fcd7617dab5d1, type: 3}
   saveSoundClip: {fileID: 8300000, guid: 90501f3029d2cae4dbe7e872968f3384, type: 3}
   loadSoundClip: {fileID: 8300000, guid: f320bdeafac5dc342b8006ba6d2b7bc4, type: 3}
@@ -3319,6 +3335,7 @@ GameObject:
   - component: {fileID: 1165382522}
   - component: {fileID: 1165382521}
   - component: {fileID: 1165382520}
+  - component: {fileID: 1165382524}
   m_Layer: 0
   m_Name: InactiveAgentHolder
   m_TagString: Untagged
@@ -3413,6 +3430,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1341412598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1165382524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165382519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9ee16d484c9d4ab5d20c13d0a5741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1216239830
 GameObject:
   m_ObjectHideFlags: 0
