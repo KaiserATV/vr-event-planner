@@ -9,6 +9,7 @@ public class AgentManager : MonoBehaviour
     public int playerCount = 0;
     public int maxPlayerCount = 50;
     public int agentsLostPatience = 0;
+    public int maxKapazitaet;
 
     public bool simulating = false;
 
@@ -22,11 +23,11 @@ public class AgentManager : MonoBehaviour
     private List<AgentController> alleCurrentAgents = new List<AgentController>();
     private LinkedList<int>leereStellen=new LinkedList<int>();
     Heatmap hm;
+    InactiveAgentsContainer iac;
 
     public Vector2 cellsizes;
 
-    Buden[] alleBuden;
-    public Buden[] AlleBuden { get => alleBuden; }
+    public Buden[] alleBuden;
     Exits[] alleExits;
     CrowdGeneration[] spawner;
 
@@ -42,6 +43,7 @@ public class AgentManager : MonoBehaviour
         alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
         spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
         hm = GameObject.Find(heatmapname).GetComponentInChildren<Heatmap>();
+        iac = GameObject.Find("InactiveAgentHolder").GetComponent<InactiveAgentsContainer>();
 
         CalcAllBudenWeight();
 
@@ -72,6 +74,8 @@ public class AgentManager : MonoBehaviour
         return -1;
     }
 
+    public Vector3 GetIACPos() { return iac.GetWorldCoords(); }
+
     private int CalcNewWeightedBude(List<int> besuchteBudenNr)
     {
         int rand = Random.Range(0, allBudenWeigth+1);
@@ -93,6 +97,7 @@ public class AgentManager : MonoBehaviour
     {
         foreach(Buden b in alleBuden)
         {
+            maxKapazitaet += b.kapazität;
             allBudenWeigth += b.attraktivitaet;
         }
     }
@@ -125,25 +130,32 @@ public class AgentManager : MonoBehaviour
     public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Add(ac); }
 
     public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
-
     public void StartSimulation() { simulating = true; }
     public void ResumeSimulation() {  simulating = true; foreach (AgentController ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
 
     public void StopSimulation() { simulating = false; foreach (AgentController ac in alleCurrentAgents) { ac.Stop(); } }
+    public bool SpawnSlower() { return playerCount > maxKapazitaet; }
 
-    //public void ResetSimulation() {
-    //    StopSimulation();
-    //    simulating = false; 
-    //    foreach (Buden b in alleBuden) { b.Reset(); } 
-    //    AgentController ac; 
-    //    while(alleCurrentAgents.Count > 0) { 
-    //        ac = alleCurrentAgents[0];
-    //        alleCurrentAgents.Remove(ac);
-    //        ac.Destroy();
-    //    }
-    //    }
+    public void ResetSimulation()
+    {
+        StopSimulation();
+        foreach (Buden b in alleBuden) { b.Reset(); }
+        AgentController ac;
+        while (alleCurrentAgents.Count > 0)
+        {
+            ac = alleCurrentAgents[0];
+            ac.SetInactive();
+        }
+        agentsLostPatience = 0;
+        playerCount = 0;
+        simulating = false;
+        leereStellen = new LinkedList<int>();
+        alleCurrentAgents = new List<AgentController>();
+        hm.Reset();
+        CalcAllBudenWeight();
+    }
 
-   public void AddBude(Buden neueBude)
+    public void AddBude(Buden neueBude)
     {
         if (leereStellen.Count > 0)
         {
@@ -158,6 +170,7 @@ public class AgentManager : MonoBehaviour
             tempList.Add(neueBude);
             alleBuden = tempList.ToArray();
         }
+        CalcAllBudenWeight();
     }
 
     public void RemoveBude(Buden wegBude)

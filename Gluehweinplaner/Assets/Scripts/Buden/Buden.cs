@@ -6,19 +6,19 @@ public class Buden : MonoBehaviour
 
     public float waitTime = 10.0f;
 
-    public int attraktivitaet = 5; 
+    public int attraktivitaet = 5;
+    public int kapazität;
 
     private int typeIndex;
 
+    public int attrakIncr=10;
+    public int waitIncr = 5;
 
-
-    //To-Do: Optimize the Datastructure
     private BitArray2D wait_B;
     private BitArray2D wait_L;
     private BitArray2D wait_R;
     private BitArray2D ziel;
 
-    // Start is called before the first frame update
     public void Start()
     {
         this.transform.hasChanged = false;
@@ -44,7 +44,9 @@ public class Buden : MonoBehaviour
         //Wait_R Array
         child = this.transform.GetChild(3);
         bound = child.GetComponent<MeshRenderer>().localBounds;
-        wait_R = new BitArray2D(bound, child, agentRadius, 2);   
+        wait_R = new BitArray2D(bound, child, agentRadius, 2);
+
+        CalcKapa();
     }
 
     private void Update()
@@ -57,6 +59,22 @@ public class Buden : MonoBehaviour
             this.transform.hasChanged = false;
         }
     }
+
+    private void CalcKapa()
+    {
+        kapazität = ziel.GetKapa() + wait_B.GetKapa() + wait_L.GetKapa() + wait_R.GetKapa();
+    }
+
+    public void Reset()
+    {
+        waitTime = 10.0f;
+        attraktivitaet = 5;
+        ziel.Reset();
+        wait_B.Reset();
+        wait_L.Reset();
+        wait_R.Reset();
+    }
+
 
     public Vector3Int GetNewPosition(AgentController ac)
     {
@@ -101,7 +119,10 @@ public class Buden : MonoBehaviour
     }
     public void decreaseAttraktivität()
     {
-        attraktivitaet--;
+        if (attraktivitaet - attrakIncr > 0)
+        {
+            attraktivitaet--;
+        }
     }
 
     public void increaseWaittime()
@@ -111,12 +132,9 @@ public class Buden : MonoBehaviour
     }
     public void decreaseWaittime()
     {
-        waitTime--;
-    }
-
-    public void Reset()
-    {
-        Start();
+        if (waitTime - waitIncr > 0) { 
+            waitTime--;
+        }
     }
 
     public BudenJSON GetBudenJSON()
