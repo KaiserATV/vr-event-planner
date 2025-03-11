@@ -139,7 +139,6 @@ public class AgentManager : MonoBehaviour
     public void ResetSimulation()
     {
         //StopSimulation();
-        int i = 2;
         foreach (AgentController ac in alleCurrentAgents)
         {
             ac.SetInactive();
