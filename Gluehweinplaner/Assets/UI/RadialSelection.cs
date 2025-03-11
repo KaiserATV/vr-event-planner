@@ -141,7 +141,7 @@ public class RadicalSelection : MonoBehaviour
 
             if (isBude)
             {
-                if(selectedBude){ selectedBude.gameObject.GetComponent<Renderer>().material = before; }
+                if(selectedBude){ selectedBude.gameObject.GetComponentInChildren<Renderer>().material = before; }
                 partToFunctionHouse[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
             }
             else
