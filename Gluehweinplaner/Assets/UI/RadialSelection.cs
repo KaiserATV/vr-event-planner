@@ -244,7 +244,6 @@ public class RadicalSelection : MonoBehaviour
         if (isBude)
         {
             selectedBude = hit.collider.transform.parent?.gameObject.GetComponent<Buden>();
-            Debug.Log(selectedBude);
             if (selectedBude)
             {
                 Renderer r = hit.collider.GetComponent<Renderer>();
@@ -256,6 +255,8 @@ public class RadicalSelection : MonoBehaviour
         {
             selectedBude = null;
         }
+        Debug.Log(selectedBude);
+
 
 
         radialPartCanvas.gameObject.SetActive(true);
