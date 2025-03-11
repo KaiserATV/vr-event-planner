@@ -3036,6 +3036,7 @@ MonoBehaviour:
   slider: {fileID: 1003827259}
   valueText: {fileID: 511074061}
   volumeManager: {fileID: 2038348458}
+  updateVolumeSoundClip: {fileID: 8300000, guid: 114fcec092eb30e458d10e5b0e7ed84f, type: 3}
 --- !u!1 &1036096514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3267,10 +3268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eabdcfddb2638a4d956053c14719939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  heatmapScript: {fileID: 829851554}
-  scoreCount: 0
-  agentManagerScript: {fileID: 1036096516}
 --- !u!1 &1256138943
 GameObject:
   m_ObjectHideFlags: 0
