@@ -42,7 +42,7 @@ public class ScoreManager : MonoBehaviour
         int[] array = heatmapScript.playMaxCount;
         int good = 0;
         int bad = 0;
-        foreach (int i in array)
+        for(int i=0;i < array.Length; i++)
         {
             Debug.Log(i);
             Debug.Log("usageCat.medium" + usageCat.medium);
