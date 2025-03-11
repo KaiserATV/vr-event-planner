@@ -8,6 +8,9 @@ public class Buden : MonoBehaviour
 
     public int attraktivitaet = 5;
     public int kapazität;
+    public float delayBeforeNotBusy = 5f;
+    private float timeGoneBy = 0f;
+    public bool busy = false;
 
     private int typeIndex;
 
@@ -51,6 +54,16 @@ public class Buden : MonoBehaviour
 
     private void Update()
     {
+        if (timeGoneBy < delayBeforeNotBusy)
+        {
+            timeGoneBy += Time.deltaTime;
+        }
+        else
+        {
+            busy = CheckAuslastung();
+            timeGoneBy = 0;
+        }
+
         if (this.transform.hasChanged) {
             ziel.RefreshPos();
             wait_B.RefreshPos();
@@ -109,6 +122,7 @@ public class Buden : MonoBehaviour
 
     public bool CheckAuslastung()
     {
+        busy = busy || (ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull());
         return ziel.IsFull() && wait_B.IsFull() && wait_L.IsFull() && wait_R.IsFull();
     }
 

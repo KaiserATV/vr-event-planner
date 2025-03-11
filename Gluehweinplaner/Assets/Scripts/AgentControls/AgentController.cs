@@ -11,6 +11,7 @@ public class AgentController : MonoBehaviour
     public int goalNr;
     public const float patience = 120f;
     public float patienceLost;
+    public bool inactive = false;
 
 
     public bool stopped = false;
@@ -37,6 +38,7 @@ public class AgentController : MonoBehaviour
     {
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        
         agent.autoRepath = true;
         sm.addPlayer(this);
         positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
@@ -97,6 +99,9 @@ public class AgentController : MonoBehaviour
     }
     public void SetInactive()
     {
+        bude= null;
+        inactive = true;
+        FindExit();
         agent.isStopped=true;
         stopped = true;
         waiting = false;
@@ -110,7 +115,7 @@ public class AgentController : MonoBehaviour
         stopped = false;
         agent.isStopped = false;
         timeLeftWaiting = 0.0f;
-        if (goalsBeforeExit > 0 && !exiting)
+        if (goalsBeforeExit > 0 && !exiting && !inactive)
         {
             do
             {

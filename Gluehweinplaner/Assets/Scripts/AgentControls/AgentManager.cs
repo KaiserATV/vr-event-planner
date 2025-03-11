@@ -138,15 +138,13 @@ public class AgentManager : MonoBehaviour
 
     public void ResetSimulation()
     {
-        StopSimulation();
-        foreach (Buden b in alleBuden) { b.Reset(); }
-        AgentController ac;
+        //StopSimulation();
         int i = 2;
-        while (i > 0)
+        foreach (AgentController ac in alleCurrentAgents)
         {
-            ac = alleCurrentAgents[0];
             ac.SetInactive();
         }
+        foreach (Buden b in alleBuden) { b.Reset(); }
         agentsLostPatience = 0;
         playerCount = 0;
         simulating = false;
