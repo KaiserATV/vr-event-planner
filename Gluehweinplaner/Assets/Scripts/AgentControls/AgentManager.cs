@@ -1,0 +1,298 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEngine;
+
+
+public class AgentManager : MonoBehaviour
+{
+    public int playerCount = 0;
+    public int maxPlayerCount = 50;
+    public int agentsLostPatience = 0;
+
+    public bool simulating = false;
+
+    public string budenContainerName = "BudenContainer";
+    public string exitContainerName = "ExitContainer";
+    public string spawnerContainerName = "SpawnerContainer";
+    public string heatmapname = "HeatMap";
+
+    public int allBudenWeigth;
+
+    private List<AgentController> alleCurrentAgents = new List<AgentController>();
+    private LinkedList<int>leereStellen=new LinkedList<int>();
+    Heatmap hm;
+
+    public Vector2 cellsizes;
+
+    Buden[] alleBuden;
+    public Buden[] AlleBuden { get => alleBuden; }
+    Exits[] alleExits;
+    CrowdGeneration[] spawner;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        alleBuden = GameObject.Find(budenContainerName).GetComponentsInChildren<Buden>();
+        alleExits = GameObject.Find(exitContainerName).GetComponentsInChildren<Exits>();
+        spawner = GameObject.Find(spawnerContainerName).GetComponentsInChildren<CrowdGeneration>();
+        hm = GameObject.Find(heatmapname).GetComponentInChildren<Heatmap>();
+
+        CalcAllBudenWeight();
+
+        cellsizes.x = hm.cellsizeX;
+        cellsizes.y = hm.cellsizeZ;
+
+    }
+
+    public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
+    {
+        if (leereStellen.Count > 0) { besuchteBudenNr.AddRange(leereStellen);}
+        int budenNummer;
+        if (besuchteBudenNr.Count == alleBuden.Length) {
+            return -1;
+        }else{
+            budenNummer = CalcNewWeightedBude(besuchteBudenNr);
+        }
+        if(budenNummer == -1)
+        {
+            return -1;
+        }
+        if (!alleBuden[budenNummer].CheckAuslastung())
+        {
+            alleBuden[budenNummer].GetNewPosition(ac);
+            return budenNummer;
+        }
+
+        return -1;
+    }
+
+    private int CalcNewWeightedBude(List<int> besuchteBudenNr)
+    {
+        int rand = Random.Range(0, allBudenWeigth+1);
+        int bNr=-1;
+        int tmpCount=0;
+        for (int i = 0; i < alleBuden.Length; i++)
+        {
+            if (!besuchteBudenNr.Contains(i))
+            {
+                if(tmpCount > rand) { break; }
+                bNr = i;
+                tmpCount += alleBuden[i].attraktivitaet;
+            }
+        }
+        return bNr;
+    }
+
+    public void CalcAllBudenWeight()
+    {
+        foreach(Buden b in alleBuden)
+        {
+            allBudenWeigth += b.attraktivitaet;
+        }
+    }
+
+    public Vector3 GetClostestExit(Vector3 position)
+    {
+        Vector3 exitCoords = Vector3.zero;
+        if(alleExits.Length > 0)
+        {
+            exitCoords = alleExits[0].GetClostestPoint(position);
+            float currClostestDistance = Vector3.Distance(position,exitCoords);
+            for (int i = 1; i < alleExits.Length; i++)
+            {
+                if (Vector3.Distance(position, alleExits[i].GetClostestPoint(position)) < currClostestDistance)
+                {
+                    exitCoords = alleExits[i].GetClostestPoint(position);
+                    currClostestDistance = Vector3.Distance(position, exitCoords);
+                }
+            }
+        }
+        return new Vector3(exitCoords.x,exitCoords.z,0);
+    }
+
+    public float GetWaitTime(int budenNr)
+    {
+        return alleBuden[budenNr].waitTime;
+    }
+
+    public void addPlayer(AgentController ac){ playerCount++;alleCurrentAgents.Add(ac); }
+    public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Add(ac); }
+
+    public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
+
+    public void StartSimulation() { simulating = true; }
+    public void ResumeSimulation() {  simulating = true; foreach (AgentController ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
+
+    public void StopSimulation() { simulating = false; foreach (AgentController ac in alleCurrentAgents) { ac.Stop(); } }
+
+    //public void ResetSimulation() {
+    //    StopSimulation();
+    //    simulating = false; 
+    //    foreach (Buden b in alleBuden) { b.Reset(); } 
+    //    AgentController ac; 
+    //    while(alleCurrentAgents.Count > 0) { 
+    //        ac = alleCurrentAgents[0];
+    //        alleCurrentAgents.Remove(ac);
+    //        ac.Destroy();
+    //    }
+    //    }
+
+   public void AddBude(Buden neueBude)
+    {
+        if (leereStellen.Count > 0)
+        {
+            neueBude.Start();
+            alleBuden[leereStellen.First.Value] = neueBude;
+            leereStellen.RemoveFirst();
+        }
+        else
+        {
+            neueBude.Start();
+            List<Buden> tempList = alleBuden.ToList();
+            tempList.Add(neueBude);
+            alleBuden = tempList.ToArray();
+        }
+    }
+
+    public void RemoveBude(Buden wegBude)
+    {
+        for(int i =0; i <alleBuden.Length; i++)
+        {
+            if(alleBuden[i]== wegBude)
+            {
+                alleBuden[i] = null;
+                leereStellen.AddFirst(i);
+            }
+        }
+    }
+
+    public void ToggleSimulation()
+    {
+        if (simulating)
+        {
+            StopSimulation();
+        }
+        else
+        {
+            if(playerCount == 0)
+            {
+                StartSimulation();
+            }
+            else
+            {
+                ResumeSimulation();
+            }
+        }
+    }
+    public Vector3 GetNewSpawnPoint()
+    {
+        return spawner[Random.Range(0, spawner.Length)].GenerateRandomPosition();
+    }
+    public int BudenCount() { return alleBuden.Length; }
+    public int ExitCount() { return alleExits.Length; }
+
+    public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)
+    {
+        return hm.Moved(from, to);
+    }
+    public Vector2Int UpdatePositionInGrid(Vector2 from)
+    {
+        return hm.Spawned(from);
+    }
+
+    public void LostPatience()
+    {
+        agentsLostPatience++;
+    }
+
+    private string CreateJSON()
+    {
+        AlleBudenJSON aB = new AlleBudenJSON(alleBuden.Length);
+        for(int i = 0; i < alleBuden.Length;i++)
+        {
+            aB.budenArray[i]=alleBuden[i].GetBudenJSON();
+        }
+        return JsonUtility.ToJson(aB);
+    }
+
+    public void SaveJSON()
+    {
+        Debug.Log("Speichere JSON");	
+        string path = Application.persistentDataPath + "/Position.json";
+        Debug.Log("Speichere JSON nach: " + path);
+        using(StreamWriter writer = new StreamWriter(path, false))
+        {
+            writer.Write(CreateJSON());
+        }
+
+    }
+
+    private AlleBudenJSON ReadJSON()
+{
+    string path = Application.persistentDataPath + "/Position.json";
+    AlleBudenJSON a = null;
+
+    if (!File.Exists(path))
+    {
+        Debug.LogWarning("Datei existiert nicht: " + path);
+        return null;
+    }
+
+    try
+    {
+        Debug.Log("Lese Datei von Pfad: " + path);
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string jsonContent = reader.ReadToEnd();
+
+            a = JsonUtility.FromJson<AlleBudenJSON>(jsonContent);
+
+            if (a == null)
+            {
+                Debug.LogWarning("Fehler beim Parsen der JSON-Datei.");
+            }
+        }
+    }
+    catch (System.Exception e)
+    {
+        Debug.LogWarning("Fehler beim Lesen der Datei: " + e);
+    }
+
+    return a;
+}
+
+
+    public void LoadBudenFromJSON()
+    {
+        AlleBudenJSON aB = ReadJSON();
+        GameObject o = Resources.Load("Stand") as GameObject;
+        if (aB != null)
+        {
+            GameObject budenContainer = GameObject.Find(budenContainerName);
+            foreach (BudenJSON b in aB.budenArray)
+            {
+                GameObject newObj = Instantiate(o,
+                    new Vector3(b.xPos, 0, b.zPos),
+                    Quaternion.Euler(0, b.yRot, 0));
+                Buden bd = newObj.GetComponent<Buden>();
+                newObj.transform.parent = budenContainer.transform;
+                bd.SetTypeIndex(1);
+                AddBude(bd);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Konnte keine Datei lesen von pfad: " + Application.persistentDataPath + "/Position.json");
+        }
+        
+    }
+
+    public void Beenden()
+    {
+        Application.Quit();
+    }
+
+}
