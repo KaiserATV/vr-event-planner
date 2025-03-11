@@ -11,10 +11,7 @@ public class Heatmap : MonoBehaviour
     public int[] playMaxCount;
     public float[] clear;
 
-    
-
     public Material material;
-
 
     private Bounds b;
     public float cellsizeX=10f;
