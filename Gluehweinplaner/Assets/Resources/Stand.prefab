@@ -652,7 +652,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ab30fb98b28a11344b4ab69e502a3337, type: 2}
     - target: {fileID: 919132149155446097, guid: acfe8c22fd6e3f3449447499b70c4029, type: 3}
       propertyPath: m_Name
-      value: DieWirklichNeueBude
+      value: Bude
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: acfe8c22fd6e3f3449447499b70c4029, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -680,7 +684,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.01, y: 0.011000001, z: 0.01}
+  m_Extents: {x: 7.04, y: 9.615, z: 6.05}
   m_MoveThreshold: 0
   m_Carve: 1
   m_CarveOnlyStationary: 1
