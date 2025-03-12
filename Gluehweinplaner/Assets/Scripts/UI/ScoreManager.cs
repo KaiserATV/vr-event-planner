@@ -76,6 +76,7 @@ public class ScoreManager : MonoBehaviour
 
             Quaternion lookRotation = Quaternion.LookRotation(forwardDirection, Vector3.up);
             this.transform.rotation = lookRotation;
+            UpdateScore();
         }
     }
 
