@@ -17,8 +17,11 @@ public class ScoreManager : MonoBehaviour
     
     foreach (Buden Bude in AlleBuden)
     {
-        if (Bude.CheckAuslastung()) BusyBuden++;
-    }
+            if(Bude != null)
+            {
+                if (Bude.CheckAuslastung()) BusyBuden++;
+            }
+        }
 
     int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
 
