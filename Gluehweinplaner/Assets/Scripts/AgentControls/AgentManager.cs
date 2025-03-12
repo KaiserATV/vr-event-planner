@@ -167,7 +167,7 @@ public class AgentManager : MonoBehaviour
             ac.SetInactive();
             iac.AddAgent(ac);
         }
-        foreach (Buden b in alleBuden) { b.Reset(); }
+        foreach (Buden b in alleBuden) { if(b!=null){ b.Reset(); }}
         inactivePlayerCount = playerCount;
         playerCount = 0;
         agentsLostPatience = 0;
