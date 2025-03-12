@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTypeDate xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TypeDate>
+    <guid>08c8252cc9259274b876a835a2b6ad0f</guid>
+    <fileName>Assets/Plugins/UnitySweeper/Editor/AssetCollector.cs</fileName>
+    <timeStamp>2025-03-12T20:57:58.3245652+01:00</timeStamp>
+    <typeFullName>
+      <string>UnitySweeper.AssetCollector</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>9f1e740a8a028ad42939dbe009c18166</guid>
+    <fileName>Assets/Plugins/UnitySweeper/Editor/AssetReferenceCollection.cs</fileName>
+    <timeStamp>2025-03-12T20:57:58.3510063+01:00</timeStamp>
+    <typeFullName>
+      <string>UnitySweeper.AssetReferenceCollection</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>1486eae8b25bab84f9e927962851c46d</guid>
+    <fileName>Assets/Plugins/UnitySweeper/Editor/ClassReferenceCollection.cs</fileName>
+    <timeStamp>2025-03-12T20:57:58.375024+01:00</timeStamp>
+    <typeFullName>
+      <string>UnitySweeper.ClassReferenceCollection</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>21941c2f9cb04ea4fb5c9f3415a76d7d</guid>
+    <fileName>Assets/Plugins/UnitySweeper/Editor/CollectionData.cs</fileName>
+    <timeStamp>2025-03-12T20:57:58.3983665+01:00</timeStamp>
+    <typeFullName>
+      <string>UnitySweeper.CollectionData</string>
+      <string>UnitySweeper.TypeDate</string>
+      <string>UnitySweeper.IReferenceCollection</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>9a62cd1d3d71dbd448e35b292bf60499</guid>
+    <fileName>Assets/Plugins/UnitySweeper/Editor/FindUnusedAssetsWindow.cs</fileName>
+    <timeStamp>2025-03-12T20:57:58.4223134+01:00</timeStamp>
+    <typeFullName>
+      <string>UnitySweeper.FindUnusedAssetsWindow</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>055e82c82a2c0ae4ab7d1332e474a9a9</guid>
+    <fileName>Assets/Plugins/UnitySweeper/Editor/ShaderReferenceCollection.cs</fileName>
+    <timeStamp>2025-03-12T20:57:58.447799+01:00</timeStamp>
+    <typeFullName>
+      <string>UnitySweeper.ShaderReferenceCollection</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>2542d8108166d874d9f7fba37981bd74</guid>
+    <fileName>Assets/Scripts/BeendenSzene.cs</fileName>
+    <timeStamp>2025-03-11T19:46:36.1950798+01:00</timeStamp>
+    <typeFullName>
+      <string>BeendenSzene</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>ebb9ee16d484c9d4ab5d20c13d0a5741</guid>
+    <fileName>Assets/Scripts/InactiveAgentsContainer.cs</fileName>
+    <timeStamp>2025-03-12T19:13:18.2725018+01:00</timeStamp>
+    <typeFullName>
+      <string>InactiveAgentsContainer</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>62a2309aac56ee246aea04cdac257d8e</guid>
+    <fileName>Assets/UI/ObjectSpawner.cs</fileName>
+    <timeStamp>2025-03-12T20:06:08.1050599+01:00</timeStamp>
+    <typeFullName>
+      <string>ObjectSpawner</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>cf755a06d0d765b4499645d240daf35a</guid>
+    <fileName>Assets/UI/RadialSelection.cs</fileName>
+    <timeStamp>2025-03-12T22:45:26.6100087+01:00</timeStamp>
+    <typeFullName>
+      <string>RadicalSelection</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>1cfbe14d9ec5deb419b3e2d8ad399dec</guid>
+    <fileName>Assets/UI/SetColorFromList.cs</fileName>
+    <timeStamp>2025-03-12T21:06:37.4774803+01:00</timeStamp>
+    <typeFullName>
+      <string>SetColorFromList</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>f85f3296e9dfe7c4f92b4e4bcf6cfcac</guid>
+    <fileName>Assets/UI/VolumeMenuCloser.cs</fileName>
+    <timeStamp>2025-03-09T23:00:19.8192726+01:00</timeStamp>
+    <typeFullName>
+      <string>VolumeMenuCloser</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>af142ec17bd90da478bd125cb75a7017</guid>
+    <fileName>Assets/Scripts/AgentControls/AgentController.cs</fileName>
+    <timeStamp>2025-03-12T20:22:42.9270444+01:00</timeStamp>
+    <typeFullName>
+      <string>AgentController</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>a5cc65cd87da50040a916db9676e2005</guid>
+    <fileName>Assets/Scripts/AgentControls/AgentManager.cs</fileName>
+    <timeStamp>2025-03-12T23:20:24.9433737+01:00</timeStamp>
+    <typeFullName>
+      <string>AgentManager</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>92746c5aaabdc6847bfb5f79ae516dec</guid>
+    <fileName>Assets/Scripts/Buden/BitArray2D.cs</fileName>
+    <timeStamp>2025-03-11T22:25:49.1522428+01:00</timeStamp>
+    <typeFullName>
+      <string>BitArray2D</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>d4c6b4d88f71e994e86bd8ee8cebe490</guid>
+    <fileName>Assets/Scripts/Buden/Buden.cs</fileName>
+    <timeStamp>2025-03-12T00:12:26.2406304+01:00</timeStamp>
+    <typeFullName>
+      <string>Buden</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>a2da40d1a57dd224982e266bf96b6eb7</guid>
+    <fileName>Assets/Scripts/Buden/BudenJSON.cs</fileName>
+    <timeStamp>2025-03-11T23:54:52.4920063+01:00</timeStamp>
+    <typeFullName>
+      <string>BudenJSON</string>
+      <string>AlleBudenJSON</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>9ad42d74507d65447988294ed3f24d42</guid>
+    <fileName>Assets/Scripts/Buden/DeleteBuilding.cs</fileName>
+    <timeStamp>2025-03-12T20:04:48.8502797+01:00</timeStamp>
+    <typeFullName>
+      <string>BuildingDeletion</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>4a5ee95570dd35d42aa6f763c3f5cdee</guid>
+    <fileName>Assets/Scripts/Buden/Kategorien.cs</fileName>
+    <timeStamp>2025-03-12T00:09:13.6661313+01:00</timeStamp>
+    <typeFullName>
+      <string>usageCat</string>
+      <string>alphaCat</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>afa4956561fed5e49ac06713f381c2d0</guid>
+    <fileName>Assets/Scripts/MoveMent/DebugTeleport.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.6366225+01:00</timeStamp>
+    <typeFullName>
+      <string>DebugTeleport</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>c362699cab9b1df4eb2a26a974322454</guid>
+    <fileName>Assets/Scripts/MoveMent/GodmodeController.cs</fileName>
+    <timeStamp>2025-03-12T19:00:30.1760374+01:00</timeStamp>
+    <typeFullName>
+      <string>GodmodeController</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>2f6fab67eb17d0145a4ff4dbbf760872</guid>
+    <fileName>Assets/Scripts/SpawnerDespawner/CrowdGeneration.cs</fileName>
+    <timeStamp>2025-03-12T19:44:09.2167424+01:00</timeStamp>
+    <typeFullName>
+      <string>CrowdGeneration</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>a2945daf1fa61d74887f52c0d3b9cb1e</guid>
+    <fileName>Assets/Scripts/SpawnerDespawner/Exits.cs</fileName>
+    <timeStamp>2025-03-12T20:05:35.0557786+01:00</timeStamp>
+    <typeFullName>
+      <string>Exits</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>f9e3b57215e201e468fe5c85e857e77a</guid>
+    <fileName>Assets/Scripts/UI/ScoreManager.cs</fileName>
+    <timeStamp>2025-03-12T22:08:56.8431188+01:00</timeStamp>
+    <typeFullName>
+      <string>ScoreManager</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>be7990adbacb94c4782f69f4c229c530</guid>
+    <fileName>Assets/UI/Audio/RadialSlider.cs</fileName>
+    <timeStamp>2025-03-11T19:05:28.6703653+01:00</timeStamp>
+    <typeFullName>
+      <string>RadialSlider</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>6b33aece2adb6b24f9eac8f0a2989864</guid>
+    <fileName>Assets/UI/Audio/SoundFXManager.cs</fileName>
+    <timeStamp>2025-03-09T23:00:19.3416145+01:00</timeStamp>
+    <typeFullName>
+      <string>SoundFXManager</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>c353b8b92c2de694494a5e7bb8b066e3</guid>
+    <fileName>Assets/UI/Audio/VolumeChangeSound.cs</fileName>
+    <timeStamp>2025-03-11T20:44:00.4610283+01:00</timeStamp>
+    <typeFullName>
+      <string>VolumeChangeSound</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>cca2df1d70709d644a7e982702b64ede</guid>
+    <fileName>Assets/UI/Audio/VolumeManager.cs</fileName>
+    <timeStamp>2025-03-11T19:05:28.6876304+01:00</timeStamp>
+    <typeFullName>
+      <string>VolumeManager</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>14d41601ceb3ec34eb5b989ea7e97d6c</guid>
+    <fileName>Assets/Scripts/UI/Heatmap/Heatmap.cs</fileName>
+    <timeStamp>2025-03-12T20:26:43.4669978+01:00</timeStamp>
+    <typeFullName>
+      <string>Heatmap</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>ac5903b776721d74786a2e43f00b949a</guid>
+    <fileName>Assets/Samples/XR Hands/1.5.0/HandVisualizer/Scripts/HandProcessor.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.3089151+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>2e9813c68d7d6f44282ace8bd2d1fd46</guid>
+    <fileName>Assets/Samples/XR Hands/1.5.0/HandVisualizer/Scripts/HandVisualizer.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.3099501+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>6e1c395ff62a3a14dbeb293298bb46bf</guid>
+    <fileName>Assets/Samples/XR Hands/1.5.0/HandVisualizer/Scripts/JointVisualizer.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.3109547+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>bc6980b6cb3b4f12b6b75074e4ef59f3</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/HandsOneEuroFilterPostProcessor.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4329414+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>2e989a75b2954bdab01ca618a30d5de6</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/HideObjectWhenRayInteractorBlocked.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4348975+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>865d01d2834c9cb4caa8f2c901104c2d</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/LocalPositionOffsetAffordanceReceiver.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4359059+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>a83bc4aa48d0da648b49d0fd56690b25</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/MetaSystemGestureDetector.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4369098+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>8cf24614c456bc04c9adb820d19e35c5</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/OneEuroFilterVector3.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4379181+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>8693657abb5062a40a80ba3cb86ef181</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/PinchPointFollow.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4389218+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>dbac611a2982409ab5f5e604f53bcad0</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Scripts/PokeGestureDetector.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4399273+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>f9ac216f0eb04754b1d938aac6380b31</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/ActionBasedControllerManager.cs</fileName>
+    <timeStamp>2025-02-14T23:03:11.9413933+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>e766f86cb7d2461683eb37d8a971fb14</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/ClimbTeleportDestinationIndicator.cs</fileName>
+    <timeStamp>2025-02-14T23:03:11.9444369+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>717c12e2a4cfe764ab2580b1135e10fd</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/DestroySelf.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5399973+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>9b1e8c997df241c1a67045eeac79b41b</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/DynamicMoveProvider.cs</fileName>
+    <timeStamp>2025-02-14T23:03:11.9465631+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>6ef0e4723b64c884699a375196c13ac0</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/GazeInputManager.cs</fileName>
+    <timeStamp>2025-02-14T23:03:11.9465631+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>956dd6cf70eaca449a45b6a95b96c8c1</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/ObjectSpawner.cs</fileName>
+    <timeStamp>2025-02-14T23:03:11.9490956+01:00</timeStamp>
+    <typeFullName>
+      <string>ObjectSpawner</string>
+    </typeFullName>
+    <assembly>Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</assembly>
+  </TypeDate>
+  <TypeDate>
+    <guid>4dd2e41114c62b44fbd334ca5b314352</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/RotationAxisLockGrabTransformer.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5410006+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>07b3638c2f5db5b479ff24c2859713d4</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Scripts/XRPokeFollowAffordance.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5425047+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>a907ece591e731e49b5d7be45f089972</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/XR Device Simulator/Scripts/XRDeviceSimulatorControllerUI.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5555437+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>f35ac646ecbef4ece8c3eac9e74e1828</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/XR Device Simulator/Scripts/XRDeviceSimulatorHandsUI.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5565471+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>e8b922481d9264546b97958b2c7cf0a0</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/XR Device Simulator/Scripts/XRDeviceSimulatorUI.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5575507+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>0deb305527bf17143801528616ee4f73</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/Editor/Scripts/HandsInteractionSampleProjectValidation.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.3329507+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>54ce4268a4182384da360e6e2654d3a6</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/HandsDemoSceneAssets/Scripts/ObjectResetPlane.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4030864+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>78373ff495dc8234887e0cbdc7140022</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/HandsDemoSceneAssets/Scripts/PokeBlendShapeAnimator.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4040896+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>646ef16ad2fbd1944b40157feffe8574</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/HandsDemoSceneAssets/Scripts/ToggleGameObject.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4050931+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>d3cd1891521c8e143a04e7fd344a64d5</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/HandsDemoSceneAssets/Scripts/ToggleGraphicToggler.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4060975+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>f22671673eaaae848b70290eb3a1350c</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/HandsDemoSceneAssets/Scripts/TransformSync.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.4071038+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>27bee223346c63f4bb2b0f85250f58b7</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.3/Hands Interaction Demo/HandsDemoSceneAssets/Scripts/Vector3ScaleAffordanceReceiver.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.408109+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>ba6ff5e7c92519444bc2a7ca46558963</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/DemoSceneAssets/Scripts/IncrementUIText.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5055302+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>e001d3dc91354f8f8c590b4e1d1d3da9</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/DemoSceneAssets/Scripts/MultiAnchorTeleportReticle.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.5065343+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>7da98a0edd844d83b9b4de3f91de030c</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/DemoSceneAssets/Scripts/TeleportVolumeAnchorAffordanceStateLink.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.50754+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+  <TypeDate>
+    <guid>ef67ceb22b2224643a2d5004fc2a678a</guid>
+    <fileName>Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/Editor/Scripts/StarterAssetsSampleProjectValidation.cs</fileName>
+    <timeStamp>2025-03-12T21:06:36.521235+01:00</timeStamp>
+    <typeFullName />
+  </TypeDate>
+</ArrayOfTypeDate>
