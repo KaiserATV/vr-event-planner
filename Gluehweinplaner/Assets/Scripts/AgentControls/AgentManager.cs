@@ -340,6 +340,7 @@ public class AgentManager : MonoBehaviour
                     Quaternion.Euler(0, b.yRot, 0));
                 Buden bd = newObj.GetComponent<Buden>();
                 newObj.transform.parent = budenContainer.transform;
+                bd.Start();
                 bd.attraktivitaet = b.attrak;
                 bd.waitTime = b.waittime;
                 bd.SetTypeIndex(1);
