@@ -223,22 +223,26 @@ public class RadicalSelection : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
-            isBude = hit.collider.gameObject.CompareTag("Bude");
-        }
-        if (isBude)
-        {
-            selectedBude = hit.collider.transform.parent?.gameObject.GetComponent<Buden>();
-            if (selectedBude)
-            {
-                Renderer r = hit.collider.GetComponent<Renderer>();
-                before = r.material;
-                r.material = highlightMaterial;
+            if(hit.collider.gameObject.CompareTag("Bude")){
+                isBude = true;
+                selectedBude = hit.collider.transform.parent.gameObject.GetComponentInChildren<Buden>();
+                if (selectedBude)
+                {
+                    Renderer r = hit.collider.GetComponent<Renderer>();
+                    before = r.material;
+                    r.material = highlightMaterial;
+                }
             }
         }
         else
         {
+            isBude = false;
             selectedBude = null;
+
         }
+        if (isBude)
+        {
+                 }
 
         radialPartCanvas.gameObject.SetActive(true);
 
