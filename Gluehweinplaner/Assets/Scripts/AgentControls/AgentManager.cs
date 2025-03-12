@@ -105,7 +105,7 @@ public class AgentManager : MonoBehaviour
         int tmpCount=0;
         for (int i = 0; i < alleBuden.Length; i++)
         {
-            if (!besuchteBudenNr.Contains(i))
+            if (!besuchteBudenNr.Contains(i) && alleBuden[i]!=null)
             {
                 if(tmpCount > rand) { break; }
                 bNr = i;
@@ -249,7 +249,7 @@ public class AgentManager : MonoBehaviour
     {
         return spawner[Random.Range(0, spawner.Length)].GenerateRandomPosition();
     }
-    public int BudenCount() { return alleBuden.Length; }
+    public int BudenCount() { return alleBuden.Length-leereStellen.Count; }
     public int ExitCount() { return alleExits.Length; }
 
     public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)
