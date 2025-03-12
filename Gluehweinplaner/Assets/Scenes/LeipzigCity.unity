@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 259717540}
   - component: {fileID: 259717546}
   m_Layer: 5
-  m_Name: EffizienzCanvas
+  m_Name: EffizienzScoreCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1080,7 +1080,7 @@ GameObject:
   - component: {fileID: 262669075}
   - component: {fileID: 262669076}
   m_Layer: 0
-  m_Name: Radial Selection
+  m_Name: RadialSelectionMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3795,7 +3795,7 @@ Transform:
   m_GameObject: {fileID: 1165382519}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.61, y: 0, z: 155.93}
+  m_LocalPosition: {x: 22.61, y: 0, z: 1086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3870,7 +3870,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: update
+  m_text: Aktualisieren
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4004,7 +4004,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "schlie\xDFen"
+  m_text: "Schlie\xDFen"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4193,7 +4193,7 @@ GameObject:
   - component: {fileID: 1291460239}
   - component: {fileID: 1291460240}
   m_Layer: 0
-  m_Name: navmesh
+  m_Name: Navmesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4255,7 +4255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1341412598}
   m_Layer: 0
-  m_Name: Holder
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4972,8 +4972,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPrefabs:
   - {fileID: 9049856161015455508, guid: e5aebfa72a1b3f142aba1b50e5303280, type: 3}
-  - {fileID: 2101239683972800553, guid: 14698aca17af77d4aab6f4562533b1d1, type: 3}
-  - {fileID: 1404043761636636274, guid: b7eb61db15232924aa040b64fee0290b, type: 3}
   placementDistance: 5
   previewMaterial: {fileID: 2100000, guid: de170742f427a0c4f9b8a3233ab76f9a, type: 2}
   budenContainer: {fileID: 96101759}
