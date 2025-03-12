@@ -119,8 +119,11 @@ public class AgentManager : MonoBehaviour
     {
         foreach(Buden b in alleBuden)
         {
-            maxKapazitaet += b.kapazität;
-            allBudenWeigth += b.attraktivitaet;
+            if(b != null)
+            {
+                maxKapazitaet += b.kapazität;
+                allBudenWeigth += b.attraktivitaet;
+            }
         }
     }
 
