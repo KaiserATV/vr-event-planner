@@ -8,9 +8,8 @@ public class ScoreManager : MonoBehaviour
     public Heatmap heatmapScript;
     [SerializeField]private float scoreCount = 0;
     public AgentManager agentManagerScript;
-    private bool show=true;
 
-   public void ToggleScore()
+   public void UpdateScore()
 {
 
     Buden[] AlleBuden = agentManagerScript.alleBuden;
@@ -24,14 +23,15 @@ public class ScoreManager : MonoBehaviour
     int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
 
     scoreCount = CalcHeatMapScore() + effectiveBusyBuden/AlleBuden.Length + agentManagerScript.agentsLostPatience/agentManagerScript.maxPlayerCount + Math.Abs(agentManagerScript.maxPlayerCount-agentManagerScript.maxKapazitaet);
-    scoreCount = (float) Math.Round(scoreCount, 2); 
-    UpdateUI();
+    scoreCount = (float)Math.Round(scoreCount, 2);
+
+    scoreText.text = scoreCount.ToString();
 }
 
    
     void Start()
     {
-        UpdateUI();
+        this.gameObject.SetActive(false);
     }
 
     private float CalcHeatMapScore()
@@ -63,16 +63,20 @@ public class ScoreManager : MonoBehaviour
     return ((float)bad / good * 2000);
 }
 
-
-    private void UpdateUI()
+    public void ToggleEffizenzScore()
     {
-        if (show)
+        this.gameObject.SetActive(!this.gameObject.activeInHierarchy);
+        if(this.gameObject.activeInHierarchy == true)
         {
-            scoreText.text = "Effizienz Score: " + scoreCount.ToString();
-        }
-        else
-        {
-            scoreText.text = "";
+            Transform referenceTransform = Camera.main.transform;
+            float distance = 1.75f;
+
+            Vector3 forwardDirection = Vector3.ProjectOnPlane(referenceTransform.forward, Vector3.up).normalized;
+            this.transform.position = referenceTransform.position + forwardDirection * distance;
+
+            Quaternion lookRotation = Quaternion.LookRotation(forwardDirection, Vector3.up);
+            this.transform.rotation = lookRotation;
         }
     }
+
 }
