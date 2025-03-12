@@ -3284,7 +3284,6 @@ MonoBehaviour:
   agentsLostPatience: 0
   maxKapazitaet: 0
   simulating: 1
-  reset: 0
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
   spawnerContainerName: SpawnerContainer
@@ -3295,7 +3294,6 @@ MonoBehaviour:
   deleteSoundClip: {fileID: 8300000, guid: f48b8acc29f909c4ea1fcd7617dab5d1, type: 3}
   saveSoundClip: {fileID: 8300000, guid: 90501f3029d2cae4dbe7e872968f3384, type: 3}
   loadSoundClip: {fileID: 8300000, guid: f320bdeafac5dc342b8006ba6d2b7bc4, type: 3}
-  add: 0
 --- !u!1 &1036977208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6328360384627795018, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
