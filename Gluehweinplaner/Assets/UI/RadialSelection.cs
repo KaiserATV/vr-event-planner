@@ -281,7 +281,6 @@ public class RadicalSelection : MonoBehaviour
             if (buttonText != null && i < count)
             {
                 buttonText.text = (isBude) ? buttonLabelsHouse[i] : (left) ? buttonLabelsLeft[i] :buttonLabels[i];
-                // Counteract radial rotation
             }
         }
     }
