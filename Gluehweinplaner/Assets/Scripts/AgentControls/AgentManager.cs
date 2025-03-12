@@ -252,6 +252,10 @@ public class AgentManager : MonoBehaviour
     {
         return hm.Spawned(from);
     }
+    public void ClearPosition(Vector2Int pos)
+    {
+        hm.ClearPos(pos);
+    }
 
     public void LostPatience()
     {

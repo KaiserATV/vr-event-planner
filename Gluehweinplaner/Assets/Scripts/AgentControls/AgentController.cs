@@ -107,7 +107,9 @@ public class AgentController : MonoBehaviour
         agent.isStopped=true;
         stopped = true;
         waiting = false;
-        agent.Warp(sm.GetIACPos());
+        Vector3 newp = sm.GetIACPos();
+        sm.ClearPosition(positionCells);
+        agent.Warp(newp);
     }
 
 
