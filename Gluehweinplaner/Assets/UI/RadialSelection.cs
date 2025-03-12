@@ -64,11 +64,6 @@ public class RadicalSelection : MonoBehaviour
     
         am = GameObject.Find("AgentManager").GetComponent<AgentManager>();
 
-        //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
-        //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
-        //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
-
-
         var colors = new GradientColorKey[2];
         colors[0] = new GradientColorKey(Color.white, 0.0f);
         colors[1] = new GradientColorKey(Color.yellow, 1.0f);
@@ -84,10 +79,6 @@ public class RadicalSelection : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log($"RadialPartCanvas Active: {radialPartCanvas.gameObject.activeSelf}");
-        //Debug.Log($"Hand Position: {handTransform.position}, Rotation: {handTransform.rotation}");
-        //Debug.Log($"Current Selected Part: {currentSelectedRadialPart}");
-        
         // Check if the menu activation button is pressed
         if (menuActivateAction.action.triggered && !objectSpawner.IsPlacing)
         {
@@ -96,7 +87,6 @@ public class RadicalSelection : MonoBehaviour
             SpawnRadialPart(); // Populate the radial menu
         }else if (menuActivateActionLeft.action.triggered && !objectSpawner.IsPlacing)
         {   
-            Debug.Log("Left Hand Menu Activation");
             left = true;
             radialPartCanvas.gameObject.SetActive(true); // Show the radial menu
             SpawnRadialPart(); // Populate the radial menu
@@ -105,13 +95,11 @@ public class RadicalSelection : MonoBehaviour
         // Keep the menu active and update selection
         if (radialPartCanvas.gameObject.activeSelf)
         {
-            Debug.Log("Radial Part Canvas is active");
             GetSelectedRadialPart(Time.deltaTime);
 
             // Hide and trigger the selected part when the button is released
             if (menuActivateAction.action.WasReleasedThisFrame() || menuActivateActionLeft.action.WasReleasedThisFrame())
             {
-                Debug.Log("Menu Activation Button Released");
                 HideAndTriggerSelected();
             }
         }
@@ -126,7 +114,6 @@ public class RadicalSelection : MonoBehaviour
 
     private void HideAndTriggerSelected()
     {
-        Debug.Log("Hiding and triggering selected part");
         int count = (isBude) ? partToFunctionHouse.Count : ((left) ? partToFunctionLeft.Count : partToFunction.Count);
         if (timeWaited > waitTimeUntilActivation && currentSelectedRadialPart < count)
         {
@@ -284,10 +271,6 @@ public class RadicalSelection : MonoBehaviour
             spawnedRadialPart.GetComponent<Image>().fillAmount = (1 / (float)number) - (angleBetweenPart / 360);
             spawnedParts.Add(spawnedRadialPart);
 
-            // Add icon setup
-            //var iconImage = spawnedRadialPart.transform.GetChild(0).GetComponent<Image>();
-            //iconImage.sprite = buttonIcons[i];
-            //iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
             TextMeshProUGUI buttonText = spawnedRadialPart.GetComponentInChildren<TextMeshProUGUI>();
             int count = (isBude) ? partToFunctionHouse.Count : (left)?partToFunctionLeft.Count :partToFunction.Count;
             if (buttonText != null && i < count)
@@ -295,14 +278,6 @@ public class RadicalSelection : MonoBehaviour
                 buttonText.text = (isBude) ? buttonLabelsHouse[i] : (left) ? buttonLabelsLeft[i] :buttonLabels[i];
                 // Counteract radial rotation
             }
-
-            //// Add icon implementation (optional)
-            //Image iconImage = spawnedRadialPart.GetComponentInChildren<Image>();
-            //if (iconImage != null && i < buttonIcons.Count)
-            //{
-            //    iconImage.sprite = buttonIcons[i];
-            //    iconImage.rectTransform.sizeDelta = new Vector2(iconSize, iconSize);
-            //}
         }
     }
 

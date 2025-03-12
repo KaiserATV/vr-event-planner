@@ -117,7 +117,6 @@ public class ObjectSpawner : MonoBehaviour
             bool wasKinematic = rb.isKinematic;
             rb.isKinematic = false; // Physik-Kollisionen ausschalten, um Bewegung zu erlauben
             selectedObject.transform.position += movement;
-            Debug.Log("Bestehende Bude '" + selectedObject.name + "' bewegt um " + movement);
             rb.isKinematic = wasKinematic; // Nach Bewegung zurücksetzen
         }
         else
@@ -152,8 +151,6 @@ public class ObjectSpawner : MonoBehaviour
         float currentRotation = selectedObject.transform.eulerAngles.y;
         float newRotation = Mathf.Round((currentRotation + rotationStep) / 5f) * 5f; // Auf nächste 5° runden
         selectedObject.transform.rotation = Quaternion.Euler(0, newRotation, 0);
-
-        Debug.Log("Bestehende Bude '" + selectedObject.name + "' exakt rotiert auf " + newRotation + " Grad.");
     }
 
     hasManualRotation = true;

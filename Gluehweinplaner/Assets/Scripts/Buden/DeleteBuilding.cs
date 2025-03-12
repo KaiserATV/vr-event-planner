@@ -60,11 +60,9 @@ public class BuildingDeletion : MonoBehaviour
 
                 if (parentBuilding == null)
                 {
-                    Debug.Log("Kein Parent-Objekt gefunden!"); 
                     return;
                 }
 
-                Debug.Log("Bude markiert: " + parentBuilding.name);
                 selectedBuilding = parentBuilding; // Speichert das gesamte "Cool"-Objekt zur Löschung
 
                 // Originalmaterial speichern & Markierung setzen
@@ -94,7 +92,6 @@ public class BuildingDeletion : MonoBehaviour
     {
         if (selectedBuilding != null)
         {
-            Debug.Log("Gebäude gelöscht: " + selectedBuilding.name);
             Buden b = selectedBuilding.GetComponent<Buden>();
             b.ToBeDestroyed();
             am.RemoveBude(b);

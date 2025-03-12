@@ -8,7 +8,6 @@ public class CrowdGeneration : MonoBehaviour
     public float minWorldLimitZ = 0;
     public float maxWorldLimitZ = 0;
     public float spawnTime = 1f;
-    public float gedrosseltSpawnTime = 5f;
     public float agentradius = 1f;
 
     private float zeitVergangen;
@@ -46,26 +45,20 @@ public class CrowdGeneration : MonoBehaviour
             {
                 Vector3 position = GenerateRandomPosition();
                 Quaternion rotation = Quaternion.Euler(0, 0, 0);
-
-
-
                 if (iac.GetStoredCount()>0)
                 {
                     AgentController ac = iac.GetAgent();
-                    ac.Destroy();
+                    ac.Respawn();
+                    am.inactivePlayerCount--;
+                    am.playerCount++;
                 }
                 else 
                 {
                     GameObject agent = Instantiate(prop, position, rotation);
                     agent.transform.parent = transform;
+                    am.playerCount++;
                 }
-                
-                if(am.SpawnSlower()){
-                    zeitVergangen = gedrosseltSpawnTime;
-                }
-                else{
                     zeitVergangen = spawnTime;
-                }
             }
 
         }

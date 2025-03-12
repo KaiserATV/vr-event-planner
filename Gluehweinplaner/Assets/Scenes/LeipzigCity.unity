@@ -1392,7 +1392,6 @@ MonoBehaviour:
   minWorldLimitZ: 0
   maxWorldLimitZ: 0
   spawnTime: 0.1
-  gedrosseltSpawnTime: 5
   agentradius: 0.5
 --- !u!64 &405143604
 MeshCollider:
@@ -2083,7 +2082,6 @@ MonoBehaviour:
   minWorldLimitZ: 0
   maxWorldLimitZ: 0
   spawnTime: 0.1
-  gedrosseltSpawnTime: 5
   agentradius: 0.5
 --- !u!1 &597701222
 GameObject:
@@ -2790,7 +2788,6 @@ MonoBehaviour:
   minWorldLimitZ: 0
   maxWorldLimitZ: 0
   spawnTime: 0.1
-  gedrosseltSpawnTime: 5
   agentradius: 0.5
 --- !u!64 &814796977
 MeshCollider:
@@ -3282,10 +3279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCount: 0
+  inactivePlayerCount: 0
   maxPlayerCount: 200
   agentsLostPatience: 0
   maxKapazitaet: 0
-  simulating: 0
+  simulating: 1
+  reset: 0
   budenContainerName: BudenContainer
   exitContainerName: ExitContainer
   spawnerContainerName: SpawnerContainer
@@ -3296,6 +3295,7 @@ MonoBehaviour:
   deleteSoundClip: {fileID: 8300000, guid: f48b8acc29f909c4ea1fcd7617dab5d1, type: 3}
   saveSoundClip: {fileID: 8300000, guid: 90501f3029d2cae4dbe7e872968f3384, type: 3}
   loadSoundClip: {fileID: 8300000, guid: f320bdeafac5dc342b8006ba6d2b7bc4, type: 3}
+  add: 0
 --- !u!1 &1036977208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6328360384627795018, guid: 7c62e0fe448989f43b2015b43260ba4b, type: 3}
@@ -3385,7 +3385,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 11edad51e68559b428f62b2fa0d69e5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3424,7 +3424,7 @@ Transform:
   m_GameObject: {fileID: 1165382519}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4169066, y: 0, z: 1.8743134}
+  m_LocalPosition: {x: 22.61, y: 0, z: 155.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4596,7 +4596,6 @@ MonoBehaviour:
   vignetteSizeDuringReset: 0.77
   verticalMoveAction: {fileID: 5054800158986046181, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   horizontalMoveAction: {fileID: 4811415327267917242, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  toggleGodmodeAction: {fileID: 2869410428622933342, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   grabAction: {fileID: 15759602096507913, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   teleportProvider: {fileID: 1731298971}
   snapTurnProvider: {fileID: 1731298973}

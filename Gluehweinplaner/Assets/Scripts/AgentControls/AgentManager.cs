@@ -7,6 +7,7 @@ using UnityEngine;
 public class AgentManager : MonoBehaviour
 {
     public int playerCount = 0;
+    public int inactivePlayerCount = 0;
     public int maxPlayerCount = 50;
     public int agentsLostPatience = 0;
     public int maxKapazitaet;
@@ -51,6 +52,27 @@ public class AgentManager : MonoBehaviour
         cellsizes.y = hm.cellsizeZ;
 
     }
+    private void Update()
+    {
+        if (playerCount > maxPlayerCount)
+        {
+            DespawnUnused();
+        }
+    }
+
+    private void DespawnUnused()
+    {
+        while (playerCount > maxPlayerCount && alleCurrentAgents.Count > 0)
+        {
+            AgentController ac = alleCurrentAgents[0];
+            ac.SetInactive();
+            iac.AddAgent(ac);
+            alleCurrentAgents.Remove(ac);
+            playerCount--;
+            inactivePlayerCount++;
+        }
+    }
+
 
     public int GetNewCoords(AgentController ac, List<int> besuchteBudenNr)
     {
@@ -107,13 +129,13 @@ public class AgentManager : MonoBehaviour
         Vector3 exitCoords = Vector3.zero;
         if(alleExits.Length > 0)
         {
-            exitCoords = alleExits[0].GetClostestPoint(position);
+            exitCoords = alleExits[0].GetClostestPoint();
             float currClostestDistance = Vector3.Distance(position,exitCoords);
             for (int i = 1; i < alleExits.Length; i++)
             {
-                if (Vector3.Distance(position, alleExits[i].GetClostestPoint(position)) < currClostestDistance)
+                if (Vector3.Distance(position, alleExits[i].GetClostestPoint()) < currClostestDistance)
                 {
-                    exitCoords = alleExits[i].GetClostestPoint(position);
+                    exitCoords = alleExits[i].GetClostestPoint();
                     currClostestDistance = Vector3.Distance(position, exitCoords);
                 }
             }
@@ -126,15 +148,13 @@ public class AgentManager : MonoBehaviour
         return alleBuden[budenNr].waitTime;
     }
 
-    public void addPlayer(AgentController ac){ playerCount++;alleCurrentAgents.Add(ac); }
-    public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Add(ac); }
+    public void addPlayer(AgentController ac){alleCurrentAgents.Add(ac); }
+    public void removePlayer(AgentController ac){ playerCount--; alleCurrentAgents.Remove(ac); }
 
-    public bool CanAddPlayer() {return (playerCount < maxPlayerCount); }
+    public bool CanAddPlayer() { return (playerCount < maxPlayerCount); }
     public void StartSimulation() { simulating = true; }
     public void ResumeSimulation() {  simulating = true; foreach (AgentController ac in alleCurrentAgents) { ac.Resume(); } CalcAllBudenWeight(); }
-
     public void StopSimulation() { simulating = false; foreach (AgentController ac in alleCurrentAgents) { ac.Stop(); } }
-    public bool SpawnSlower() { return playerCount > maxKapazitaet; }
 
     public void ResetSimulation()
     {
@@ -142,10 +162,12 @@ public class AgentManager : MonoBehaviour
         foreach (AgentController ac in alleCurrentAgents)
         {
             ac.SetInactive();
+            iac.AddAgent(ac);
         }
         foreach (Buden b in alleBuden) { b.Reset(); }
-        agentsLostPatience = 0;
+        inactivePlayerCount = playerCount;
         playerCount = 0;
+        agentsLostPatience = 0;
         simulating = false;
         leereStellen = new LinkedList<int>();
         alleCurrentAgents = new List<AgentController>();
@@ -203,6 +225,18 @@ public class AgentManager : MonoBehaviour
             }
         }
     }
+    public void IncreaseMaxPlayerCount()
+    {
+        maxPlayerCount += 50;
+    }
+    public void DecreaseMaxPlayerCount()
+    {
+        if (maxPlayerCount >= 50)
+        {
+            maxPlayerCount -= 50;
+        }
+    }
+
     public Vector3 GetNewSpawnPoint()
     {
         return spawner[Random.Range(0, spawner.Length)].GenerateRandomPosition();

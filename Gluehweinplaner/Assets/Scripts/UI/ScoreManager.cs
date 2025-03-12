@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
     public Heatmap heatmapScript;
     [SerializeField]private float scoreCount = 0;
     public AgentManager agentManagerScript;
-    private bool show=;
+    private bool show=true;
 
    public void ToggleScore()
 {
