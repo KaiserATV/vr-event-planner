@@ -5,7 +5,7 @@ public class InactiveAgentsContainer : MonoBehaviour
 {
     private Vector3 WorldCoords;
     private int StoredPlayerCount;
-    private LinkedList<AgentController> StoredAgents;
+    private LinkedList<AgentController> StoredAgents = new LinkedList<AgentController>();
     private void Start()
     {
         WorldCoords = this.transform.position;

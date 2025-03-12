@@ -145,6 +145,7 @@ MonoBehaviour:
   goalsBeforeExit: 0
   goalNr: 0
   patienceLost: 0
+  inactive: 0
   stopped: 0
   waiting: 0
   timeLeftWaiting: 0

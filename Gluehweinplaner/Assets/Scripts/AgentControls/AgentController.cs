@@ -38,11 +38,10 @@ public class AgentController : MonoBehaviour
     {
         sm = GameObject.Find("AgentManager").GetComponent<AgentManager>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        
         agent.autoRepath = true;
         sm.addPlayer(this);
-        positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
+        positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
         FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
@@ -81,17 +80,17 @@ public class AgentController : MonoBehaviour
             }
             else if (agent.remainingDistance < exitTrashhold && exiting)
             {
-                Destroy();
+                Respawn();
             }
             else
             {
                 patienceLost -= Time.deltaTime;
-                if (patienceLost < 0)
+                if (patienceLost <= 0)
                 {
-
                     if (goalNr >= 0 && bude!=null) { bude.RemovePlayer(bitarrayCells, this); }
                     sm.LostPatience();
                     FindNextGoal();
+                    patienceLost = patience;
                 }
                 positionCells = sm.UpdatePositionInGrid(positionCells, new Vector2(this.transform.position.x, this.transform.position.z));
             }
@@ -99,13 +98,18 @@ public class AgentController : MonoBehaviour
     }
     public void SetInactive()
     {
-        bude= null;
+        if (!exiting && bude!=null)
+        {
+            bude.RemovePlayer(bitarrayCells, this);
+        }
+        bude = null;
         inactive = true;
-        FindExit();
         agent.isStopped=true;
         stopped = true;
         waiting = false;
-        agent.Warp(sm.GetIACPos());
+        Vector3 newp = sm.GetIACPos();
+        sm.ClearPosition(positionCells);
+        agent.Warp(newp);
     }
 
 
@@ -149,24 +153,28 @@ public class AgentController : MonoBehaviour
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
 
-    public void Destroy()
+    public void Respawn()
     {
         agent.Warp(sm.GetNewSpawnPoint());//to random spawner
 
+        agent.isStopped=false;
         stopped = false;
         waiting = false;
         exiting = false;
-
-        positionCells = sm.UpdatePositionInGrid(positionCells,new Vector2(transform.position.x, transform.position.z));
+        inactive = false;
 
         timeLeftWaiting = 0.0f;
+
         visitedGoalNumbers = new List<int>();
         bude = null;
-        
-        FindNextGoal();
 
+        patienceLost = patience;
+
+        agent.autoRepath = true;
+        sm.addPlayer(this);
         if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
-        
+        positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
+        FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
 

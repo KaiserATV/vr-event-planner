@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -7,11 +8,10 @@ public class ScoreManager : MonoBehaviour
     public Heatmap heatmapScript;
     [SerializeField]private float scoreCount = 0;
     public AgentManager agentManagerScript;
-    private bool show=;
+    private bool show=true;
 
    public void ToggleScore()
 {
-    Debug.Log("Score wird berechnet...");
 
     Buden[] AlleBuden = agentManagerScript.alleBuden;
     int BusyBuden = 0;
@@ -23,20 +23,12 @@ public class ScoreManager : MonoBehaviour
 
     int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
 
-    scoreCount = CalcHeatMapScore() + effectiveBusyBuden * (agentManagerScript.playerCount / AlleBuden.Length);
-
-    Debug.Log("Score: " + scoreCount);
-    Debug.Log("Heatmap: " + CalcHeatMapScore());
-    Debug.Log("BusyBuden: " + BusyBuden);
-    Debug.Log("Effective BusyBuden: " + effectiveBusyBuden);
-    Debug.Log("PlayerCount: " + agentManagerScript.playerCount);
-    Debug.Log("BudenCount: " + AlleBuden.Length);
-
+    scoreCount = CalcHeatMapScore() + effectiveBusyBuden/AlleBuden.Length + agentManagerScript.agentsLostPatience/agentManagerScript.maxPlayerCount + Math.Abs(agentManagerScript.maxPlayerCount-agentManagerScript.maxKapazitaet);
+    scoreCount = (float) Math.Round(scoreCount, 2); 
     UpdateUI();
 }
 
-        
-            // Start is called before the first frame update
+   
     void Start()
     {
         UpdateUI();
@@ -65,8 +57,6 @@ public class ScoreManager : MonoBehaviour
             bad++;
         }
     }
-
-    Debug.Log($"Final good count: {good}, bad count: {bad}");
 
     if (good == 0) return 0; // Vermeidung von Division durch Null
 

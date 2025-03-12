@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Heatmap : MonoBehaviour
 {
@@ -126,6 +127,19 @@ public class Heatmap : MonoBehaviour
         }
         return cellCords;
     }
+
+    public void ClearPos (Vector2Int pos)
+    {
+        int index1 = rows * pos.x + pos.y;
+        int c = playCellCount[index1];
+        if (c > 0)
+        {
+            playCellCount[index1]--;
+            properties[index1] = determineAlpha(c - 1);
+            material.SetFloatArray("_Properties", properties);
+        }
+    }
+
 
     public Vector2Int Moved(Vector2Int from, Vector2 to)
     {

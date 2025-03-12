@@ -22,12 +22,11 @@ public class DebugTeleport : MonoBehaviour
                 destinationPosition = new Vector3(0, 1, 0), // Test-Teleport über Boden
             };
 
-            Debug.Log("🚀 Manuelle Teleportation ausgelöst! Ziel: " + request.destinationPosition);
             teleportationProvider.QueueTeleportRequest(request);
         }
         else
         {
-            Debug.LogError("❌ Kein Teleportation Provider gefunden!");
+            Debug.LogError("Kein Teleportation Provider gefunden!");
         }
     }
 }
