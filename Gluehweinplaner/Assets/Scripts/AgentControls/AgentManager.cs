@@ -206,8 +206,7 @@ public class AgentManager : MonoBehaviour
             }
         }
     }
-
-    public void ToggleSimulation()
+    public void Pausieren()
     {
         if (simulating)
         {
@@ -215,14 +214,20 @@ public class AgentManager : MonoBehaviour
         }
         else
         {
-            if(playerCount == 0)
-            {
-                StartSimulation();
-            }
-            else
-            {
-                ResumeSimulation();
-            }
+            ResumeSimulation();
+        }
+        simulating = !simulating;
+    }
+
+    public void ToggleSimulation()
+    {
+        if(playerCount == 0)
+        {
+            StartSimulation();
+        }
+        else
+        {
+            ResetSimulation();
         }
     }
     public void IncreaseMaxPlayerCount()
