@@ -303,7 +303,6 @@ public class AgentManager : MonoBehaviour
         Debug.LogWarning("Datei existiert nicht: " + path);
         return null;
     }
-
     try
     {
         Debug.Log("Lese Datei von Pfad: " + path);
@@ -338,16 +337,22 @@ public class AgentManager : MonoBehaviour
             GameObject budenContainer = GameObject.Find(budenContainerName);
             foreach (BudenJSON b in aB.budenArray)
             {
-                GameObject newObj = Instantiate(o,
-                    new Vector3(b.xPos, 0, b.zPos),
-                    Quaternion.Euler(0, b.yRot, 0));
-                Buden bd = newObj.GetComponent<Buden>();
-                newObj.transform.parent = budenContainer.transform;
-                bd.Start();
-                bd.attraktivitaet = b.attrak;
-                bd.waitTime = b.waittime;
-                bd.SetTypeIndex(1);
-                AddBude(bd);
+                Vector3 pos = new Vector3(b.xPos, 0, b.zPos);
+                Quaternion orien = Quaternion.Euler(0, b.yRot, 0);
+                if (Physics.CheckBox(pos,new Vector3(13,0,19),orien))
+                {
+                    GameObject newObj = Instantiate(o,
+                        pos,orien
+                        );
+                    Buden bd = newObj.GetComponent<Buden>();
+                    newObj.transform.parent = budenContainer.transform;
+                    bd.Start();
+                    bd.attraktivitaet = b.attrak;
+                    bd.waitTime = b.waittime;
+                    bd.SetTypeIndex(1);
+                    AddBude(bd);
+                }
+
             }
             SoundFXManager.instance.PlaySoundFXClip(loadSoundClip, transform, 1f);
         }
