@@ -125,7 +125,6 @@ public class RadicalSelection : MonoBehaviour
 
             if (isBude)
             {
-                if(selectedBude){ selectedBude.gameObject.GetComponentInChildren<Renderer>().material = before; }
                 partToFunctionHouse[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
             }
             else
@@ -139,6 +138,10 @@ public class RadicalSelection : MonoBehaviour
                     partToFunction[currentSelectedRadialPart].Invoke(currentSelectedRadialPart);
                 }
             }
+        }
+        if (isBude)
+        {
+            selectedBude.gameObject.GetComponentInChildren<Renderer>().material = before;
         }
             radialPartCanvas.gameObject.SetActive(false);
     }
@@ -240,9 +243,6 @@ public class RadicalSelection : MonoBehaviour
             selectedBude = null;
 
         }
-        if (isBude)
-        {
-                 }
 
         radialPartCanvas.gameObject.SetActive(true);
 
