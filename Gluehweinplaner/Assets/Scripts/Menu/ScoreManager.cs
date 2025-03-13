@@ -25,16 +25,10 @@ public class ScoreManager : MonoBehaviour
 
     int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
 
-        int countKapa = agentManagerScript.maxPlayerCount - agentManagerScript.maxKapazitaet;
-        countKapa *= -1;
-        if (countKapa < 0) {
-            countKapa = 0;
-        }
     Debug.Log("Heatmap: " + CalcHeatMapScore());
     Debug.Log("BusyBuden: " + (effectiveBusyBuden / AlleBuden.Length));
     Debug.Log("LostPatience: " + (agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount));
-    Debug.Log("Kapa: " + countKapa);
-    scoreCount = CalcHeatMapScore() + ((effectiveBusyBuden*33)/AlleBuden.Length) + ((agentManagerScript.agentsLostPatience * 33) / agentManagerScript.maxPlayerCount) + countKapa;
+    scoreCount = CalcHeatMapScore() + ((effectiveBusyBuden*33f)/AlleBuden.Length) + ((agentManagerScript.agentsLostPatience * 33f) / agentManagerScript.maxPlayerCount);
     int finalCount = Mathf.CeilToInt(scoreCount);
     scoreText.text = finalCount.ToString();
     Debug.Log("Score: " + scoreCount);
