@@ -246,12 +246,12 @@ void SetMaterialTransparent(GameObject obj)
         Debug.Log("Raycast hat etwas getroffen: " + hit.collider.gameObject.name);
 
         Transform parent = hit.collider.transform;
-        while (parent.parent != null && !parent.name.Contains("Cool"))
+        while (parent.parent != null && !parent.name.Contains("Stand"))
         {
             parent = parent.parent;
         }
 
-        if (parent.name.Contains("Cool"))
+        if (parent.name.Contains("Stand"))
         {
             selectedObject = parent.gameObject;
             Debug.Log("Objekt erfolgreich ausgewählt: " + selectedObject.name);
