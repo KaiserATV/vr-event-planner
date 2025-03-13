@@ -60,14 +60,17 @@ public class ScoreManager : MonoBehaviour
 
     for (int i = 0; i < array.Length; i++)
     {
-            int playerCount = array[i];
-        if (playerCount <= usageCat.medium && playerCount > 0)
+        int playerCount = array[i];
+        if (playerCount > 0)
         {
-            good++;
-        }
-        else
-        {
-            bad++;
+            if (playerCount <= usageCat.medium)
+            {
+                good++;
+            }
+            else
+            {
+                bad++;
+            }
         }
     }
     Debug.Log("Good: " + good);
