@@ -23,10 +23,8 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
-
     scoreCount = CalcHeatMapScore() * 33 + 
-             ((float)effectiveBusyBuden / AlleBuden.Length) * 33 + 
+             ((float)BusyBuden / AlleBuden.Length) * 33 + 
              ((float)agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount) * 33;
     scoreText.text = Math.Round(scoreCount,2).ToString();
 }
