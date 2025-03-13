@@ -17,11 +17,11 @@ public class ScoreManager : MonoBehaviour
     
     foreach (Buden Bude in AlleBuden)
     {
-            if(Bude != null)
-            {
-                if (Bude.CheckAuslastung()) BusyBuden++;
-            }
+        if(Bude != null)
+        {
+            if (Bude.CheckAuslastung()) BusyBuden++;
         }
+    }
 
     int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
 
@@ -32,9 +32,8 @@ public class ScoreManager : MonoBehaviour
         }
 
     scoreCount = CalcHeatMapScore()*33 + (effectiveBusyBuden/AlleBuden.Length)*33 + (agentManagerScript.agentsLostPatience/agentManagerScript.maxPlayerCount)*33 + countKapa;
-    scoreCount = (float)Math.Round(scoreCount, 2);
-
-    scoreText.text = scoreCount.ToString();
+    int finalCount = Mathf.CeilToInt(scoreCount);
+    scoreText.text = finalCount.ToString();
 }
 
    
