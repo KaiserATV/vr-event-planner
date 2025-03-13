@@ -29,8 +29,7 @@ public class ScoreManager : MonoBehaviour
     Debug.Log("BusyBuden: " + (effectiveBusyBuden / AlleBuden.Length));
     Debug.Log("LostPatience: " + (agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount));
     scoreCount = CalcHeatMapScore() + ((effectiveBusyBuden*33f)/AlleBuden.Length) + ((agentManagerScript.agentsLostPatience * 33f) / agentManagerScript.maxPlayerCount);
-    int finalCount = Mathf.CeilToInt(scoreCount);
-    scoreText.text = finalCount.ToString();
+    scoreText.text = Math.Round(scoreCount,2).ToString();
     Debug.Log("Score: " + scoreCount);
 }
 
