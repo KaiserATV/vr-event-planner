@@ -73,8 +73,7 @@ public class ScoreManager : MonoBehaviour
             }
         }
     }
-    Debug.Log("Good: " + good);
-    Debug.Log("Bad: " + bad);
+
     if (good == 0) return 0; // Vermeidung von Division durch Null
 
     return (bad / good);
