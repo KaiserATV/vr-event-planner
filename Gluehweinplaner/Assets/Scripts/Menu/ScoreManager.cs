@@ -30,10 +30,14 @@ public class ScoreManager : MonoBehaviour
         if (countKapa < 0) {
             countKapa = 0;
         }
-
+    Debug.Log("Heatmap: " + CalcHeatMapScore());
+    Debug.Log("BusyBuden: " + (effectiveBusyBuden / AlleBuden.Length));
+    Debug.Log("LostPatience: " + (agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount));
+    Debug.Log("Kapa: " + countKapa);
     scoreCount = CalcHeatMapScore()*33 + (effectiveBusyBuden/AlleBuden.Length)*33 + (agentManagerScript.agentsLostPatience/agentManagerScript.maxPlayerCount)*33 + countKapa;
     int finalCount = Mathf.CeilToInt(scoreCount);
     scoreText.text = finalCount.ToString();
+    Debug.Log("Score: " + scoreCount);
 }
 
    
@@ -69,7 +73,8 @@ public class ScoreManager : MonoBehaviour
             }
         }
     }
-
+    Debug.Log("Good: " + good);
+    Debug.Log("Bad: " + bad);
     if (good == 0) return 0; // Vermeidung von Division durch Null
 
     return (bad / good);
