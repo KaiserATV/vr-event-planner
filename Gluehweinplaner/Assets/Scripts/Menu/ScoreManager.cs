@@ -34,7 +34,11 @@ public class ScoreManager : MonoBehaviour
     Debug.Log("BusyBuden: " + (effectiveBusyBuden / AlleBuden.Length));
     Debug.Log("LostPatience: " + (agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount));
     Debug.Log("Kapa: " + countKapa);
-    scoreCount = CalcHeatMapScore() + ((effectiveBusyBuden*33)/AlleBuden.Length) + ((agentManagerScript.agentsLostPatience * 33) / agentManagerScript.maxPlayerCount) + countKapa;
+    scoreCount = CalcHeatMapScore() * 33 + 
+             ((float)effectiveBusyBuden / AlleBuden.Length) * 33 + 
+             ((float)agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount) * 33 + 
+             countKapa;
+
     int finalCount = Mathf.CeilToInt(scoreCount);
     scoreText.text = finalCount.ToString();
     Debug.Log("Score: " + scoreCount);
@@ -76,7 +80,8 @@ public class ScoreManager : MonoBehaviour
 
     if (good == 0) return 0; // Vermeidung von Division durch Null
 
-    return (bad / good)*33;
+    return (float)bad / good;
+
 }
 
     public void ToggleEffizenzScore()
