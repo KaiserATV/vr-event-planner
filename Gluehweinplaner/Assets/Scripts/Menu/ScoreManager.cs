@@ -25,14 +25,10 @@ public class ScoreManager : MonoBehaviour
 
     int effectiveBusyBuden = (BusyBuden == 0) ? 1 : BusyBuden; // Falls 0, dann 1 nehmen
 
-    Debug.Log("Heatmap: " + CalcHeatMapScore());
-    Debug.Log("BusyBuden: " + (effectiveBusyBuden / AlleBuden.Length));
-    Debug.Log("LostPatience: " + (agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount));
     scoreCount = CalcHeatMapScore() * 33 + 
              ((float)effectiveBusyBuden / AlleBuden.Length) * 33 + 
              ((float)agentManagerScript.agentsLostPatience / agentManagerScript.maxPlayerCount) * 33;
     scoreText.text = Math.Round(scoreCount,2).ToString();
-    Debug.Log("Score: " + scoreCount);
 }
 
    

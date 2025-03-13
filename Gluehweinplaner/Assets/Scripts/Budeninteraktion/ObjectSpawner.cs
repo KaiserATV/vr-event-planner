@@ -32,7 +32,7 @@ public class ObjectSpawner : MonoBehaviour
     private Vector3 placementPosition;
     private float placementRotationY = 0f;
     private float rotationSpeed = 100f;
-    private bool hasManualRotation = false;
+
     private bool hasUsedMoveInput = false;
     private float lastRotationInput = 0f;
 
@@ -153,7 +153,6 @@ public class ObjectSpawner : MonoBehaviour
         selectedObject.transform.rotation = Quaternion.Euler(0, newRotation, 0);
     }
 
-    hasManualRotation = true;
 }
 else if (Mathf.Abs(rotationInput) > 0.01f) 
 {
@@ -168,7 +167,6 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
         selectedObject.transform.rotation *= Quaternion.Euler(0, continuousRotation, 0);
     }
 
-    hasManualRotation = true;
 }
 
 
