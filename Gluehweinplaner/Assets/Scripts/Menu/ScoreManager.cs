@@ -51,7 +51,8 @@ public class ScoreManager : MonoBehaviour
 
     for (int i = 0; i < array.Length; i++)
     {
-        if (array[i] <= usageCat.medium)
+            int playerCount = array[i];
+        if ( playerCount <= usageCat.medium && playerCount >0)
         {
             good++;
         }
