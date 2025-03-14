@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ObjectSpawner : MonoBehaviour
 {
     public List<GameObject> objectPrefabs;
-    public float placementDistance = 5f;
+    public float placementDistance = 7f;
     public Material previewMaterial;
     public GameObject budenContainer;
     public AgentManager am;
@@ -100,7 +100,7 @@ public class ObjectSpawner : MonoBehaviour
     forward.Normalize();
     right.Normalize();
 
-    Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 2f;
+    Vector3 movement = (right * moveInput.x + forward * moveInput.y) * Time.deltaTime * 5f;
 
     if (isPlacing && currentPreview != null)
     {
@@ -140,7 +140,7 @@ public class ObjectSpawner : MonoBehaviour
         // **Rotation für neue oder bestehende Bude**
         if (rotateAction.action.WasPressedThisFrame()) 
 {
-    float rotationStep = (lastRotationInput > 0) ? 5f : -5f; // Statt 45° nur 5° Schritte
+    float rotationStep = (lastRotationInput > 0) ? 5f : -5f; 
 
     if (isPlacing && currentPreview != null)
     {
@@ -206,7 +206,6 @@ else if (Mathf.Abs(rotationInput) > 0.01f)
 
         Destroy(currentPreview);
         selectedIndex = -1;
-        hasManualRotation = false;
         hasUsedMoveInput = false;
 
         if (godmodeController != null && godmodeController.IsGodmodeActive())
