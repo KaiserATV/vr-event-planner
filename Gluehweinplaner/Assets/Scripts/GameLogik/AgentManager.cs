@@ -219,7 +219,6 @@ public class AgentManager : MonoBehaviour
         {
             ResumeSimulation();
         }
-        simulating = !simulating;
     }
 
     public void ToggleSimulation()
