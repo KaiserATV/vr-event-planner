@@ -53,11 +53,18 @@ public class AgentManager : MonoBehaviour
 
     }
     public bool laden = false;
+    public bool speichern = false;
     private void Update()
     {
         if (laden)
         {
             LoadBudenFromJSON();
+            laden = false;
+        }
+        if (speichern)
+        {
+            SaveJSON();
+            speichern = false;
         }
         if (playerCount > maxPlayerCount)
         {
@@ -276,10 +283,15 @@ public class AgentManager : MonoBehaviour
 
     private string CreateJSON()
     {
-        AlleBudenJSON aB = new AlleBudenJSON(alleBuden.Length);
+        AlleBudenJSON aB = new AlleBudenJSON(alleBuden.Length-leereStellen.Count);
+        int j = 0;
         for(int i = 0; i < alleBuden.Length;i++)
         {
-            aB.budenArray[i]=alleBuden[i].GetBudenJSON();
+            if(alleBuden[i] != null)
+            {
+                aB.budenArray[j] = alleBuden[i].GetBudenJSON();
+                j++;
+            }
         }
         return JsonUtility.ToJson(aB);
     }
