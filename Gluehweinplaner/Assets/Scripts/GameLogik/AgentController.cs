@@ -148,7 +148,8 @@ public class AgentController : MonoBehaviour
 
     public void InvalidatePosition(Vector3 newCoords)
     {
-        if (waiting) { waiting = false; agent.isStopped = false; stopped = false; }
+        if (waiting) { waiting = false; }
+        if (sm.simulating) { agent.isStopped = false; stopped = false; }
         goal = newCoords;
         agent.destination = new Vector3(goal.x, 0, goal.y);
     }
