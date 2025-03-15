@@ -129,6 +129,8 @@ public class AgentManager : MonoBehaviour
 
     public void CalcAllBudenWeight()
     {
+        maxKapazitaet = 0;
+        allBudenWeigth = 0;
         foreach(Buden b in alleBuden)
         {
             if(b != null)
@@ -173,7 +175,6 @@ public class AgentManager : MonoBehaviour
 
     public void ResetSimulation()
     {
-        //StopSimulation();
         foreach (AgentController ac in alleCurrentAgents)
         {
             ac.SetInactive();
@@ -357,12 +358,12 @@ public class AgentManager : MonoBehaviour
                 Quaternion orien = Quaternion.Euler(0, b.yRot, 0);
                 if (Physics.CheckBox(pos,new Vector3(13,0,19),orien))
                 {
+                    
                     GameObject newObj = Instantiate(o,
                         pos,orien
                         );
                     Buden bd = newObj.GetComponent<Buden>();
                     newObj.transform.parent = budenContainer.transform;
-                    bd.Start();
                     bd.attraktivitaet = b.attrak;
                     bd.waitTime = b.waittime;
                     bd.SetTypeIndex(1);
