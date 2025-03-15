@@ -181,17 +181,28 @@ public class AgentController : MonoBehaviour
 
     public void BudeDestroyed()
     {
-        stopped = false;
-        waiting = false;
-        exiting = false;
-        agent.isStopped = false;
-
-        timeLeftWaiting = 0.0f;
         bude = null;
 
         FindNextGoal();
 
         agent.destination = new Vector3(goal.x, 0, goal.y);
+
+        waiting = false;
+        if (sm.simulating)
+        {
+            stopped = false;
+            exiting = false;
+            agent.isStopped = false;
+        }
+        else
+        {
+            stopped = true;
+            exiting = true;
+            agent.isStopped = true;
+        }
+        timeLeftWaiting = 0.0f;
+
+
     }
 
     public void Stop()
