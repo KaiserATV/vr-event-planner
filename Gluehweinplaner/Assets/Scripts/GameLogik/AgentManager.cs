@@ -101,18 +101,18 @@ public class AgentManager : MonoBehaviour
     private int CalcNewWeightedBude(List<int> besuchteBudenNr)
     {
         int rand = Random.Range(0, allBudenWeigth+1);
-        int bNr=0;
+        int bNr=-1;
         int tmpCount=0;
         for (int i = 0; i < alleBuden.Length; i++)
         {
             if (!besuchteBudenNr.Contains(i) && alleBuden[i]!=null)
             {
-                if(tmpCount > rand) { return bNr; }
                 bNr = i;
                 tmpCount += alleBuden[i].attraktivitaet;
+                if (tmpCount > rand) { return bNr; }
             }
         }
-        return -1;
+        return bNr;
     }
 
     public void CalcAllBudenWeight()
