@@ -52,8 +52,13 @@ public class AgentManager : MonoBehaviour
         cellsizes.y = hm.cellsizeZ;
 
     }
+    public bool laden = false;
     private void Update()
     {
+        if (laden)
+        {
+            LoadBudenFromJSON();
+        }
         if (playerCount > maxPlayerCount)
         {
             DespawnUnused();
