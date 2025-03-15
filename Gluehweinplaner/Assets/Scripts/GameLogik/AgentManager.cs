@@ -107,7 +107,7 @@ public class AgentManager : MonoBehaviour
         {
             if (!besuchteBudenNr.Contains(i) && alleBuden[i]!=null)
             {
-                if(tmpCount > rand) { break; }
+                if(tmpCount > rand) { return i; }
                 bNr = i;
                 tmpCount += alleBuden[i].attraktivitaet;
             }
@@ -248,7 +248,7 @@ public class AgentManager : MonoBehaviour
     {
         return spawner[Random.Range(0, spawner.Length)].GenerateRandomPosition();
     }
-    public int BudenCount() { return alleBuden.Length-leereStellen.Count; }
+    public int GetBudenCount() { return alleBuden.Length-leereStellen.Count; }
     public int ExitCount() { return alleExits.Length; }
 
     public Vector2Int UpdatePositionInGrid(Vector2Int from, Vector2 to)

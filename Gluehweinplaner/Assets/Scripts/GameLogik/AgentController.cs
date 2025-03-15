@@ -40,7 +40,7 @@ public class AgentController : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         agent.autoRepath = true;
         sm.addPlayer(this);
-        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
+        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.GetBudenCount() + 1); }
         positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
         FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
@@ -172,7 +172,7 @@ public class AgentController : MonoBehaviour
 
         agent.autoRepath = true;
         sm.addPlayer(this);
-        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.BudenCount() + 1); }
+        if (randomExitGoalNumber) { goalsBeforeExit = Random.Range(0, sm.GetBudenCount() + 1); }
         positionCells = sm.UpdatePositionInGrid(new Vector2(transform.position.x, transform.position.z));
         FindNextGoal();
         agent.destination = new Vector3(goal.x, 0, goal.y);
