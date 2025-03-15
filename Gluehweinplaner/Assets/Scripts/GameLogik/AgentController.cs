@@ -207,19 +207,6 @@ public class AgentController : MonoBehaviour
         agent.destination = goal;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        if (!waiting)
-        {
-        Gizmos.DrawSphere(agent.destination, radius: 0.2f);
-        }
-        else
-        {
-        Gizmos.DrawSphere(agent.nextPosition, radius: 0.2f);
-        }
-    }
-
     public void SetGoal(Vector2 g)
     {
         goal = g;
