@@ -356,12 +356,9 @@ public class AgentManager : MonoBehaviour
             {
                 Vector3 pos = new Vector3(b.xPos, 0, b.zPos);
                 Quaternion orien = Quaternion.Euler(0, b.yRot, 0);
-                if (Physics.CheckBox(pos,new Vector3(13,0,19),orien))
+                if (!Physics.CheckSphere(new Vector3(pos.x,10,pos.z),6.25f))
                 {
-                    
-                    GameObject newObj = Instantiate(o,
-                        pos,orien
-                        );
+                    GameObject newObj = Instantiate(o,pos,orien);
                     Buden bd = newObj.GetComponent<Buden>();
                     newObj.transform.parent = budenContainer.transform;
                     bd.attraktivitaet = b.attrak;
@@ -377,7 +374,5 @@ public class AgentManager : MonoBehaviour
         {
             Debug.LogWarning("Konnte keine Datei lesen von pfad: " + Application.persistentDataPath + "/Position.json");
         }
-        
     }
-
 }
